@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/dummy', require('./dummyRoute')); //match requests to /api/dummy/
+router.use('/auth', require('./authRoutes')); //match requests to /api/dummy/
 
 //handling 404s
 router.use((req, res, next) => {
