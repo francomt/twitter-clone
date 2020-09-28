@@ -40,16 +40,17 @@ const createAndSendToken = (user, statusCode, res) => {
 
 //CREATE NEW USER BY SIGNUP AND ASSIGN JWT TOKEN
 exports.signup = catchAsync(async (req, res, next) => {
-  const { email, password, passwordConfirm, firstName, lastName } = req.body;
+  const { name, email, password, passwordConfirm } = req.body;
 
   //Create user
   const newUser = await User.create({
-    firstName,
-    lastName,
+    name,
     email,
     password,
     passwordConfirm,
   });
+
+  newUser.__v = undefined;
 
   createAndSendToken(newUser, 201, res);
 });

@@ -38,3 +38,7 @@ tweetSchema.pre(/^find/, function (next) {
 
   next();
 });
+
+const Tweet = mongoose.model('Tweet', tweetSchema);
+
+module.exports = Tweet;

@@ -1,6 +1,25 @@
 const catchAsync = require('../utilities/catchAsync');
+const APIFeatures = require('../utilities/apiFeatures');
 
-exports.getAll = (Model) => catchAsync(async (req, res, next) => {});
+exports.getAll = (Model) =>
+  catchAsync(async (req, res, next) => {
+    const features = new APIFeatures(Model.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const modelName = Model.modelName.toLowerCase() + 's';
+    const doc = await features.query;
+
+    res.status(200).json({
+      status: 'success',
+      results: doc.length,
+      data: {
+        [modelName]: doc,
+      },
+    });
+  });
 
 exports.getOne = (Model) =>
   catchAsync(async (req, res, next) => {
