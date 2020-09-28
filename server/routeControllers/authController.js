@@ -74,6 +74,14 @@ exports.login = catchAsync(async (req, res, next) => {
   createAndSendToken(user, 200, res);
 });
 
+exports.logout = (req, res, next) => {
+  res.clearCookie('jwt');
+
+  res.status(200).json({
+    status: 'success',
+  });
+};
+
 //PROTECT MIDDLEWARE
 exports.protect = catchAsync(async (req, res, next) => {
   //Check for token
@@ -84,6 +92,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     //[0] = 'Bearer' and then grab the token at [1]
     token = req.headers.authorization.split(' ')[1];
+  } else if (res.cookies.jwt) {
+    token = res.cookies.jwt;
   }
 
   //If no token, not logged in

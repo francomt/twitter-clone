@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
   profilePicture: {
     type: String,
   },
+  privateAccount: {
+    type: Boolean,
+    default: false,
+  },
   role: {
     type: String,
     default: 'user',
