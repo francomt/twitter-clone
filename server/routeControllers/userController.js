@@ -1,14 +1,14 @@
-const getAllDummies = (req, res, next) => {
-  //dummy info
-  res.json({
-    id: 1,
-    name: 'Dummy',
-    age: 21,
-    email: 'dummy@email.com',
-    realData: false,
-  });
-};
+const User = require('../db/models/userModel');
+const catchAsync = require('../utilities/catchAsync');
 
-module.exports = {
-  getAllDummies,
-};
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const allUsers = await User.find();
+
+  res.status(200).json({
+    status: 'success',
+    results: allUsers.length,
+    data: {
+      users: allUsers,
+    },
+  });
+});
