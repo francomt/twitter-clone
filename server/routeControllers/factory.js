@@ -12,6 +12,8 @@ exports.getAll = (Model) =>
     const modelName = Model.modelName.toLowerCase() + 's';
     const doc = await features.query;
 
+    console.log(req.query);
+
     res.status(200).json({
       status: 'success',
       results: doc.length,
@@ -42,7 +44,11 @@ exports.getOne = (Model) =>
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const modelName = Model.modelName.toLowerCase();
-    const doc = Model.create(req.body);
+    const doc = await Model.create(req.body);
+
+    console.log('THIS IS REQ BODY', req.body);
+
+    doc.__v = undefined;
 
     res.status(201).json({
       status: 'success',

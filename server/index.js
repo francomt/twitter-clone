@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 //express app
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.static(path.join(`${__dirname}/public`)));
 
 //parsing middleware
 app.use(express.json());
+app.use(cookieParser());
 
 //api routes (match all requests to /api)
 app.use('/api', require('./apiRoutes/index'));

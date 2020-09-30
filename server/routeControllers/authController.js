@@ -2,6 +2,7 @@ const User = require('../db/models/userModel');
 const catchAsync = require('../utilities/catchAsync');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const { findById } = require('../db/models/userModel');
 
 //CREATES TOKEN SIGNATURE
 const signToken = (id) => {
@@ -72,6 +73,8 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new Error('Incorrect email or password'));
   }
 
+  user.__v = undefined;
+
   createAndSendToken(user, 200, res);
 });
 
@@ -93,8 +96,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     //[0] = 'Bearer' and then grab the token at [1]
     token = req.headers.authorization.split(' ')[1];
-  } else if (res.cookies.jwt) {
-    token = res.cookies.jwt;
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   //If no token, not logged in
@@ -119,4 +122,15 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = currentUser;
   //Grant access to protected route
   next();
+});
+
+exports.getMe = catchAsync(async (req, res, next) => {
+  const me = await User.findById(req.user.id);
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      me,
+    },
+  });
 });

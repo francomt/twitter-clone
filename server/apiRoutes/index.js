@@ -3,6 +3,7 @@ const router = express.Router();
 
 router.use('/auth', require('./authRoutes'));
 router.use('/users', require('./userRoutes'));
+router.use('/tweets', require('./tweetRoutes'));
 
 //handling 404s
 router.use((req, res, next) => {
