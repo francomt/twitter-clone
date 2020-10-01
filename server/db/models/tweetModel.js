@@ -15,13 +15,11 @@ const tweetSchema = mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-    user: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: [true, 'Tweet must belong to a user'],
-      },
-    ],
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, 'Tweet must belong to a user'],
+    },
   },
   //This allows virtual properties to appear in output
   {

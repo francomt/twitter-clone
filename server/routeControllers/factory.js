@@ -23,10 +23,14 @@ exports.getAll = (Model) =>
     });
   });
 
-exports.getOne = (Model) =>
+exports.getOne = (Model, populateOptions) =>
   catchAsync(async (req, res, next) => {
     const modelName = Model.modelName.toLowerCase();
-    const doc = await Model.findById(req.params.id);
+    const query = Model.findById(req.params.id);
+
+    if (populateOptions) query = query.populate(populateOptions);
+
+    const doc = await query;
 
     if (!doc)
       return next(

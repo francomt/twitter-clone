@@ -3,63 +3,71 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: [true, 'Email already in use'],
-    lowercase: true,
-    validate: [validator.isEmail, 'Please provide a valid email'],
-  },
-  password: {
-    type: String,
-    required: [true, 'Please provide a password'],
-    minlength: 8,
-    select: false,
-  },
-  passwordConfirm: {
-    type: String,
-    required: [true, 'Please confirm password'],
-    select: false,
-    validate: {
-      validator: function (val) {
-        return val === this.password;
-      },
-      message: 'Passwords are not the same!',
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
     },
+    email: {
+      type: String,
+      required: true,
+      unique: [true, 'Email already in use'],
+      lowercase: true,
+      validate: [validator.isEmail, 'Please provide a valid email'],
+    },
+    password: {
+      type: String,
+      required: [true, 'Please provide a password'],
+      minlength: 8,
+      select: false,
+    },
+    passwordConfirm: {
+      type: String,
+      required: [true, 'Please confirm password'],
+      select: false,
+      validate: {
+        validator: function (val) {
+          return val === this.password;
+        },
+        message: 'Passwords are not the same!',
+      },
+    },
+    profilePicture: {
+      type: String,
+    },
+    privateAccount: {
+      type: Boolean,
+      default: false,
+    },
+    role: {
+      type: String,
+      default: 'user',
+      enum: ['user', 'admin'],
+    },
+    passwordChangedAt: {
+      type: String,
+    },
+    passwordResetToken: {
+      type: String,
+      select: false,
+    },
+    passwordResetExpires: {
+      type: Date,
+      select: false,
+    },
+    activeAccount: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+    following: [{ type: mongoose.Schema.ObjectId, ref: 'UserFollow' }],
+    followers: [{ type: mongoose.Schema.ObjectId, ref: 'UserFollow' }],
   },
-  profilePicture: {
-    type: String,
-  },
-  privateAccount: {
-    type: Boolean,
-    default: false,
-  },
-  role: {
-    type: String,
-    default: 'user',
-    enum: ['user', 'admin'],
-  },
-  passwordChangedAt: {
-    type: String,
-  },
-  passwordResetToken: {
-    type: String,
-    select: false,
-  },
-  passwordResetExpires: {
-    type: Date,
-    select: false,
-  },
-  activeAccount: {
-    type: Boolean,
-    default: true,
-    select: false,
-  },
-});
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
 //////////////////////////
 // PRE SAVE MIDDLEWARE //
@@ -91,6 +99,7 @@ userSchema.pre('save', function (next) {
 //Hides inactive users from results
 userSchema.pre(/^find/, function (next) {
   this.find({ activeAccount: { $ne: false } });
+
   next();
 });
 
