@@ -1,0 +1,24 @@
+.main-container {
+  height: 100vh;
+  display: flex;
+}
+
+.left-body {
+  flex: 1;
+  background-color: $color-primary-light;
+}
+
+.right-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: $color-primary-background;
+  color: $color-font;
+  font-family: 'Roboto', sans-serif;
+
+  &__header-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
