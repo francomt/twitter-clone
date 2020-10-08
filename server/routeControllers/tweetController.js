@@ -20,8 +20,16 @@ exports.setTweetUser = (req, res, next) => {
 exports.getAllTweets = catchAsync(async (req, res, next) => {
   let baseQuery = Tweet.find();
 
+  //if request is for feed
   if (req.baseUrl.endsWith('feed')) {
-    const user = await User.findById(req.params.id);
+    let user;
+
+    if (req.params.id == req.user.id) {
+      user = req.user;
+    } else {
+      user = await User.findById(req.params.id);
+    }
+
     const followModelIds = user.following;
 
     const userFollows = await UserFollow.find().where('_id').in(followModelIds);

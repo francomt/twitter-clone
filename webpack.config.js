@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'development',
-  entry: './client/index.js',
+  entry: ['./client/index.js', './public/sass/main.scss'],
   output: {
     path: __dirname,
     filename: './public/bundle.js',
@@ -22,6 +22,17 @@ module.exports = {
       {
         test: /\.css?$/,
         loader: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: { outputPath: './public', name: 'style.css' },
+          },
+          'sass-loader',
+        ],
       },
     ],
   },
