@@ -1,10 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 const Home = () => {
   return (
-    <div>
-      <p>Home!</p>
+    <div className="main-body">
+      <div className="left-body"></div>
+      <div className="right-body">
+        <div className="header-container">
+          <h1>
+            See what's happening in
+            <br />
+            the world right now
+          </h1>
+          <h5 className="header header--sub">Join Twitter today.</h5>
+
+          <button className="btn btn-solid">Sign up</button>
+          <button className="btn btn-outline">Log in</button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -29,7 +29,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
 
   if (!following) next(new Error('Following account does not exist'));
 
-  //User1 is created as a follow
+  //User1 is created as a follower
   const userFollower = await UserFollow.create({ user: currentUser.id });
 
   //User2 is created as a follow with reference to User1's follow

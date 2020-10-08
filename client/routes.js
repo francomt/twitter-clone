@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { Home, Example } from './components';
-import { fetchUser } from './store/user';
+// import { fetchUser } from './store/user';
 
 const Routes = ({ userLoggedIn, loadData }) => {
   useEffect(() => {
-    loadData();
+    // loadData();
   }, []);
 
   return (
@@ -28,13 +28,13 @@ const Routes = ({ userLoggedIn, loadData }) => {
 
 const mapState = (state) => {
   return {
-    userLoggedIn: !!state.dummyReducer.id,
+    // userLoggedIn: !!state.dummyReducer.id,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    loadData: () => dispatch(fetchUser()),
+    // loadData: () => dispatch(fetchUser()),
   };
 };
 

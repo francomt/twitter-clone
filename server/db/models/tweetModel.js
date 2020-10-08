@@ -11,10 +11,10 @@ const tweetSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-    },
+    // createdAt: {
+    //   type: Number,
+    //   default: Date.now(),
+    // },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
@@ -25,6 +25,7 @@ const tweetSchema = mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
+    timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
   }
 );
 

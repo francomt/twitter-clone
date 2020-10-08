@@ -9,6 +9,8 @@ const authController = require('../routeControllers/authController');
 
 //Redirect to Tweet Router
 router.use('/:id/tweets', tweetRouter);
+router.use('/:id/feed', tweetRouter);
+
 router.use(authController.protect);
 
 router.get('/', userController.getAllUsers);
