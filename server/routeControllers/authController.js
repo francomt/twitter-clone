@@ -101,7 +101,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //If no token, not logged in
-  if (!token) return next(new Error('You are not logged in'));
+  // if (!token) return next(new Error('You are not logged in'));
+  if (!token) {
+    return res.json({});
+  }
 
   //Validate token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);

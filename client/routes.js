@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { Home, Example } from './components';
-// import { fetchUser } from './store/user';
+import { LandingPage, FeedPage } from './components';
+import { fetchMe } from './store/auth';
 
 const Routes = ({ userLoggedIn, loadData }) => {
   useEffect(() => {
-    // loadData();
+    console.log('LOADING');
+    loadData();
   }, []);
 
   return (
     <div>
       <Switch>
         {/* These routes are available to all users*/}
-        <Route exact path="/" component={withRouter(Home)} />
+        <Route exact path="/" component={withRouter(LandingPage)} />
 
         {userLoggedIn && (
           <Switch>
             {/* These routes are only accessible if a user is logged in */}
-            <Route path="/example" component={Example} />
+            <Route path="/home" component={FeedPage} />
           </Switch>
         )}
       </Switch>
@@ -28,13 +29,13 @@ const Routes = ({ userLoggedIn, loadData }) => {
 
 const mapState = (state) => {
   return {
-    // userLoggedIn: !!state.dummyReducer.id,
+    userLoggedIn: !!state.authReducer.id,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    // loadData: () => dispatch(fetchUser()),
+    loadData: () => dispatch(fetchMe()),
   };
 };
 

@@ -1,3 +1,47 @@
+//MARGINS
+
+//Left
+
+.util-margin-left-small {
+  margin-left: 1rem !important;
+}
+
+.util-margin-left-medium {
+  margin-left: 2rem !important;
+}
+
+.util-margin-left-large {
+  margin-left: 4rem !important;
+}
+
+//Right
+
+.util-margin-right-small {
+  margin-right: 1rem !important;
+}
+
+.util-margin-right-medium {
+  margin-right: 2rem !important;
+}
+
+.util-margin-right-large {
+  margin-right: 4rem !important;
+}
+
+//Top
+.util-margin-top-small {
+  margin-top: 1rem !important;
+}
+
+.util-margin-top-medium {
+  margin-top: 2rem !important;
+}
+
+.util-margin-top-large {
+  margin-top: 4rem !important;
+}
+
+//Bottom
 .util-margin-btm-small {
   margin-bottom: 1rem !important;
 }
@@ -10,6 +54,11 @@
   margin-bottom: 4rem !important;
 }
 
+//ALIGN SELF
 .util-align-self-start {
   align-self: start !important;
+}
+
+.util-align-self-end {
+  align-self: flex-end !important;
 }

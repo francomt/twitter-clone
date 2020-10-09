@@ -2,6 +2,7 @@
   border-radius: 5rem;
   border: none;
   height: 4rem;
+  width: 40rem;
   background-color: $color-primary;
   color: $color-font;
   font-weight: 700;
@@ -13,6 +14,17 @@
   }
 
   &--outline {
+    background-color: transparent;
+    color: $color-primary;
+    border: solid 1px $color-primary;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.1);
+    }
+  }
+
+  &--login {
+    width: 10rem;
     background-color: transparent;
     color: $color-primary;
     border: solid 1px $color-primary;
