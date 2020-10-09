@@ -4,11 +4,11 @@ import { fetchLogout } from '../store/auth';
 
 const FeedPage = ({ handleLogout, me }) => {
   return (
-    <div>
-      <h1>You are logged in {me.name}</h1>
+    <div className="feed-page-container">
       <button className="btn" onClick={() => handleLogout()}>
         Logout
       </button>
+      <div className="feed-container"></div>
     </div>
   );
 };

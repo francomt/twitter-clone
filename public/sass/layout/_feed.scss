@@ -1,0 +1,16 @@
+.route-container {
+  display: flex;
+  height: 100vh;
+}
+
+.nav {
+  width: 30%;
+  height: 100%;
+  background-color: $color-primary-background;
+  border-right: solid 1.3px rgba($color-font, 0.1);
+}
+
+.feed-page-container {
+  background-color: $color-primary-background;
+  width: 100vw;
+}
