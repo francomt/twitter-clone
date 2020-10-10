@@ -3,7 +3,7 @@
 *::before {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
@@ -12,7 +12,6 @@ html {
 }
 
 body {
-  box-sizing: border-box;
   height: 100%;
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
