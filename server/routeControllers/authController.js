@@ -41,12 +41,13 @@ const createAndSendToken = (user, statusCode, res) => {
 
 //CREATE NEW USER BY SIGNUP AND ASSIGN JWT TOKEN
 exports.signup = catchAsync(async (req, res, next) => {
-  const { name, email, password, passwordConfirm } = req.body;
+  const { name, email, username, password, passwordConfirm } = req.body;
 
   //Create user
   const newUser = await User.create({
     name,
     email,
+    username,
     password,
     passwordConfirm,
   });
@@ -58,15 +59,22 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 //LOGIN USER
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const {userInfo, password } = req.body;
 
   //Check if email and password are in req.body
-  if (!email || !password) {
-    return next(new Error('Please provide email and password'));
+  if (!userInfo || !password) {
+    return next(new Error('Please provide email/username and password'));
   }
 
+  let user
+
   //Check if user exists
-  const user = await User.findOne({ email }).select('+password');
+  if (userInfo.includes("@")) {
+    user = await User.findOne({ email: userInfo }).select('+password');
+  } else {
+    user = await User.findOne({ username: userInfo }).select('+password');
+  }
+  
 
   //Check if password is correct
   if (!user || (await user.correctPassword(password, user.password))) {

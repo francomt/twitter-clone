@@ -27,7 +27,7 @@ const LandingPage = ({ handleSubmit }) => {
             <div className="wrapper util-margin-right-small">
               <input className="input" name="user"></input>
               <span className="input-placeholder">
-                Phone, email, or username
+                Username or email
               </span>
             </div>
             <div className="wrapper">
@@ -95,9 +95,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit(e) {
       e.preventDefault();
-      const email = e.target.user.value;
+      const userInfo = e.target.user.value;
       const password = e.target.password.value;
-      dispatch(fetchLogin({ email, password }));
+      dispatch(fetchLogin({ userInfo, password }));
     },
   };
 };
