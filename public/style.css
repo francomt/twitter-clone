@@ -315,5 +315,11 @@ body {
 
 .profile-page-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
   background-color: #15202b; }
+
+.profile-info-container {
+  display: flex;
+  height: 20rem;
+  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1); }
