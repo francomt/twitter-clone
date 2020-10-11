@@ -1,0 +1,15 @@
+.searchbar {
+  height: 4rem;
+  width: 25rem;
+  color: $color-font;
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-left: 4.5rem;
+  border-radius: 55px;
+  border: none;
+  background-color: $color-secondary-background;
+
+  &::placeholder {
+    color: $color-font-dark;
+  }
+}

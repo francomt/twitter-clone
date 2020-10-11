@@ -1,0 +1,42 @@
+.tweet {
+  height: auto;
+  padding: 1rem;
+  border-bottom: $border-main;
+
+  &__container {
+    display: flex;
+  }
+
+  &__profile-img {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    background-color: $color-primary;
+    margin-right: 0.8rem;
+  }
+}
+
+.content {
+  &__user {
+    display: flex;
+  }
+
+  &__name {
+    color: $color-font;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+  &__username {
+    color: $color-font-dark;
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  &__text {
+    color: $color-font;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 0.5rem;
+  }
+}

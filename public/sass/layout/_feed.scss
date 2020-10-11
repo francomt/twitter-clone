@@ -2,3 +2,21 @@
   background-color: $color-primary-background;
   width: 100vw;
 }
+
+.secondary-nav {
+  display: flex;
+  height: 5.2rem;
+  border-bottom: $border-main;
+  display: flex;
+  align-items: center;
+}
+
+.create-tweet-container {
+  height: 15rem;
+  border-bottom: solid 1rem rgba($color-font, 0.1);
+}
+
+.feed-container {
+  display: flex;
+  flex-direction: column;
+}

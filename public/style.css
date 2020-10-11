@@ -55,6 +55,18 @@ body {
 .util-align-self-end {
   align-self: flex-end !important; }
 
+.util-margin-auto-top {
+  margin-top: auto !important; }
+
+.util-margin-auto-left {
+  margin-left: auto !important; }
+
+.util-margin-auto-right {
+  margin-right: auto !important; }
+
+.util-margin-auto-btm {
+  margin-bottom: auto !important; }
+
 .btn {
   border-radius: 5rem;
   border: none;
@@ -107,6 +119,52 @@ body {
   .input:focus ~ .input-placeholder {
     color: #1da1f2; }
 
+.searchbar {
+  height: 4rem;
+  width: 25rem;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding-left: 4.5rem;
+  border-radius: 55px;
+  border: none;
+  background-color: #253341; }
+  .searchbar::placeholder {
+    color: #8899a6; }
+
+.tweet {
+  height: auto;
+  padding: 1rem;
+  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1); }
+  .tweet__container {
+    display: flex; }
+  .tweet__profile-img {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    background-color: #1da1f2;
+    margin-right: 0.8rem; }
+
+.content__user {
+  display: flex; }
+
+.content__name {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-right: 0.5rem; }
+
+.content__username {
+  color: #8899a6;
+  font-size: 1.5rem;
+  font-weight: 300; }
+
+.content__text {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 0.5rem; }
+
 .route-container {
   display: flex;
   height: 100vh; }
@@ -125,7 +183,15 @@ body {
   border-right: solid 1.3px rgba(255, 255, 255, 0.1); }
   .nav__item {
     display: flex;
-    align-items: center; }
+    align-items: center;
+    background-color: transparent;
+    width: fit-content;
+    padding: 1rem 3rem 1rem 1rem;
+    border-radius: 50px;
+    transition: all 0.3s; }
+    .nav__item:hover {
+      background-color: rgba(27, 149, 224, 0.1);
+      cursor: pointer; }
     .nav__item:not(:last-child) {
       margin-bottom: 3rem; }
   .nav__icon {
@@ -230,3 +296,18 @@ body {
 .feed-page-container {
   background-color: #15202b;
   width: 100vw; }
+
+.secondary-nav {
+  display: flex;
+  height: 5.2rem;
+  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center; }
+
+.create-tweet-container {
+  height: 15rem;
+  border-bottom: solid 1rem rgba(255, 255, 255, 0.1); }
+
+.feed-container {
+  display: flex;
+  flex-direction: column; }

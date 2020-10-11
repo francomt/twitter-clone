@@ -56,7 +56,7 @@ export const fetchLogout = () => {
   };
 };
 
-//initial state
+
 
 function authReducer(state = defaultUser, action) {
   switch (action.type) {

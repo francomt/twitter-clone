@@ -11,10 +11,6 @@ const tweetSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    // createdAt: {
-    //   type: Number,
-    //   default: Date.now(),
-    // },
     user: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
@@ -33,7 +29,7 @@ const tweetSchema = mongoose.Schema(
 
 //Runs on any find query
 tweetSchema.pre(/^find/, function (next) {
-  this.populate('user', 'username name');
+  this.populate('user', 'email name');
 
   next();
 });
