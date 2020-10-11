@@ -22,6 +22,7 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
 
   //if request is for feed
   if (req.baseUrl.endsWith('feed')) {
+    
     let user;
 
     if (req.params.id == req.user.id) {
@@ -41,6 +42,14 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
     req.query.sort = '-createdAt';
     delete req.query.user;
   }
+
+  //For /:username on frontend
+  if (req.baseUrl.endsWith('tweets') && req.params.id.length <= 15) {
+    const user = await User.find({username: req.params.id})
+    req.query.user = user.id
+  }
+
+
 
   const features = new APIFeatures(baseQuery, req.query)
     .filter()

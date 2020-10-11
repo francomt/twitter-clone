@@ -6,7 +6,7 @@ import { fetchMe, fetchLogout } from './store/auth';
 import {navIcons} from './components/modules/Svgs'
 import history from './history'
 
-const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
+const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   useEffect(() => {
     loadData();
   }, []);
@@ -19,9 +19,13 @@ const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
     else return "nav-text"
   }
 
+  if (userLoggedIn && pathname === "/") {
+    history.push('/home')
+  }
+
   return (
     <div className="route-container">
-      {userLoggedIn && (
+      {userLoggedIn && pathname !== "/" && (
         <nav className="nav">
           <svg
             viewBox="0 0 24 24"
@@ -32,6 +36,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
             </g>
           </svg>
           <div className="nav__item" onClick={()=> {
+            history.push('/home')
             selectIcon("home")
           }}>
             <div className="icon-container">{navIcons(selectedIcon, "home")}</div>
@@ -39,6 +44,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
           </div>
           <div className="nav__item" onClick={()=> {
             selectIcon("profile")
+            history.push(`/${me.username}`)
           }}>
             <div className="icon-container">{navIcons(selectedIcon, "profile")}</div>
             <h3 className={classValue(selectedIcon, "profile")}>Profile</h3>
@@ -73,9 +79,11 @@ const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
   );
 };
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
     userLoggedIn: !!state.authReducer.id,
+    me: state.authReducer,
+    pathname: ownProps.location.pathname
   };
 };
 
