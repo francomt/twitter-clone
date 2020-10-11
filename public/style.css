@@ -176,7 +176,7 @@ body {
 .nav {
   display: flex;
   flex-direction: column;
-  width: 31%;
+  width: 33vw;
   padding: 1.5rem 0 1rem 10rem;
   height: 100%;
   background-color: #15202b;
@@ -295,7 +295,7 @@ body {
 
 .feed-page-container {
   background-color: #15202b;
-  width: 100vw; }
+  width: 100%; }
 
 .secondary-nav {
   display: flex;
@@ -311,3 +311,8 @@ body {
 .feed-container {
   display: flex;
   flex-direction: column; }
+
+.profile-page-container {
+  display: flex;
+  width: 100%;
+  background-color: #15202b; }

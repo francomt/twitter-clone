@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { LandingPage, FeedPage } from './components';
+import { LandingPage, FeedPage, ProfilePage } from './components';
 import { fetchMe, fetchLogout } from './store/auth';
 import {navIcons} from './components/modules/Svgs'
+import history from './history'
 
 const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
   useEffect(() => {
@@ -64,6 +65,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout }) => {
           <Switch>
             {/* These routes are only accessible if a user is logged in */}
             <Route path="/home" component={FeedPage} />
+            <Route path="/:username" component={ProfilePage}/>
           </Switch>
         )}
       </Switch>

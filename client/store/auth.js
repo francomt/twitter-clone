@@ -19,10 +19,7 @@ export const fetchMe = () => {
     try {
       const { data } = await axios.get('/api/auth/me');
 
-      if (data.data) {
-        //Redirect if logged in
-        history.push('/home');
-      } else {
+      if (!data.data) {
         history.push('/');
       }
       dispatch(getMe(data || defaultUser));
