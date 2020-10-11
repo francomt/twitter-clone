@@ -7,12 +7,22 @@ import {navIcons} from './components/modules/Svgs'
 import history from './history'
 
 const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
-  useEffect(() => {
-    loadData();
-  }, []);
-
   const [selectedIcon, selectIcon] = useState('home')
 
+  useEffect(() => {
+    loadData();
+
+    if (pathname === "/home") {
+      selectIcon("home")
+    } else if (pathname === "/settings") {
+      selectIcon("settings")
+    } else if (pathname !== "/") {
+      selectIcon("profile")
+    }
+
+  }, []);
+
+ 
   //For selected icon
   const classValue = (currentVal, icon) => {
     if (currentVal === icon) return "nav-text nav-text--selected"
@@ -22,6 +32,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   if (userLoggedIn && pathname === "/") {
     history.push('/home')
   }
+
+  
 
   return (
     <div className="route-container">

@@ -1,19 +1,26 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import { fetchProfileFeed } from '../store/tweets'
+import { fetchProfile } from '../store/profile'
 
 
-const ProfilePage = ({getTweets}) => {
+const ProfilePage = ({getTweets, getProfile, profile, tweets}) => {
 
     useEffect(()=>{
+        getProfile()
         getTweets()
     },[])
 
-    return <div className="profile-page-container">Profile Page!</div>
+    return (<div className="profile-page-container">
+        <nav className="secondary-nav">
+        <h3 className="nav-text util-margin-right-large">{profile.name}</h3>
+        </nav>
+    </div>)
 }
 
 const mapState = (state) => {
     return {
+        profile: state.profileReducer,
         tweets: state.tweetReducer
     }
 }
@@ -22,6 +29,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, ownProps) => {
     const username = ownProps.match.params.username
     return {
+        getProfile: ()=> dispatch(fetchProfile(username)),
         getTweets: ()=> dispatch(fetchProfileFeed(username))
     }
 } 

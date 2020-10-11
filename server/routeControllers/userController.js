@@ -6,7 +6,16 @@ const catchAsync = require('../utilities/catchAsync');
 exports.getAllUsers = factory.getAll(User);
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id)
+
+  let query
+
+  if (req.params.id.length <= 15) {
+    query = User.findOne({username: req.params.id})
+  } else {
+    query = User.findById(req.params.id)
+  }
+
+  const user = await query
     .populate('following', '-__v')
     .populate('followers', '-__v');
   if (!user)

@@ -300,6 +300,7 @@ body {
 .secondary-nav {
   display: flex;
   height: 5.2rem;
+  width: 100%;
   border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center; }

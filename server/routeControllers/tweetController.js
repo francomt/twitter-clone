@@ -45,7 +45,7 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
 
   //For /:username on frontend
   if (req.baseUrl.endsWith('tweets') && req.params.id.length <= 15) {
-    const user = await User.find({username: req.params.id})
+    const user = await User.findOne({username: req.params.id})
     req.query.user = user.id
   }
 
