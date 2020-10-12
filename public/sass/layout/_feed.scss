@@ -1,6 +1,8 @@
 .feed-page-container {
   background-color: $color-primary-background;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .secondary-nav {
@@ -13,11 +15,29 @@
 }
 
 .create-tweet-container {
-  height: 15rem;
+  height: fit-content;
   border-bottom: solid 1rem rgba($color-font, 0.1);
+  padding-right: 1.5em;
+  padding-bottom: 3.5rem;
 }
 
 .feed-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.explore-container {
+  width: 50%;
+}
+
+.feed-page-half {
+  display: flex;
+  height: 100%;
+}
+
+.feed-middle {
+  height: 100%;
+  width: 60%;
+  border-right: $border-main;
 }

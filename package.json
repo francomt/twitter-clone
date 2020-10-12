@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autosize": "^4.0.2",
     "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",

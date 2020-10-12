@@ -1,0 +1,46 @@
+.create-tweet-container {
+  padding: 1rem;
+  display: flex;
+}
+
+.create-tweet {
+  display: flex;
+  width: 100%;
+
+  flex-direction: column;
+  margin-left: 0.5rem;
+  padding-top: 1.1rem;
+
+  &__text {
+    resize: none;
+    background-color: transparent;
+    border: none;
+    color: $color-font;
+    font-family: sans-serif;
+    font-size: 2rem;
+
+    &::placeholder {
+      color: $color-font-dark;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+    border-top: $border-main;
+    height: 3rem;
+    padding-top: 3.5rem;
+  }
+
+  &__icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    fill: $color-primary;
+  }
+}
