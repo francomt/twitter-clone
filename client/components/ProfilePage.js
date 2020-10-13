@@ -5,7 +5,7 @@ import { fetchProfileFeed } from '../store/tweets'
 import { fetchProfile } from '../store/profile'
 
 
-const ProfilePage = ({getTweets, getProfile, profile, tweets}) => {
+const ProfilePage = ({getTweets, getProfile, profile, tweets, me}) => {
 
     useEffect(()=>{
         getProfile()
@@ -20,7 +20,7 @@ const ProfilePage = ({getTweets, getProfile, profile, tweets}) => {
         <div className="profile-info-container"></div>
         <div className="profile-feed-container">
             {tweets && tweets.map((tweet) => {
-                return <Tweet key={tweet.id} tweet={tweet} />
+                return <Tweet key={tweet.id} tweet={tweet} me={me}/>
             })}
         </div>
     </div>)
@@ -29,7 +29,8 @@ const ProfilePage = ({getTweets, getProfile, profile, tweets}) => {
 const mapState = (state) => {
     return {
         profile: state.profileReducer,
-        tweets: state.tweetReducer
+        tweets: state.tweetReducer,
+        me: state.authReducer
     }
 }
 
