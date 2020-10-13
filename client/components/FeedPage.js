@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchFeed } from '../store/tweets';
 import {CreateTweet, Tweet} from './modules/index'
 
-const FeedPage = ({ me, getFeed, feed }) => {
+const FeedPage = ({ me, getFeed, feed, location }) => {
 
   useEffect(()=> {
     getFeed(me.id)
@@ -20,7 +20,7 @@ const FeedPage = ({ me, getFeed, feed }) => {
       <div className="feed-page-half">
         <div className="feed-middle">
           <div className="create-tweet-container">
-            <CreateTweet/>
+            <CreateTweet location={location}/>
           </div>
           <div className="feed-container">
               {feed && feed.map(tweet => {
@@ -34,14 +34,15 @@ const FeedPage = ({ me, getFeed, feed }) => {
   );
 };
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
     me: state.authReducer,
-    feed: state.tweetReducer
+    feed: state.tweetReducer,
+    location: ownProps.location.pathname
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     getFeed: (userId) => dispatch(fetchFeed(userId))
   };

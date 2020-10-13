@@ -68,4 +68,20 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
   });
 });
 exports.getTweet = factory.getOne(Tweet);
-exports.createTweet = factory.createOne(Tweet);
+
+
+
+exports.createTweet = catchAsync(async (req, res, next) => {
+  let doc = await Tweet.create(req.body);
+
+  doc = await doc.populate('user', 'email name username').execPopulate()
+
+  doc.__v = undefined;
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      tweet: doc,
+    },
+  });
+});

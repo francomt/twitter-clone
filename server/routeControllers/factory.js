@@ -50,8 +50,6 @@ exports.createOne = (Model) =>
     const modelName = Model.modelName.toLowerCase();
     const doc = await Model.create(req.body);
 
-    console.log('THIS IS REQ BODY', req.body);
-
     doc.__v = undefined;
 
     res.status(201).json({

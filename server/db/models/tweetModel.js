@@ -25,6 +25,7 @@ const tweetSchema = mongoose.Schema(
   }
 );
 
+
 //PRE-FIND MIDDLEWARE
 
 //Runs on any find query
@@ -33,6 +34,7 @@ tweetSchema.pre(/^find/, function (next) {
 
   next();
 });
+
 
 const Tweet = mongoose.model('Tweet', tweetSchema);
 
