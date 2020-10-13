@@ -37,4 +37,20 @@
   &--tweet {
     width: 10rem;
   }
+
+  &--neutral {
+    background-color: $color-secondary-background;
+
+    &:hover {
+      background-color: $color-secondary-background-2;
+    }
+  }
+
+  &--red {
+    background-color: $color-red;
+
+    &:hover {
+      background-color: $color-red-2;
+    }
+  }
 }

@@ -59,3 +59,12 @@ exports.createOne = (Model) =>
       },
     });
   });
+
+
+exports.deleteOne = (Model) =>
+  catchAsync(async (req, res, next) => {
+    
+    await Model.findByIdAndDelete(req.params.id)
+
+    res.status(200).json({type: 'success'});
+  });

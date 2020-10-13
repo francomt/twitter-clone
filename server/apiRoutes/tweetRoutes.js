@@ -10,5 +10,6 @@ router.get('/', tweetController.setTweetUser, tweetController.getAllTweets);
 router.post('/', tweetController.setTweetUser, tweetController.createTweet);
 
 router.get('/:id', tweetController.getTweet);
+router.delete('/:id', tweetController.deleteTweet)
 
 module.exports = router;

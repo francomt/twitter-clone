@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchFeed } from '../store/tweets';
+import { fetchDeleteTweet, fetchFeed } from '../store/tweets';
 import {CreateTweet, Tweet} from './modules/index'
 
-const FeedPage = ({ me, getFeed, feed, location }) => {
+const FeedPage = ({ me, getFeed, feed, location, deleteTweet }) => {
 
   useEffect(()=> {
     getFeed(me.id)
@@ -24,7 +24,7 @@ const FeedPage = ({ me, getFeed, feed, location }) => {
           </div>
           <div className="feed-container">
               {feed && feed.map(tweet => {
-                return <Tweet key={tweet.id} tweet={tweet} me={me} />
+                return <Tweet key={tweet.id} tweet={tweet} me={me} deleteTweet={deleteTweet}/>
               })}
           </div>
         </div>
@@ -42,9 +42,10 @@ const mapState = (state, ownProps) => {
   };
 };
 
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = (dispatch) => {
   return {
-    getFeed: (userId) => dispatch(fetchFeed(userId))
+    getFeed: (userId) => dispatch(fetchFeed(userId)),
+    deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId))
   };
 };
 

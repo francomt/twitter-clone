@@ -85,3 +85,6 @@ exports.createTweet = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+
+exports.deleteTweet = factory.deleteOne(Tweet)

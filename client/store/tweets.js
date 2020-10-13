@@ -4,10 +4,12 @@ import axios from 'axios'
 const GET_FEED = "GET_FEED"
 const GET_PROFILE_FEED = "GET_PROFILE_FEED"
 const CREATE_TWEET = "CREATE_TWEET"
+const DELETE_TWEET = "DELETE_TWEET"
 
 const getFeed = (feed) => ({type: GET_FEED, feed})
 const getProfileFeed = (feed) => ({type: GET_PROFILE_FEED, feed})
 const createTweet = (tweet, pathname) => ({type: CREATE_TWEET, tweet, pathname})
+const deleteTweet = (tweetId) => ({type: DELETE_TWEET, tweetId})
 
 export const fetchFeed = (userId) => {
   return async dispatch => {
@@ -41,6 +43,17 @@ export const fetchCreateTweet = (body, pathname) => {
     }
 }
 
+export const fetchDeleteTweet = (tweetId) => {
+    return async dispatch => {
+        try {
+            await axios.delete(`/api/tweets/${tweetId}`)
+            dispatch(deleteTweet(tweetId))
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
 const defaultState = []
 
 function tweetReducer(state = defaultState, action) {
@@ -67,6 +80,11 @@ function tweetReducer(state = defaultState, action) {
             } else {
                 return state
             }
+        case DELETE_TWEET:
+            const filtered = [...state].filter(tweet => {
+                return tweet.id !== action.tweetId
+            })
+            return filtered
         default:
             return state;
     }

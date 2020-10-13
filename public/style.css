@@ -94,6 +94,14 @@ body {
       background-color: rgba(29, 161, 242, 0.1); }
   .btn--tweet {
     width: 10rem; }
+  .btn--neutral {
+    background-color: #253341; }
+    .btn--neutral:hover {
+      background-color: #334659; }
+  .btn--red {
+    background-color: #e0245e; }
+    .btn--red:hover {
+      background-color: #c61f52; }
 
 .wrapper {
   display: flex;
@@ -243,7 +251,8 @@ body {
     align-items: center;
     transition: all 0.2s; }
     .popup-content__list:hover {
-      background: #253341; }
+      background: #253341;
+      cursor: pointer; }
   .popup-content__delete-icon {
     fill: #e0245e;
     height: 2rem;
@@ -252,6 +261,46 @@ body {
   .popup-content__delete-text {
     color: #e0245e;
     font-size: 1.6rem; }
+
+.confirm-delete-container {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 50;
+  background-color: rgba(255, 255, 255, 0.15); }
+
+.confirm-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 22rem;
+  width: 32rem;
+  background-color: #15202b;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center; }
+  .confirm-delete__header {
+    color: #fff;
+    font-weight: 600;
+    font-size: 2.3rem;
+    margin-bottom: 1rem; }
+  .confirm-delete__body {
+    color: #8899a6;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem; }
+  .confirm-delete__buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%; }
 
 .route-container {
   display: flex;
