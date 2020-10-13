@@ -24,7 +24,7 @@ const FeedPage = ({ me, getFeed, feed, location }) => {
           </div>
           <div className="feed-container">
               {feed && feed.map(tweet => {
-                return <Tweet key={tweet.id} tweet={tweet} />
+                return <Tweet key={tweet.id} tweet={tweet} me={me} />
               })}
           </div>
         </div>

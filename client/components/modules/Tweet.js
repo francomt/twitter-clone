@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 
-const Tweet = ({tweet}) => {
+const Tweet = ({tweet, me}) => {
 
     const fillPage = useRef(null)
     const popupEl = useRef(null)
@@ -15,6 +15,9 @@ const Tweet = ({tweet}) => {
         popupEl.current.style.display = "none"
     }
 
+    console.log('TWEET', tweet)
+    console.log('ME', me)
+
     return (
     <div className="tweet">
         <div className="tweet__share"></div>
@@ -26,7 +29,7 @@ const Tweet = ({tweet}) => {
                     <p className="content__username">@{tweet.user.username}</p>
 
                     {/* Popup */}
-                    <div className="tweet-popup-container">
+                    {me.id === tweet.user.id && (<div className="tweet-popup-container">
                         <svg onClick={handlePopup} viewBox="0 0 24 24" className="content__popup"><g><path d="M20.207 8.147c-.39-.39-1.023-.39-1.414 0L12 14.94 5.207 8.147c-.39-.39-1.023-.39-1.414 0-.39.39-.39 1.023 0 1.414l7.5 7.5c.195.196.45.294.707.294s.512-.098.707-.293l7.5-7.5c.39-.39.39-1.022 0-1.413z"></path></g></svg>
                         <div onClick={handleClose} ref={fillPage} className="popup-fill-page"></div>
                         <div ref={popupEl} className="popup-content">
@@ -35,8 +38,7 @@ const Tweet = ({tweet}) => {
                                 <p className="popup-content__delete-text">Delete</p>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>)}
                     
                 </div>
                 <p className="content__text">{tweet.text}</p>
