@@ -17,7 +17,7 @@ const FeedPage = ({ me, getFeed, feed, location, deleteTweet }) => {
         <h3 className="nav-text util-margin-right-large">Home</h3>
         <input className="searchbar util-margin-auto-left util-margin-right-large" placeholder="Search Twitter"></input>
       </nav>
-      <div className="feed-page-half">
+      <div className="feed-page-half style-scrollbars">
         <div className="feed-middle">
           <div className="create-tweet-container">
             <CreateTweet location={location}/>

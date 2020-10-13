@@ -17,11 +17,13 @@ const ProfilePage = ({getTweets, getProfile, profile, tweets, me}) => {
         <nav className="secondary-nav">
             <h3 className="nav-text util-margin-right-large">{profile.name}</h3>
         </nav>
-        <div className="profile-info-container"></div>
-        <div className="profile-feed-container">
-            {tweets && tweets.map((tweet) => {
-                return <Tweet key={tweet.id} tweet={tweet} me={me}/>
-            })}
+        <div className="profile-bottom-half style-scrollbars">
+            <div className="profile-info-container"></div>
+            <div className="profile-feed-container">
+                {tweets && tweets.map((tweet) => {
+                    return <Tweet key={tweet.id} tweet={tweet} me={me}/>
+                })}
+            </div>
         </div>
     </div>)
 }
