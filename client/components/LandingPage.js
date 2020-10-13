@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchLogin } from '../store/auth';
+import history from '../history'
 
 const LandingPage = ({ handleSubmit }) => {
   return (
@@ -60,7 +61,9 @@ const LandingPage = ({ handleSubmit }) => {
               Join Twitter today.
             </h5>
 
-            <button className="btn btn--solid util-margin-btm-medium">
+            <button onClick={()=> {
+              history.push('/signup')
+            }} className="btn btn--solid util-margin-btm-medium">
               Sign up
             </button>
             <button className="btn btn--outline">Log in</button>

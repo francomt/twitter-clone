@@ -5,6 +5,7 @@ import history from '../history';
 const GET_ME = 'GET_ME';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
+const SIGNUP = 'SIGNUP';
 
 //ACTION CREATORS
 const getMe = (user) => ({ type: GET_ME, user });
@@ -19,9 +20,16 @@ export const fetchMe = () => {
     try {
       const { data } = await axios.get('/api/auth/me');
 
+      const location = history.location.pathname
+
       if (!data.data) {
-        history.push('/');
+        if (location === "/" || location === "/signup") {
+          
+        } else {
+          history.push('/')
+        }
       }
+
       dispatch(getMe(data || defaultUser));
     } catch (error) {
       console.error(error);
@@ -52,6 +60,18 @@ export const fetchLogout = () => {
     }
   };
 };
+
+export const fetchSignup = (body) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/auth/signup', body)
+      dispatch(login(data || defaultUser));
+      history.push('/home');
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 
 

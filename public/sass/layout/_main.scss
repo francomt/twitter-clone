@@ -1,11 +1,19 @@
 .header-main {
   font-size: 3.1rem;
   line-height: 4.1rem;
+
+  &--primary {
+    color: $color-font;
+  }
 }
 
 .header-sub {
   font-size: 1.6rem;
   word-spacing: 0.2rem;
+
+  &--primary {
+    color: $color-font;
+  }
 }
 
 .logo-small {
