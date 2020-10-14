@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { LandingPage, FeedPage, ProfilePage, SignupPage, LoginPage } from './components';
 import { fetchMe, fetchLogout } from './store/auth';
 import {navIcons} from './components/modules/Svgs'
@@ -28,11 +28,22 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
     else return "nav-text"
   }
 
-  if (userLoggedIn && pathname === "/" || pathname === "/signup" || pathname === "/login") {
-    history.push('/home')
-  }
+  const loggedOutRoutes = (
+    <Switch>
+      <Route exact path="/" component={LandingPage} />
+      <Route path="/signup" component={SignupPage}/>
+      <Route path="/login" component={LoginPage}/>
+      <Redirect to="/" />
+    </Switch>
+  )
 
-  
+  const loggedInRoutes = (
+    <Switch>
+      <Route path="/home" component={FeedPage} />
+      <Route path="/:username" component={ProfilePage}/>
+      <Redirect to="/home" />
+    </Switch>
+  )
 
   return (
     <div className="route-container">
@@ -74,20 +85,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
           </div>
         </nav>
       )}
-      <Switch>
-        {/* These routes are available to all users*/}
-        <Route exact path="/" component={withRouter(LandingPage)} />
-        <Route path="/signup" component={SignupPage}/>
-        <Route path="/login" component={LoginPage}/>
-
-        {userLoggedIn && (
-          <Switch>
-            {/* These routes are only accessible if a user is logged in */}
-            <Route path="/home" component={FeedPage} />
-            <Route path="/:username" component={ProfilePage}/>
-          </Switch>
-        )}
-      </Switch>
+      {!userLoggedIn ? loggedOutRoutes : loggedInRoutes}
     </div>
   );
 };

@@ -12,8 +12,6 @@ exports.getAll = (Model) =>
     const modelName = Model.modelName.toLowerCase() + 's';
     const doc = await features.query;
 
-    console.log(req.query);
-
     res.status(200).json({
       status: 'success',
       results: doc.length,

@@ -22,13 +22,13 @@ export const fetchMe = () => {
 
       const location = history.location.pathname
 
-      if (!data.data) {
-        if (location === "/" || location === "/signup" || location === "/login") {
+      // if (!data.data) {
+      //   if (location === "/" || location === "/signup" || location === "/login") {
           
-        } else {
-          history.push('/')
-        }
-      }
+      //   } else {
+      //     history.push('/')
+      //   }
+      // }
 
       dispatch(getMe(data || defaultUser));
     } catch (error) {

@@ -39,7 +39,6 @@ const mapDispatch = (dispatch, ownProps) => {
         handleSubmit: (e) => {
             e.preventDefault();
             const text = e.target.text.value
-            console.log('THIS IS TEXT', text)
             dispatch(fetchCreateTweet({text}, ownProps.location))
         }
     }
