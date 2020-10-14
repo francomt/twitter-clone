@@ -15,7 +15,24 @@ class APIFeatures {
     queryStr = JSON.parse(
       queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`)
     );
+
     this.query = this.query.find(queryStr);
+    return this;
+  }
+
+  regexFilter() {
+    //filter the query object
+    const queryObj = { ...this.input };
+    const excludeFields = ['page', 'sort', 'fields', 'limit'];
+    excludeFields.forEach((val) => delete queryObj[val]);
+
+    //advanced filtering
+    for (let item in queryObj) {
+      const reg = new RegExp(queryObj[item], "i")
+      queryObj[item] = reg
+    }
+    
+    this.query = this.query.find(queryObj);
     return this;
   }
 

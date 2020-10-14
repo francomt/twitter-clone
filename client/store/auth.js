@@ -5,7 +5,6 @@ import history from '../history';
 const GET_ME = 'GET_ME';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
-const SIGNUP = 'SIGNUP';
 
 //ACTION CREATORS
 const getMe = (user) => ({ type: GET_ME, user });

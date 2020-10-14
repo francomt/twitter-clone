@@ -40,6 +40,7 @@ const mapDispatch = (dispatch, ownProps) => {
             e.preventDefault();
             const text = e.target.text.value
             dispatch(fetchCreateTweet({text}, ownProps.location))
+            e.target.text.value = ""
         }
     }
 }

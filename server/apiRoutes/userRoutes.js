@@ -15,6 +15,8 @@ router.use(authController.protect);
 
 router.get('/', userController.getAllUsers);
 
+router.get('/search', userController.searchUsers);
+
 router.delete('/unfollow', userController.unfollowUser);
 
 router.get('/:id', userController.getUser);

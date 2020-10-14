@@ -2,8 +2,29 @@ const User = require('../db/models/userModel');
 const UserFollow = require('../db/models/userFollowModel');
 const factory = require('./factory');
 const catchAsync = require('../utilities/catchAsync');
+const APIFeatures = require('../utilities/apiFeatures');
+const { query } = require('express');
 
 exports.getAllUsers = factory.getAll(User);
+
+exports.searchUsers = catchAsync(async (req, res, next) => {
+
+    const features = new APIFeatures(User.find(), req.query)
+    .regexFilter()
+    .sort()
+    .limitFields()
+    .paginate()
+
+    const doc = await features.query
+
+    res.status(200).json({
+      status: "success",
+      results: doc.length,
+      data: {
+        users: doc
+      }
+    })
+})
 
 exports.getUser = catchAsync(async (req, res, next) => {
 

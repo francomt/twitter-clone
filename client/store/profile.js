@@ -5,6 +5,7 @@ const GET_PROFILE = "GET_PROFILE"
 const getProfile = (profile) => ({type: GET_PROFILE, profile})
 
 export const fetchProfile = (username) => {
+    console.log('THIS IS USERNAME', username)
     return async dispatch => {
         try {
             const {data} = await axios.get(`/api/users/${username}`)
