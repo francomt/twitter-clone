@@ -20,16 +20,6 @@ export const fetchMe = () => {
     try {
       const { data } = await axios.get('/api/auth/me');
 
-      const location = history.location.pathname
-
-      // if (!data.data) {
-      //   if (location === "/" || location === "/signup" || location === "/login") {
-          
-      //   } else {
-      //     history.push('/')
-      //   }
-      // }
-
       dispatch(getMe(data || defaultUser));
     } catch (error) {
       console.error(error);
