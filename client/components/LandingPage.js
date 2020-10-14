@@ -66,7 +66,9 @@ const LandingPage = ({ handleSubmit }) => {
             }} className="btn btn--solid util-margin-btm-medium">
               Sign up
             </button>
-            <button className="btn btn--outline">Log in</button>
+            <button onClick={()=> {
+              history.push('/login')
+            }} className="btn btn--outline">Log in</button>
           </div>
         </div>
       </div>

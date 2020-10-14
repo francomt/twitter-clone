@@ -458,6 +458,7 @@ body {
 
 .signup-page-container {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -474,6 +475,16 @@ body {
   .signup__logo {
     height: 3rem;
     margin-bottom: 2.5rem; }
+
+.back-arrow {
+  position: absolute;
+  top: 2.5%;
+  left: 3%;
+  height: 3rem;
+  width: 3rem;
+  fill: #1da1f2; }
+  .back-arrow:hover {
+    cursor: pointer; }
 
 .feed-page-container {
   background-color: #15202b;

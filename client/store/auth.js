@@ -23,7 +23,7 @@ export const fetchMe = () => {
       const location = history.location.pathname
 
       if (!data.data) {
-        if (location === "/" || location === "/signup") {
+        if (location === "/" || location === "/signup" || location === "/login") {
           
         } else {
           history.push('/')

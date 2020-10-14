@@ -1,5 +1,6 @@
 .signup-page-container {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -19,5 +20,18 @@
   &__logo {
     height: 3rem;
     margin-bottom: 2.5rem;
+  }
+}
+
+.back-arrow {
+  position: absolute;
+  top: 2.5%;
+  left: 3%;
+  height: 3rem;
+  width: 3rem;
+  fill: $color-primary;
+
+  &:hover {
+    cursor: pointer;
   }
 }

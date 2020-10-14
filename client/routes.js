@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { LandingPage, FeedPage, ProfilePage, SignupPage } from './components';
+import { LandingPage, FeedPage, ProfilePage, SignupPage, LoginPage } from './components';
 import { fetchMe, fetchLogout } from './store/auth';
 import {navIcons} from './components/modules/Svgs'
 import history from './history'
@@ -20,8 +20,6 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
       selectIcon("profile")
     }
 
-    console.log(me.username)
-
   }, []);
  
   //For selected icon
@@ -30,7 +28,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
     else return "nav-text"
   }
 
-  if (userLoggedIn && pathname === "/") {
+  if (userLoggedIn && pathname === "/" || pathname === "/signup" || pathname === "/login") {
     history.push('/home')
   }
 
@@ -80,6 +78,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
         {/* These routes are available to all users*/}
         <Route exact path="/" component={withRouter(LandingPage)} />
         <Route path="/signup" component={SignupPage}/>
+        <Route path="/login" component={LoginPage}/>
 
         {userLoggedIn && (
           <Switch>
