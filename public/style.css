@@ -397,6 +397,29 @@ body {
   .nav-text--selected {
     color: #1da1f2; }
 
+.secondary-nav {
+  display: flex;
+  min-height: 5.2rem;
+  width: 100%;
+  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center; }
+  .secondary-nav__back {
+    margin-left: 1rem;
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    padding: 1rem;
+    border-radius: 50%;
+    transition: all 0.25s; }
+    .secondary-nav__back:hover {
+      background-color: rgba(29, 161, 242, 0.15);
+      cursor: pointer; }
+  .secondary-nav__back__arrow {
+    fill: #1da1f2;
+    height: 2rem;
+    width: 2rem; }
+
 .header-main {
   font-size: 3.1rem;
   line-height: 4.1rem; }
@@ -522,14 +545,6 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column; }
-
-.secondary-nav {
-  display: flex;
-  min-height: 5.2rem;
-  width: 100%;
-  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center; }
 
 .create-tweet-container {
   height: fit-content;

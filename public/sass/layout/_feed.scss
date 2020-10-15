@@ -5,15 +5,6 @@
   flex-direction: column;
 }
 
-.secondary-nav {
-  display: flex;
-  min-height: 5.2rem;
-  width: 100%;
-  border-bottom: $border-main;
-  display: flex;
-  align-items: center;
-}
-
 .create-tweet-container {
   height: fit-content;
   border-bottom: solid 1rem rgba($color-font, 0.1);

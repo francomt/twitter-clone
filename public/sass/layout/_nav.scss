@@ -55,3 +55,34 @@
     color: $color-primary;
   }
 }
+
+.secondary-nav {
+  display: flex;
+  min-height: 5.2rem;
+  width: 100%;
+  border-bottom: $border-main;
+  display: flex;
+  align-items: center;
+
+  &__back {
+    margin-left: 1rem;
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    padding: 1rem;
+    border-radius: 50%;
+
+    transition: all 0.25s;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.15);
+      cursor: pointer;
+    }
+  }
+
+  &__back__arrow {
+    fill: $color-primary;
+    height: 2rem;
+    width: 2rem;
+  }
+}
