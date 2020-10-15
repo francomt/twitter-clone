@@ -65,14 +65,22 @@ const ProfilePage = ({
               src={`/img/users/${profile.coverImg}`}
             />
 
-            <button
-              onClick={() => {
-                history.push("/profile");
-              }}
-              className="btn btn--outline profile__edit"
-            >
-              Edit profile
-            </button>
+            <div className="profile__follow-edit">
+              {me.id === profile.id ? (
+                <button
+                  onClick={() => {
+                    history.push("/profile");
+                  }}
+                  className="btn btn--outline profile__edit"
+                >
+                  Edit profile
+                </button>
+              ) : (
+                <button className="btn btn--outline profile__edit">
+                  Follow
+                </button>
+              )}
+            </div>
 
             <img
               className="profile__photo"

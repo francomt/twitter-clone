@@ -625,14 +625,20 @@ body {
 .profile__coverImg {
   width: 100%;
   height: 20rem;
-  object-fit: cover;
-  margin-bottom: 1.25rem; }
+  object-fit: cover; }
+
+.profile__follow-edit {
+  width: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 5.5rem;
+  margin-bottom: 2rem; }
 
 .profile__edit {
   width: 12rem;
   margin-left: auto;
-  margin-right: 1.5rem;
-  margin-bottom: 1.5rem; }
+  margin-right: 1.5rem; }
 
 .profile__photo {
   position: absolute;
@@ -648,8 +654,7 @@ body {
   color: #fff;
   font-weight: 600;
   display: inline-block;
-  margin-left: 2rem;
-  margin-top: 1rem; }
+  margin-left: 2rem; }
 
 .profile__username {
   font-size: 1.6rem;
