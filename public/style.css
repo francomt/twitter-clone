@@ -273,6 +273,9 @@ body {
     align-items: center;
     margin-top: 2rem;
     height: 2.5rem; }
+  .content__like-container {
+    display: flex;
+    align-items: center; }
   .content__icon-box {
     display: flex;
     justify-content: center;
@@ -280,16 +283,23 @@ body {
     height: 2.5rem;
     width: 2.5rem;
     background-color: transparent;
-    border-radius: 50%; }
+    border-radius: 50%;
+    transition: all 0.25s; }
     .content__icon-box:hover {
       cursor: pointer;
       background-color: rgba(224, 36, 94, 0.15); }
     .content__icon-box:hover > .content__like {
       fill: #e0245e; }
+    .content__icon-box:hover ~ .content__like-num {
+      color: #e0245e; }
   .content__like {
     fill: #8899a6;
     height: 1.6rem;
     width: 1.6rem; }
+  .content__like-num {
+    color: #8899a6;
+    font-size: 1.5rem;
+    font-weight: 300; }
 
 .tweet-popup-container {
   position: relative;
