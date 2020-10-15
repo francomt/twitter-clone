@@ -22,7 +22,7 @@ router.delete('/unfollow', userController.unfollowUser);
 
 router.get('/:id', userController.getUser);
 
-router.patch('/:id', userController.uploadUserPhoto, userController.updateUser);
+router.patch('/:id', userController.uploadUserPhoto, userController.resizeUserPhoto,userController.updateUser);
 
 router.post('/:id/follow', userController.followUser);
 

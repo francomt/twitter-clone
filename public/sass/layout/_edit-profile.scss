@@ -9,4 +9,10 @@
 
 .edit-profile {
   width: 40em;
+
+  &__photo {
+    height: 15rem;
+    width: 15rem;
+    border-radius: 50%;
+  }
 }

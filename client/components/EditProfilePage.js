@@ -13,6 +13,8 @@ const EditProfilePage = ({profile, handleSubmit}) => {
                 handleSubmit(profile.id, {name: e.target.name.value}, profile.username)
                 }} className="edit-profile">
 
+                <img className="edit-profile__photo" src={`/img/users/${profile.photo}`} />
+
                 <div className="wrapper wrapper__signup">
                     <input className="input input__signup" defaultValue={profile.name} name="name" placeholder="Add your name"></input>
                     <span className="input-placeholder">
