@@ -1,15 +1,17 @@
-import axios from 'axios';
-import history from '../history';
+import axios from "axios";
+import history from "../history";
 
 //ACTION TYPES
-const GET_ME = 'GET_ME';
-const LOGIN = 'LOGIN';
-const LOGOUT = 'LOGOUT';
+const GET_ME = "GET_ME";
+const LOGIN = "LOGIN";
+const LOGOUT = "LOGOUT";
+const UPDATE_ME = "UPDATE_ME";
 
 //ACTION CREATORS
 const getMe = (user) => ({ type: GET_ME, user });
 const login = (user) => ({ type: LOGIN, user });
 const logout = () => ({ type: LOGOUT });
+const updateMe = (user) => ({ type: UPDATE_ME, user });
 
 const defaultUser = {};
 
@@ -17,7 +19,7 @@ const defaultUser = {};
 export const fetchMe = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get('/api/auth/me');
+      const { data } = await axios.get("/api/auth/me");
 
       dispatch(getMe(data || defaultUser));
     } catch (error) {
@@ -26,13 +28,25 @@ export const fetchMe = () => {
   };
 };
 
-export const fetchLogin = (body) => {
-  console.log('THIS IS BODY', body)
+export const fetchUpdateMe = (userId, body, username) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/auth/login', body);
+      const { data } = await axios.patch(`/api/users/${userId}`, body);
+      dispatch(updateMe(data));
+      history.push(`/${username}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchLogin = (body) => {
+  console.log("THIS IS BODY", body);
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post("/api/auth/login", body);
       dispatch(login(data || defaultUser));
-      history.push('/home');
+      history.push("/home");
     } catch (error) {
       console.error(error);
     }
@@ -42,9 +56,9 @@ export const fetchLogin = (body) => {
 export const fetchLogout = () => {
   return async (dispatch) => {
     try {
-      await axios.get('/api/auth/logout');
+      await axios.get("/api/auth/logout");
       dispatch(logout());
-      history.push('/');
+      history.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -52,18 +66,16 @@ export const fetchLogout = () => {
 };
 
 export const fetchSignup = (body) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const {data} = await axios.post('/api/auth/signup', body)
+      const { data } = await axios.post("/api/auth/signup", body);
       dispatch(login(data || defaultUser));
-      history.push('/home');
+      history.push("/home");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
-}
-
-
+  };
+};
 
 function authReducer(state = defaultUser, action) {
   switch (action.type) {
@@ -72,6 +84,12 @@ function authReducer(state = defaultUser, action) {
         return { ...action.user.data.me };
       } else {
         return { ...action.user };
+      }
+    case UPDATE_ME:
+      if (action.user.data) {
+        return { ...action.user.data.user };
+      } else {
+        return state;
       }
     case LOGIN:
       if (action.user.data) {

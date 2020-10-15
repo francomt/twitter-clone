@@ -1,53 +1,72 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { updateProfile } from '../store/profile';
+import React from "react";
+import { connect } from "react-redux";
+import { fetchUpdateMe } from "../store/auth";
 
+const EditProfilePage = ({ me, handleSubmit }) => {
+  return (
+    <div className="edit-profile-container">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
 
-const EditProfilePage = ({profile, handleSubmit}) => {
+          const form = new FormData();
+          form.append("name", e.target.name.value);
+          form.append("bio", e.target.bio.value);
+          form.append("photo", e.target.photo.files[0]);
 
-    return (
-        <div className="edit-profile-container">
-
-            <form onSubmit={(e) => {
-                e.preventDefault()
-                handleSubmit(profile.id, {name: e.target.name.value}, profile.username)
-                }} className="edit-profile">
-
-                <img className="edit-profile__photo" src={`/img/users/${profile.photo}`} />
-
-                <div className="wrapper wrapper__signup">
-                    <input className="input input__signup" defaultValue={profile.name} name="name" placeholder="Add your name"></input>
-                    <span className="input-placeholder">
-                        Name
-                    </span>
-                </div>
-
-                <button type="submit" className="btn">Save</button>
-                {/* <div className="wrapper wrapper__signup">
-                    <input className="input input__signup" defaultValue={me.name} name="bio" placeholder="Add your bio"></input>
-                    <span className="input-placeholder">
-                        Bio
-                    </span>
-                </div> */}
-
-            </form>
-
+          handleSubmit(me.id, form, me.username);
+        }}
+        className="edit-profile"
+      >
+        <div>
+          <img className="edit-profile__photo" src={`/img/users/${me.photo}`} />
+          <input
+            className="edit-profile__upload"
+            type="file"
+            accept="image/*"
+            name="photo"
+          ></input>
         </div>
-    )
-}
+        <div className="wrapper wrapper__signup">
+          <input
+            className="input input__signup"
+            defaultValue={me.name}
+            name="name"
+            placeholder="Add your name"
+          ></input>
+          <span className="input-placeholder">Name</span>
+        </div>
 
-const mapState = state => {
-    return {
-        profile: state.profileReducer
-    }
-}
+        <div className="wrapper wrapper__signup">
+          <input
+            className="input input__signup"
+            defaultValue={me.bio}
+            name="bio"
+            placeholder="Add your bio"
+          ></input>
+          <span className="input-placeholder">Bio</span>
+        </div>
 
-const mapDispatch = dispatch => {
-    return {
-        handleSubmit: (userId, body, username) => {
-            dispatch(updateProfile(userId, body, username))
-        },
-    }
-}
+        <button type="submit" className="btn">
+          Save
+        </button>
+      </form>
+    </div>
+  );
+};
 
-export default connect(mapState, mapDispatch)(EditProfilePage)
+const mapState = (state) => {
+  return {
+    me: state.authReducer,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    handleSubmit: (userId, body, username) => {
+      dispatch(fetchUpdateMe(userId, body, username));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(EditProfilePage);
