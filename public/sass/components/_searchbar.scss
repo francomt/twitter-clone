@@ -1,6 +1,11 @@
+.searchbar-container {
+  width: 25rem;
+  position: relative;
+}
+
 .searchbar {
   height: 4rem;
-  width: 25rem;
+  width: 100%;
   color: $color-font;
   font-size: 1.5rem;
   font-weight: 400;
@@ -11,5 +16,24 @@
 
   &::placeholder {
     color: $color-font-dark;
+  }
+
+  &:focus {
+    outline: none;
+    border: solid 1px $color-primary;
+    background-color: transparent;
+  }
+
+  &:focus ~ &__icon {
+    fill: $color-primary;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 23%;
+    left: 5%;
+    fill: $color-font-dark;
+    height: 2rem;
+    width: 2rem;
   }
 }

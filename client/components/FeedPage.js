@@ -70,17 +70,37 @@ class FeedPage extends Component {
         this.fetchResults(1, query)
       })
     }
-  }, 1500)
+  }, 350)
   
   render() {
 
     const {location, feed, me, deleteTweet} = this.props
 
+    const searchResults = this.state.results
+
     return(
     <div className="feed-page-container">
       <nav className="secondary-nav">
         <h3 className="nav-text util-margin-right-large">Home</h3>
-        <input onChange={(e) => this.handleInputChange(e.target.value)} className="searchbar util-margin-auto-left util-margin-right-large" placeholder="Search Twitter"></input>
+        <div className="input-container util-margin-auto-left util-margin-right-large">
+          <div className="searchbar-container">
+            <input onChange={(e) => this.handleInputChange(e.target.value)} className="searchbar" placeholder="Search Twitter"></input>
+            <svg viewBox="0 0 24 24" className="searchbar__icon"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+          </div>
+          <div className="search-results">
+            {searchResults.length > 0 && searchResults.map(user => {
+              return (
+                <div className="search-results__item">
+                  <div className="tweet__profile-img tweet__profile-img--search"></div>
+                  <div className="search-results__user">
+                    <p className="search-results__user-name">{user.name}</p>
+                    <p className="search-results__user-username">@{user.username}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </nav>
       <div className="feed-page-half style-scrollbars">
          <div className="feed-middle">

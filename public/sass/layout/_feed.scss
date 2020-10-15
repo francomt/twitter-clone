@@ -42,3 +42,40 @@
   width: 60%;
   border-right: $border-main;
 }
+
+.input-container {
+  position: relative;
+  width: fit-content;
+}
+
+.search-results {
+  position: absolute;
+  top: 107%;
+  left: 2.5%;
+  background-color: red;
+  width: 95%;
+  height: fit-content;
+
+  &__item {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    height: 7rem;
+    background-color: $color-primary-background-2;
+  }
+
+  &__user {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__user-name {
+    font-size: 1.8rem;
+    color: $color-font;
+  }
+
+  &__user-username {
+    font-size: 1.3rem;
+    color: $color-font-dark;
+  }
+}

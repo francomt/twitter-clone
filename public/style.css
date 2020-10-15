@@ -151,9 +151,13 @@ body {
   .input:focus ~ .input-placeholder {
     color: #1da1f2; }
 
+.searchbar-container {
+  width: 25rem;
+  position: relative; }
+
 .searchbar {
   height: 4rem;
-  width: 25rem;
+  width: 100%;
   color: #fff;
   font-size: 1.5rem;
   font-weight: 400;
@@ -163,6 +167,19 @@ body {
   background-color: #253341; }
   .searchbar::placeholder {
     color: #8899a6; }
+  .searchbar:focus {
+    outline: none;
+    border: solid 1px #1da1f2;
+    background-color: transparent; }
+  .searchbar:focus ~ .searchbar__icon {
+    fill: #1da1f2; }
+  .searchbar__icon {
+    position: absolute;
+    top: 23%;
+    left: 5%;
+    fill: #8899a6;
+    height: 2rem;
+    width: 2rem; }
 
 .create-tweet-container {
   padding: 1rem;
@@ -211,6 +228,9 @@ body {
     border-radius: 50%;
     background-color: #1da1f2;
     margin-right: 0.8rem; }
+    .tweet__profile-img--search {
+      min-height: 3.5rem;
+      width: 3.5rem; }
 
 .content {
   width: 100%; }
@@ -523,6 +543,33 @@ body {
   height: 100%;
   width: 60%;
   border-right: solid 1.3px rgba(255, 255, 255, 0.1); }
+
+.input-container {
+  position: relative;
+  width: fit-content; }
+
+.search-results {
+  position: absolute;
+  top: 107%;
+  left: 2.5%;
+  background-color: red;
+  width: 95%;
+  height: fit-content; }
+  .search-results__item {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    height: 7rem;
+    background-color: #192734; }
+  .search-results__user {
+    display: flex;
+    flex-direction: column; }
+  .search-results__user-name {
+    font-size: 1.8rem;
+    color: #fff; }
+  .search-results__user-username {
+    font-size: 1.3rem;
+    color: #8899a6; }
 
 .profile-page-container {
   display: flex;

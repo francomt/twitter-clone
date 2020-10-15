@@ -9,10 +9,9 @@ exports.getAllUsers = factory.getAll(User);
 
 exports.searchUsers = catchAsync(async (req, res, next) => {
 
-    const features = new APIFeatures(User.find(), req.query)
+    const features = new APIFeatures(User.find().select("name username"), req.query)
     .regexFilter()
     .sort()
-    .limitFields()
     .paginate()
 
     const doc = await features.query
