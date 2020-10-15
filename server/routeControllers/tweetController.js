@@ -1,9 +1,9 @@
-const Tweet = require('../db/models/tweetModel');
-const User = require('../db/models/userModel');
-const UserFollow = require('../db/models/userFollowModel');
-const catchAsync = require('../utilities/catchAsync');
-const APIFeatures = require('../utilities/apiFeatures');
-const factory = require('../routeControllers/factory');
+const Tweet = require("../db/models/tweetModel");
+const User = require("../db/models/userModel");
+const UserFollow = require("../db/models/userFollowModel");
+const catchAsync = require("../utilities/catchAsync");
+const APIFeatures = require("../utilities/apiFeatures");
+const factory = require("../routeControllers/factory");
 
 exports.setTweetUser = (req, res, next) => {
   //Used for merge params to look up all tweets from a certain user
@@ -21,8 +21,7 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
   let baseQuery = Tweet.find();
 
   //if request is for feed
-  if (req.baseUrl.endsWith('feed')) {
-    
+  if (req.baseUrl.endsWith("feed")) {
     let user;
 
     if (req.params.id == req.user.id) {
@@ -33,23 +32,21 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
 
     const followModelIds = user.following;
 
-    const userFollows = await UserFollow.find().where('_id').in(followModelIds);
+    const userFollows = await UserFollow.find().where("_id").in(followModelIds);
 
     const followIds = userFollows.map((e) => e.user.id);
     followIds.push(user.id);
 
-    baseQuery = Tweet.find().where('user').in(followIds);
-    req.query.sort = '-createdAt';
+    baseQuery = Tweet.find().where("user").in(followIds);
+    req.query.sort = "-createdAt";
     delete req.query.user;
   }
 
   //For /:username on frontend
-  if (req.baseUrl.endsWith('tweets') && req.params.id.length <= 15) {
-    const user = await User.findOne({username: req.params.id})
-    req.query.user = user.id
+  if (req.baseUrl.endsWith("tweets") && req.params.id.length <= 15) {
+    const user = await User.findOne({ username: req.params.id });
+    req.query.user = user.id;
   }
-
-
 
   const features = new APIFeatures(baseQuery, req.query)
     .filter()
@@ -60,7 +57,7 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
   const tweets = await features.query;
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     results: tweets.length,
     data: {
       tweets: tweets,
@@ -69,22 +66,19 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
 });
 exports.getTweet = factory.getOne(Tweet);
 
-
-
 exports.createTweet = catchAsync(async (req, res, next) => {
   let doc = await Tweet.create(req.body);
 
-  doc = await doc.populate('user', 'email name username').execPopulate()
+  doc = await doc.populate("user", "email name username photo").execPopulate();
 
   doc.__v = undefined;
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     data: {
       tweet: doc,
     },
   });
 });
 
-
-exports.deleteTweet = factory.deleteOne(Tweet)
+exports.deleteTweet = factory.deleteOne(Tweet);
