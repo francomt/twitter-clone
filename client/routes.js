@@ -39,8 +39,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
 
   const loggedInRoutes = (
     <Switch>
-      <Redirect from="/a/login" to="/home" />
-      <Redirect from="/a/signup" to="/home" />
+      <Redirect from="/i/login" to="/home" />
+      <Redirect from="/i/signup" to="/home" />
       <Route exact path="/home" component={withRouter(FeedPage)} />
       <Route path="/:username" component={ProfilePage}/>
       <Redirect from="/" to="/home" />
