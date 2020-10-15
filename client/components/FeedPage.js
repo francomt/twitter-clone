@@ -13,15 +13,40 @@ class FeedPage extends Component {
       query: "",
       results: [],
       loading: false,
-      message: ""
+      message: "",
+      page: 1,
+      setPage: true,
+      length: 0,
     }
     this.cancel = ""
     this.handleInputChange = this.handleInputChange.bind(this)
     this.fetchResults = this.fetchResults.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
-    this.props.getFeed(this.props.me.id)
+    this.props.getFeed(this.props.me.id, this.state.page)
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.page !== this.state.page) {
+      
+      if (this.state.length === this.props.feed.length) {
+        this.setState({setPage: false})
+        return
+      }
+
+      this.props.getFeed(this.props.me.id, this.state.page)
+      this.setState({length: this.props.feed.length})
+    }
+  }
+
+  handleScroll(e) {
+    const {scrollTop, clientHeight, scrollHeight} = e.currentTarget
+
+    if (this.state.setPage && scrollHeight - scrollTop === clientHeight) {
+      this.setState({page: this.state.page + 1})
+    }
   }
 
   async fetchResults(updatedPageNum = "", query){
@@ -102,7 +127,7 @@ class FeedPage extends Component {
           </div>
         </div>
       </nav>
-      <div className="feed-page-half style-scrollbars">
+      <div onScroll={this.handleScroll} className="feed-page-half style-scrollbars">
          <div className="feed-middle">
               <div className="create-tweet-container">
                 <CreateTweet location={location}/>
@@ -129,7 +154,7 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getFeed: (userId) => dispatch(fetchFeed(userId)),
+    getFeed: (userId, page) => dispatch(fetchFeed(userId, page)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId))
   };
 };

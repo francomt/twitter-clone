@@ -11,10 +11,10 @@ const getProfileFeed = (feed) => ({type: GET_PROFILE_FEED, feed})
 const createTweet = (tweet, pathname) => ({type: CREATE_TWEET, tweet, pathname})
 const deleteTweet = (tweetId) => ({type: DELETE_TWEET, tweetId})
 
-export const fetchFeed = (userId) => {
+export const fetchFeed = (userId, page = 1) => {
   return async dispatch => {
     try {
-        const {data} = await axios.get(`/api/users/${userId}/feed`)
+        const {data} = await axios.get(`/api/users/${userId}/feed?page=${page}&limit=25`)
         dispatch(getFeed(data))
     } catch (error) {
         console.error(error)
@@ -60,7 +60,7 @@ function tweetReducer(state = defaultState, action) {
     switch (action.type) {
         case GET_FEED:
             if (action.feed.data) {
-                return [...action.feed.data.tweets]
+                return [...state ,...action.feed.data.tweets]
             } else {
                 return state
             }
