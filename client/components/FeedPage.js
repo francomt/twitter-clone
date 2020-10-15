@@ -90,7 +90,7 @@ class FeedPage extends Component {
           <div className="search-results">
             {searchResults.length > 0 && searchResults.map(user => {
               return (
-                <div className="search-results__item">
+                <div key={user.id} className="search-results__item">
                   <div className="tweet__profile-img tweet__profile-img--search"></div>
                   <div className="search-results__user">
                     <p className="search-results__user-name">{user.name}</p>

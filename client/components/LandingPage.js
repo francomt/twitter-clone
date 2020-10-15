@@ -62,12 +62,12 @@ const LandingPage = ({ handleSubmit }) => {
             </h5>
 
             <button onClick={()=> {
-              history.push('/signup')
+              history.push('/a/signup')
             }} className="btn btn--solid util-margin-btm-medium">
               Sign up
             </button>
             <button onClick={()=> {
-              history.push('/login')
+              history.push('/a/login')
             }} className="btn btn--outline">Log in</button>
           </div>
         </div>

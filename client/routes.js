@@ -30,18 +30,20 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
 
   const loggedOutRoutes = (
     <Switch>
-      <Route exact path="/" component={LandingPage} />
-      <Route path="/signup" component={SignupPage}/>
-      <Route path="/login" component={LoginPage}/>
-      <Redirect to="/" />
+      <Route exact path="/" component={withRouter(LandingPage)} />
+      <Route exact path="/a/signup" component={withRouter(SignupPage)}/>
+      <Route exact path="/a/login" component={LoginPage}/>
+      <Redirect from="/home"  to="/" />
     </Switch>
   )
 
   const loggedInRoutes = (
     <Switch>
-      <Route path="/home" component={FeedPage} />
+      <Redirect from="/a/login" to="/home" />
+      <Redirect from="/a/signup" to="/home" />
+      <Route exact path="/home" component={withRouter(FeedPage)} />
       <Route path="/:username" component={ProfilePage}/>
-      <Redirect to="/home" />
+      <Redirect from="/" to="/home" />
     </Switch>
   )
 
