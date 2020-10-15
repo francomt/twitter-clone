@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { LandingPage, FeedPage, ProfilePage, SignupPage, LoginPage } from './components';
+import { LandingPage, FeedPage, ProfilePage, SignupPage, LoginPage, EditProfilePage } from './components';
 import { fetchMe, fetchLogout } from './store/auth';
 import {navIcons} from './components/modules/Svgs'
 import history from './history'
@@ -42,6 +42,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
       <Redirect from="/i/login" to="/home" />
       <Redirect from="/i/signup" to="/home" />
       <Route exact path="/home" component={withRouter(FeedPage)} />
+      <Route exact path="/profile" component={EditProfilePage} />
       <Route path="/:username" component={ProfilePage}/>
       <Redirect from="/" to="/home" />
     </Switch>

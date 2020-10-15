@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Tweet} from './modules/index'
 import { fetchProfileFeed } from '../store/tweets'
 import { fetchProfile } from '../store/profile'
+import history from '../history';
 
 
 const ProfilePage = ({getTweets, getProfile, profile, tweets, me}) => {
@@ -18,7 +19,11 @@ const ProfilePage = ({getTweets, getProfile, profile, tweets, me}) => {
             <h3 className="nav-text util-margin-right-large">{profile.name}</h3>
         </nav>
         <div className="profile-bottom-half style-scrollbars">
-            <div className="profile-info-container"></div>
+            <div className="profile-info-container">
+                <button onClick={()=> {
+                    history.push('/profile')
+                }} className="btn btn--outline">Edit profile</button>
+            </div>
             <div className="profile-feed-container">
                 {tweets && tweets.map((tweet) => {
                     return <Tweet key={tweet.id} tweet={tweet} me={me}/>

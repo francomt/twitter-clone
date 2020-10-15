@@ -21,6 +21,8 @@ router.delete('/unfollow', userController.unfollowUser);
 
 router.get('/:id', userController.getUser);
 
+router.patch('/:id', userController.updateUser);
+
 router.post('/:id/follow', userController.followUser);
 
 module.exports = router;
