@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 //Routers
 const tweetRouter = require('./tweetRoutes');
 
@@ -21,7 +22,7 @@ router.delete('/unfollow', userController.unfollowUser);
 
 router.get('/:id', userController.getUser);
 
-router.patch('/:id', userController.updateUser);
+router.patch('/:id', userController.uploadUserPhoto, userController.updateUser);
 
 router.post('/:id/follow', userController.followUser);
 

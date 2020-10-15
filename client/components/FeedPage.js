@@ -119,7 +119,7 @@ class FeedPage extends Component {
                 <div onClick={()=>{
                   history.push(`/${user.username}`)
                 }} key={user.id} className="search-results__item">
-                  <div className="tweet__profile-img tweet__profile-img--search"></div>
+                  <img src={`/img/users/${user.photo}`} className="tweet__profile-img tweet__profile-img--search" />
                   <div className="search-results__user">
                     <p className="search-results__user-name">{user.name}</p>
                     <p className="search-results__user-username">@{user.username}</p>
@@ -133,7 +133,7 @@ class FeedPage extends Component {
       <div onScroll={this.handleScroll} className="feed-page-half style-scrollbars">
          <div className="feed-middle">
               <div className="create-tweet-container">
-                <CreateTweet location={location}/>
+                <CreateTweet location={location} photo={me.photo}/>
               </div>
               <div className="feed-container">
                 {feed && feed.map(tweet => {

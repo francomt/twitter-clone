@@ -3,13 +3,40 @@ const UserFollow = require('../db/models/userFollowModel');
 const factory = require('./factory');
 const catchAsync = require('../utilities/catchAsync');
 const APIFeatures = require('../utilities/apiFeatures');
-const { query } = require('express');
+const multer = require('multer')
+
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/img/users')
+  },
+  filename: (req, file, cb) => {
+    // user-userId-timestamp.jpeg
+    const ext = file.mimetype.split('/')[1];
+    cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
+  }
+})
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true)
+  } else {
+    cb(new Error("Not an image"), false)
+  }
+}
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter
+})
+
+exports.uploadUserPhoto = upload.single('photo')
+
 
 exports.getAllUsers = factory.getAll(User);
 
 exports.searchUsers = catchAsync(async (req, res, next) => {
 
-    const features = new APIFeatures(User.find().select("name username"), req.query)
+    const features = new APIFeatures(User.find().select("name username photo"), req.query)
     .regexFilter()
     .sort()
     .paginate()
@@ -96,9 +123,13 @@ exports.unfollowUser = catchAsync(async (req, res, next) => {
 
 exports.updateUser = catchAsync(async (req, res, next) => {
 
-  const user = await User.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-  }, {
+  const query = {}
+
+  if (req.body.name) query.name = req.body.name
+  if (req.body.bio) query.body = req.body.bio
+  if (req.file) query.photo = req.file.filename
+
+  const user = await User.findByIdAndUpdate(req.params.id, query, {
     new: true,
     runValidators: true
   })

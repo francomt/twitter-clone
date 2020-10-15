@@ -27,6 +27,7 @@ export const fetchMe = () => {
 };
 
 export const fetchLogin = (body) => {
+  console.log('THIS IS BODY', body)
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/auth/login', body);

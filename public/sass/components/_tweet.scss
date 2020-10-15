@@ -16,8 +16,8 @@
     height: 5rem;
     min-width: 5rem;
     border-radius: 50%;
-    background-color: $color-primary;
     margin-right: 0.8rem;
+    object-fit: cover;
 
     &:hover {
       cursor: pointer;

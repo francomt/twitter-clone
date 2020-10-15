@@ -229,8 +229,8 @@ body {
     height: 5rem;
     min-width: 5rem;
     border-radius: 50%;
-    background-color: #1da1f2;
-    margin-right: 0.8rem; }
+    margin-right: 0.8rem;
+    object-fit: cover; }
     .tweet__profile-img:hover {
       cursor: pointer; }
     .tweet__profile-img--search {

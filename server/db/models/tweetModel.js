@@ -30,7 +30,7 @@ const tweetSchema = mongoose.Schema(
 
 //Runs on any find query
 tweetSchema.pre(/^find/, function (next) {
-  this.populate('user', 'email name username');
+  this.populate('user', 'email name username photo');
 
   next();
 });

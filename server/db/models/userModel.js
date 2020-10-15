@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema(
         message: "Username must be between 4-15 characters, can only contain letters and numbers, cannot contain consecutive _ or . at the beginning or end."
       }
     },
+    bio: {
+      type: String,
+      max: 150
+    },
+    photo: {
+      type: String,
+      default: "default.png"
+    },
     password: {
       type: String,
       required: [true, 'Please provide a password'],
@@ -40,9 +48,6 @@ const userSchema = new mongoose.Schema(
         },
         message: 'Passwords are not the same!',
       },
-    },
-    profilePicture: {
-      type: String,
     },
     privateAccount: {
       type: Boolean,
@@ -119,6 +124,7 @@ userSchema.pre(/^find/, function (next) {
 
 //Compares inputted password and instance password
 userSchema.methods.correctPassword = async function (inputtedPass, userPass) {
+
   return await bcrypt.compare(inputtedPass, userPass);
 };
 

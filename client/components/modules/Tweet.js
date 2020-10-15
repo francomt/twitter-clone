@@ -34,9 +34,9 @@ const Tweet = ({tweet, me, deleteTweet}) => {
     <div className="tweet">
         <div className="tweet__share"></div>
         <div className="tweet__container">
-            <div onClick={()=> {
+            <img src={`/img/users/${tweet.user.photo}`} onClick={()=> {
                 history.push(`/${tweet.user.username}`)
-            }} className="tweet__profile-img"></div>
+            }} className="tweet__profile-img" />
             <div className="content">
                 <div className="content__user">
                     <p onClick={()=> {

@@ -21,6 +21,8 @@ const createAndSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
+
+  console.log( 'COOKIE OPTIONS', cookieOptions)
   //Only secure in production
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
@@ -42,6 +44,8 @@ const createAndSendToken = (user, statusCode, res) => {
 //CREATE NEW USER BY SIGNUP AND ASSIGN JWT TOKEN
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, username, password, passwordConfirm } = req.body;
+
+  console.log(name, username, email, password, passwordConfirm)
 
   //Create user
   const newUser = await User.create({
@@ -77,7 +81,10 @@ exports.login = catchAsync(async (req, res, next) => {
   
 
   //Check if password is correct
-  if (!user || (await user.correctPassword(password, user.password))) {
+  
+  const correct = await user.correctPassword(password, user.password)
+
+  if (!user || !correct) {
     return next(new Error('Incorrect email or password'));
   }
 

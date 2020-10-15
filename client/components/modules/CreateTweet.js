@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import autosize from "autosize";
 import { fetchCreateTweet } from '../../store/tweets';
 
-const CreateTweet = ({handleSubmit}) => {
+const CreateTweet = ({handleSubmit, photo}) => {
 
   const textarea = useRef(null)
 
@@ -14,7 +14,7 @@ const CreateTweet = ({handleSubmit}) => {
 
   return (
           <>
-            <div className="tweet__profile-img"></div>
+            <img src={`/img/users/${photo}`} className="tweet__profile-img" />
             <div className="create-tweet">
                 <form onSubmit={handleSubmit}>
                     <textarea
