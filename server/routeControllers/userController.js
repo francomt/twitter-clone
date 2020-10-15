@@ -1,87 +1,81 @@
-const User = require('../db/models/userModel');
-const UserFollow = require('../db/models/userFollowModel');
-const factory = require('./factory');
-const catchAsync = require('../utilities/catchAsync');
-const APIFeatures = require('../utilities/apiFeatures');
-const multer = require('multer')
-const sharp = require('sharp');
-
-// const multerStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img/users')
-//   },
-//   filename: (req, file, cb) => {
-//     // user-userId-timestamp.jpeg
-//     const ext = file.mimetype.split('/')[1];
-//     cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
-//   }
-// })
+const User = require("../db/models/userModel");
+const UserFollow = require("../db/models/userFollowModel");
+const factory = require("./factory");
+const catchAsync = require("../utilities/catchAsync");
+const APIFeatures = require("../utilities/apiFeatures");
+const multer = require("multer");
+const sharp = require("sharp");
 
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true)
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
   } else {
-    cb(new Error("Not an image"), false)
+    cb(new Error("Not an image"), false);
   }
-}
+};
 
 const upload = multer({
   storage: multerStorage,
-  fileFilter: multerFilter
-})
+  fileFilter: multerFilter,
+});
 
-exports.uploadUserPhoto = upload.single('photo')
+exports.uploadUserPhoto = upload.single("photo");
 
 exports.resizeUserPhoto = (req, res, next) => {
-  if (!req.file) return next()
+  if (!req.file) return next();
 
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`
+  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  sharp(req.file.buffer).resize(500,500).toFormat('jpeg').jpeg({quality: 90}).toFile(`public/img/users/${req.file.filename}`)
+  sharp(req.file.buffer)
+    .resize(500, 500)
+    .toFormat("jpeg")
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/users/${req.file.filename}`);
 
-  next()
-}
+  next();
+};
 
 exports.getAllUsers = factory.getAll(User);
 
 exports.searchUsers = catchAsync(async (req, res, next) => {
-
-    const features = new APIFeatures(User.find().select("name username photo"), req.query)
+  const features = new APIFeatures(
+    User.find().select("name username photo"),
+    req.query
+  )
     .regexFilter()
     .sort()
-    .paginate()
+    .paginate();
 
-    const doc = await features.query
+  const doc = await features.query;
 
-    res.status(200).json({
-      status: "success",
-      results: doc.length,
-      data: {
-        users: doc
-      }
-    })
-})
+  res.status(200).json({
+    status: "success",
+    results: doc.length,
+    data: {
+      users: doc,
+    },
+  });
+});
 
 exports.getUser = catchAsync(async (req, res, next) => {
-
-  let query
+  let query;
 
   if (req.params.id.length <= 15) {
-    query = User.findOne({username: req.params.id})
+    query = User.findOne({ username: req.params.id });
   } else {
-    query = User.findById(req.params.id)
+    query = User.findById(req.params.id);
   }
 
   const user = await query
-    .populate('following', '-__v')
-    .populate('followers', '-__v');
+    .populate("following", "-__v")
+    .populate("followers", "-__v");
   if (!user)
     return next(new Error(`No User found with the ID: ${req.params.id}`));
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       user,
     },
@@ -95,7 +89,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
   //User1 wants to follow this user ex. User2
   const following = await User.findById(req.params.id); //User2
 
-  if (!following) next(new Error('Following account does not exist'));
+  if (!following) next(new Error("Following account does not exist"));
 
   //User1 is created as a follower
   const userFollower = await UserFollow.create({ user: currentUser.id });
@@ -116,7 +110,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
   await following.save();
 
   res.status(201).json({
-    status: 'success',
+    status: "success",
     data: {
       user: currentUser,
     },
@@ -129,28 +123,28 @@ exports.unfollowUser = catchAsync(async (req, res, next) => {
   await UserFollow.findByIdAndDelete(req.body.id);
 
   res.status(204).json({
-    status: 'success',
+    status: "success",
   });
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
+  const query = {};
 
-  const query = {}
+  if (req.body.name) query.name = req.body.name;
+  if (req.body.bio) query.bio = req.body.bio;
+  if (req.file) query.photo = req.file.filename;
 
-  if (req.body.name) query.name = req.body.name
-  if (req.body.bio) query.body = req.body.bio
-  if (req.file) query.photo = req.file.filename
+  console.log("QUERY", query);
 
   const user = await User.findByIdAndUpdate(req.params.id, query, {
     new: true,
-    runValidators: true
-  })
+    runValidators: true,
+  });
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
-      user
-    }
-  })
-
-})
+      user,
+    },
+  });
+});

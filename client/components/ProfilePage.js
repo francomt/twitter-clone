@@ -58,28 +58,54 @@ const ProfilePage = ({
         onScroll={handleScroll}
         className="profile-bottom-half style-scrollbars"
       >
-        <div className="profile-info-container">
-          <button
-            onClick={() => {
-              history.push("/profile");
-            }}
-            className="btn btn--outline"
-          >
-            Edit profile
-          </button>
-        </div>
-        <div className="profile-feed-container">
-          {tweets &&
-            tweets.map((tweet) => {
-              return (
-                <Tweet
-                  key={tweet.id}
-                  tweet={tweet}
-                  me={me}
-                  deleteTweet={deleteTweet}
-                />
-              );
-            })}
+        <div className="feed-middle">
+          <div className="profile-info-container">
+            <img
+              className="profile__coverImg"
+              src={`/img/users/${profile.coverImg}`}
+            />
+
+            <button
+              onClick={() => {
+                history.push("/profile");
+              }}
+              className="btn btn--outline profile__edit"
+            >
+              Edit profile
+            </button>
+
+            <img
+              className="profile__photo"
+              src={`/img/users/${profile.photo}`}
+            />
+
+            <h1 className="profile__name">{profile.name}</h1>
+            <p className="profile__username">@{profile.username}</p>
+
+            <p className="profile__bio">{profile.bio}</p>
+
+            <div className="profile__follow-follower">
+              <p className="follow-count-text util-margin-right-medium">
+                <span className="bold">32</span> Following
+              </p>
+              <p className="follow-count-text">
+                <span className="bold">78</span> Followers
+              </p>
+            </div>
+          </div>
+          <div className="profile-feed-container">
+            {tweets &&
+              tweets.map((tweet) => {
+                return (
+                  <Tweet
+                    key={tweet.id}
+                    tweet={tweet}
+                    me={me}
+                    deleteTweet={deleteTweet}
+                  />
+                );
+              })}
+          </div>
         </div>
       </div>
     </div>
