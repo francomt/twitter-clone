@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchDeleteTweet, fetchFeed } from '../store/tweets';
-import {CreateTweet, Tweet} from './modules/index'
-import {debounce} from 'lodash'
-import axios from 'axios'
+import {CreateTweet, Tweet} from './modules/index';
+import {debounce} from 'lodash';
+import axios from 'axios';
+import history from '../history';
 
 class FeedPage extends Component {
 
@@ -115,7 +116,9 @@ class FeedPage extends Component {
           <div className="search-results">
             {searchResults.length > 0 && searchResults.map(user => {
               return (
-                <div key={user.id} className="search-results__item">
+                <div onClick={()=>{
+                  history.push(`/${user.username}`)
+                }} key={user.id} className="search-results__item">
                   <div className="tweet__profile-img tweet__profile-img--search"></div>
                   <div className="search-results__user">
                     <p className="search-results__user-name">{user.name}</p>

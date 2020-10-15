@@ -1,4 +1,5 @@
 import React, {useRef} from 'react'
+import history from '../../history'
 
 const Tweet = ({tweet, me, deleteTweet}) => {
 
@@ -33,11 +34,17 @@ const Tweet = ({tweet, me, deleteTweet}) => {
     <div className="tweet">
         <div className="tweet__share"></div>
         <div className="tweet__container">
-            <div className="tweet__profile-img"></div>
+            <div onClick={()=> {
+                history.push(`/${tweet.user.username}`)
+            }} className="tweet__profile-img"></div>
             <div className="content">
                 <div className="content__user">
-                    <p className="content__name">{tweet.user.name}</p>
-                    <p className="content__username">@{tweet.user.username}</p>
+                    <p onClick={()=> {
+                        history.push(`/${tweet.user.username}`)
+                    }} className="content__name">{tweet.user.name}</p>
+                    <p onClick={()=> {
+                        history.push(`/${tweet.user.username}`)
+                    }} className="content__username">@{tweet.user.username}</p>
 
                     {/* Popup */}
                     {me.id === tweet.user.id && (<div className="tweet-popup-container">

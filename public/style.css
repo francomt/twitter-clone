@@ -219,7 +219,10 @@ body {
 .tweet {
   height: auto;
   padding: 1rem;
-  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1); }
+  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s; }
+  .tweet:hover {
+    background-color: #192734; }
   .tweet__container {
     display: flex; }
   .tweet__profile-img {
@@ -228,6 +231,8 @@ body {
     border-radius: 50%;
     background-color: #1da1f2;
     margin-right: 0.8rem; }
+    .tweet__profile-img:hover {
+      cursor: pointer; }
     .tweet__profile-img--search {
       min-height: 3.5rem;
       width: 3.5rem; }
@@ -237,15 +242,21 @@ body {
   .content__user {
     display: flex;
     width: 100%; }
+    .content__user:hover > .content__name {
+      text-decoration: underline; }
   .content__name {
     color: #fff;
     font-size: 1.5rem;
     font-weight: 500;
     margin-right: 0.5rem; }
+    .content__name:hover {
+      cursor: pointer; }
   .content__username {
     color: #8899a6;
     font-size: 1.5rem;
     font-weight: 300; }
+    .content__username:hover {
+      cursor: pointer; }
   .content__text {
     color: #fff;
     font-size: 1.5rem;
@@ -552,7 +563,9 @@ body {
   position: absolute;
   top: 107%;
   left: 2.5%;
-  background-color: red;
+  box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+  border-radius: 15px;
+  overflow: hidden;
   width: 95%;
   height: fit-content; }
   .search-results__item {
@@ -560,7 +573,10 @@ body {
     display: flex;
     align-items: center;
     height: 7rem;
-    background-color: #192734; }
+    background-color: #15202b; }
+    .search-results__item:hover {
+      cursor: pointer;
+      background-color: #192734; }
   .search-results__user {
     display: flex;
     flex-direction: column; }
