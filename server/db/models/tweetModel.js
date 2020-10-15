@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const tweetSchema = mongoose.Schema(
   {
     text: {
       type: String,
-      required: [true, 'A tweet must have a least 1 character'],
+      required: [true, "A tweet must have a least 1 character"],
       max: 280,
     },
     likes: {
@@ -13,9 +13,10 @@ const tweetSchema = mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: [true, 'Tweet must belong to a user'],
+      ref: "User",
+      required: [true, "Tweet must belong to a user"],
     },
+    userLikes: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
   },
   //This allows virtual properties to appear in output
   {
@@ -25,17 +26,18 @@ const tweetSchema = mongoose.Schema(
   }
 );
 
-
 //PRE-FIND MIDDLEWARE
 
 //Runs on any find query
 tweetSchema.pre(/^find/, function (next) {
-  this.populate('user', 'email name username photo');
+  this.populate("user", "name username photo").populate(
+    "userLikes",
+    "name username"
+  );
 
   next();
 });
 
-
-const Tweet = mongoose.model('Tweet', tweetSchema);
+const Tweet = mongoose.model("Tweet", tweetSchema);
 
 module.exports = Tweet;

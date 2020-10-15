@@ -78,6 +78,38 @@
       cursor: pointer;
     }
   }
+
+  &__shares {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    height: 2.5rem;
+  }
+
+  &__icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: transparent;
+    border-radius: 50%;
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba($color-red, $alpha: 0.15);
+    }
+
+    &:hover > .content__like {
+      fill: $color-red;
+    }
+  }
+
+  &__like {
+    fill: $color-font-dark;
+    height: 1.6rem;
+    width: 1.6rem;
+  }
 }
 
 .tweet-popup-container {

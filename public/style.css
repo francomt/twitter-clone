@@ -268,6 +268,28 @@ body {
     width: 1.5rem; }
     .content__popup:hover {
       cursor: pointer; }
+  .content__shares {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    height: 2.5rem; }
+  .content__icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: transparent;
+    border-radius: 50%; }
+    .content__icon-box:hover {
+      cursor: pointer;
+      background-color: rgba(224, 36, 94, 0.15); }
+    .content__icon-box:hover > .content__like {
+      fill: #e0245e; }
+  .content__like {
+    fill: #8899a6;
+    height: 1.6rem;
+    width: 1.6rem; }
 
 .tweet-popup-container {
   position: relative;
