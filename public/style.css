@@ -609,9 +609,42 @@ body {
   justify-content: center;
   align-items: center; }
 
+.edit-profile-photo-container {
+  position: relative; }
+
 .edit-profile {
   width: 40em; }
   .edit-profile__photo {
     height: 15rem;
     width: 15rem;
-    border-radius: 50%; }
+    border-radius: 50%;
+    filter: opacity(50%); }
+  .edit-profile__upload {
+    position: absolute;
+    color: transparent;
+    z-index: 50;
+    top: 38%;
+    left: 15%;
+    width: 3rem;
+    height: 3rem; }
+    .edit-profile__upload:hover {
+      cursor: pointer; }
+    .edit-profile__upload::-webkit-file-upload-button {
+      visibility: hidden; }
+    .edit-profile__upload__icon {
+      position: absolute;
+      z-index: 10;
+      top: 38%;
+      left: 15%;
+      fill: #fff;
+      height: 2.5rem;
+      width: 2.5rem; }
+    .edit-profile__upload::before {
+      display: inline-block;
+      background: linear-gradient(top, #f9f9f9, #e3e3e3);
+      padding: 1rem;
+      cursor: pointer;
+      color: #fff;
+      -webkit-user-select: none; }
+    .edit-profile__upload:focus {
+      outline: none; }

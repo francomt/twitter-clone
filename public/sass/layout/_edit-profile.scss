@@ -7,6 +7,10 @@
   align-items: center;
 }
 
+.edit-profile-photo-container {
+  position: relative;
+}
+
 .edit-profile {
   width: 40em;
 
@@ -14,5 +18,47 @@
     height: 15rem;
     width: 15rem;
     border-radius: 50%;
+    filter: opacity(50%);
+  }
+
+  &__upload {
+    position: absolute;
+    color: transparent;
+    z-index: 50;
+    top: 38%;
+    left: 15%;
+    width: 3rem;
+    height: 3rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    &__icon {
+      position: absolute;
+      z-index: 10;
+      top: 38%;
+      left: 15%;
+      fill: #fff;
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+
+    &::before {
+      display: inline-block;
+      background: linear-gradient(top, #f9f9f9, #e3e3e3);
+      padding: 1rem;
+      cursor: pointer;
+      color: $color-font;
+      -webkit-user-select: none;
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 }
