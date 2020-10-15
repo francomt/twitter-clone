@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { fetchUpdateMe } from "../store/auth";
 
 const EditProfilePage = ({ me, handleSubmit }) => {
+  const output = useRef(null);
+
+  const handleChange = (e) => {
+    output.current.src = URL.createObjectURL(e.target.files[0]);
+    output.current.onload = function () {
+      URL.revokeObjectURL(output.src);
+    };
+  };
+
   return (
     <div className="edit-profile-container">
       <form
@@ -19,8 +28,13 @@ const EditProfilePage = ({ me, handleSubmit }) => {
         className="edit-profile"
       >
         <div className="edit-profile-photo-container">
-          <img className="edit-profile__photo" src={`/img/users/${me.photo}`} />
+          <img
+            ref={output}
+            className="edit-profile__photo"
+            src={`/img/users/${me.photo}`}
+          />
           <input
+            onChange={handleChange}
             className="edit-profile__upload"
             type="file"
             accept="image/*"
