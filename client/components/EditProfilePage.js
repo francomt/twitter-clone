@@ -1,9 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import history from "../history";
 import { connect } from "react-redux";
 import { fetchUpdateMe } from "../store/auth";
+import { fetchUpdatePrev } from "../store/tweets";
 
-const EditProfilePage = ({ me, handleSubmit }) => {
+const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
   const output = useRef(null);
+
+  useEffect(() => {
+    updatePrev(history.location.pathname);
+  }, []);
 
   const handleChange = (e) => {
     output.current.src = URL.createObjectURL(e.target.files[0]);
@@ -85,6 +91,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit: (userId, body, username) => {
       dispatch(fetchUpdateMe(userId, body, username));
+    },
+    updatePrev: (path) => {
+      dispatch(fetchUpdatePrev(path));
     },
   };
 };
