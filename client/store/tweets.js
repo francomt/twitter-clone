@@ -6,6 +6,7 @@ const GET_FEED = "GET_FEED";
 const GET_PROFILE_FEED = "GET_PROFILE_FEED";
 const CREATE_TWEET = "CREATE_TWEET";
 const DELETE_TWEET = "DELETE_TWEET";
+const LIKE_TWEET = "LIKE_TWEET";
 const UPDATE_PREV = "UPDATE_PREV";
 
 const getFeed = (feed, prev) => ({ type: GET_FEED, feed, prev });
@@ -16,6 +17,7 @@ const createTweet = (tweet, pathname) => ({
   pathname,
 });
 const deleteTweet = (tweetId) => ({ type: DELETE_TWEET, tweetId });
+const likeTweet = (tweet) => ({ type: LIKE_TWEET, tweet });
 const updatePrev = (prev) => ({ type: UPDATE_PREV, prev });
 
 export const fetchFeed = (userId, page = 1) => {
@@ -66,6 +68,17 @@ export const fetchDeleteTweet = (tweetId) => {
   };
 };
 
+export const fetchLikeTweet = (tweetId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/tweets/like/${tweetId}`);
+      dispatch(likeTweet(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const fetchUpdatePrev = (path) => {
   return (dispatch) => {
     dispatch(updatePrev(path));
@@ -92,6 +105,7 @@ function tweetReducer(state = defaultState, action) {
       } else {
         return state;
       }
+
     case GET_PROFILE_FEED:
       if (action.feed.data) {
         if (action.prev !== state.prev) {
@@ -105,6 +119,7 @@ function tweetReducer(state = defaultState, action) {
       } else {
         return state;
       }
+
     case CREATE_TWEET:
       if (action.tweet.data) {
         if (action.pathname === "/home") {
@@ -118,11 +133,26 @@ function tweetReducer(state = defaultState, action) {
       } else {
         return state;
       }
+
     case DELETE_TWEET:
       const filtered = [...state.feed].filter((tweet) => {
         return tweet.id !== action.tweetId;
       });
       return { prev: state.prev, feed: filtered };
+
+    case LIKE_TWEET:
+      if (action.tweet.data) {
+        const updated = state.feed.map((tweet) => {
+          if (tweet.id === action.tweet.data.tweet.id)
+            return action.tweet.data.tweet;
+          else return tweet;
+        });
+
+        return { ...state, feed: updated };
+      } else {
+        return state;
+      }
+
     case UPDATE_PREV:
       return { prev: action.prev, feed: [] };
     default:

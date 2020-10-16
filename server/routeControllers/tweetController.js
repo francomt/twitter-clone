@@ -81,4 +81,47 @@ exports.createTweet = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.likeTweet = catchAsync(async (req, res, next) => {
+  let tweet = await Tweet.findById(req.params.tweetId);
+
+  tweet.userLikes.push(req.body.user);
+  tweet.likes++;
+  await tweet.save();
+
+  tweet = await tweet
+    .populate("userLikes", "name username photo")
+    .execPopulate();
+
+  tweet.following = undefined;
+  tweet.followers = undefined;
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      tweet,
+    },
+  });
+});
+
+exports.unlikeTweet = catchAsync(async (req, res, next) => {
+  const tweet = await Tweet.findByIdAndUpdate(
+    req.params.tweetId,
+    {
+      $pull: { userLikes: req.body.user },
+      $inc: { likes: -1 },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      tweet,
+    },
+  });
+});
+
 exports.deleteTweet = factory.deleteOne(Tweet);

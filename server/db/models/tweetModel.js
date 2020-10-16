@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const User = require("./userModel");
+const arrayUniquePlugin = require("mongoose-unique-array");
 
 const tweetSchema = mongoose.Schema(
   {
@@ -16,7 +18,7 @@ const tweetSchema = mongoose.Schema(
       ref: "User",
       required: [true, "Tweet must belong to a user"],
     },
-    userLikes: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
+    userLikes: [{ type: mongoose.Schema.ObjectId, ref: "User", unique: true }],
   },
   //This allows virtual properties to appear in output
   {
@@ -26,14 +28,21 @@ const tweetSchema = mongoose.Schema(
   }
 );
 
+tweetSchema.plugin(arrayUniquePlugin);
+
 //PRE-FIND MIDDLEWARE
 
 //Runs on any find query
 tweetSchema.pre(/^find/, function (next) {
-  this.populate("user", "name username photo").populate(
-    "userLikes",
-    "name username"
-  );
+  this.populate({
+    path: "user",
+    select: "name username photo",
+    model: User,
+  }).populate({
+    path: "userLikes",
+    select: "name username photo",
+    model: User,
+  });
 
   next();
 });
