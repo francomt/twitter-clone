@@ -3,6 +3,12 @@
   position: relative;
 }
 
+.searchbar-container-page {
+  width: 85%;
+  position: relative;
+  margin-left: 1.5rem;
+}
+
 .searchbar {
   height: 4rem;
   width: 100%;
@@ -32,6 +38,15 @@
     position: absolute;
     top: 23%;
     left: 5%;
+    fill: $color-font-dark;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &__icon-page {
+    position: absolute;
+    top: 23%;
+    left: 1.5rem;
     fill: $color-font-dark;
     height: 2rem;
     width: 2rem;

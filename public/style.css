@@ -155,6 +155,11 @@ body {
   width: 25rem;
   position: relative; }
 
+.searchbar-container-page {
+  width: 85%;
+  position: relative;
+  margin-left: 1.5rem; }
+
 .searchbar {
   height: 4rem;
   width: 100%;
@@ -177,6 +182,13 @@ body {
     position: absolute;
     top: 23%;
     left: 5%;
+    fill: #8899a6;
+    height: 2rem;
+    width: 2rem; }
+  .searchbar__icon-page {
+    position: absolute;
+    top: 23%;
+    left: 1.5rem;
     fill: #8899a6;
     height: 2rem;
     width: 2rem; }
@@ -861,6 +873,55 @@ body {
 .bold {
   font-weight: 600;
   color: #fff; }
+
+.search-page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #15202b; }
+
+.search-nav {
+  height: fit-content;
+  width: 100%;
+  border-bottom: solid 1.3px rgba(255, 255, 255, 0.1); }
+
+.search-top {
+  margin-top: 1rem;
+  display: flex; }
+
+.search-bottom {
+  margin-top: 1rem;
+  display: flex; }
+  .search-bottom__selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 6rem;
+    transition: all 0.2s;
+    color: #8899a6; }
+    .search-bottom__selection:hover {
+      background-color: rgba(29, 161, 242, 0.1); }
+  .search-bottom__selection-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 6rem;
+    transition: all 0.2s;
+    border-bottom: solid 2.5px #1da1f2;
+    color: #1da1f2; }
+    .search-bottom__selection-active:hover {
+      background-color: rgba(29, 161, 242, 0.1); }
+  .search-bottom__text {
+    font-size: 1.6rem;
+    color: currentColor; }
+
+.results-list-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto; }
 
 .edit-profile-container {
   background-color: #15202b;
