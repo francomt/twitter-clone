@@ -6,6 +6,7 @@ import {
   fetchUnlikeTweetSearch,
   fetchDeleteTweetSearch,
   fetchTweetSwitch,
+  fetchSearchUsers,
 } from "../store/results";
 import { fetchUpdatePrev } from "../store/tweets";
 import Tweet from "./modules/Tweet";
@@ -36,8 +37,47 @@ const DisplayFeed = ({
         })}
       </>
     );
-  } else if (type === "people") {
-    return <div>PEOPLE</div>;
+  } else if (type === "people" && results.users && results.users.length > 0) {
+    return (
+      <>
+        {results.users.map((user) => {
+          return (
+            <div key={user.id} className="tweet">
+              <div className="tweet__container">
+                <img
+                  src={`/img/users/${user.photo}`}
+                  onClick={() => {
+                    history.push(`/${user.username}`);
+                  }}
+                  className="tweet__profile-img"
+                />
+                <div className="content">
+                  <div className="content__user">
+                    <p
+                      onClick={() => {
+                        history.push(`/${user.username}`);
+                      }}
+                      className="content__name"
+                    >
+                      {user.name}
+                    </p>
+                    <p
+                      onClick={() => {
+                        history.push(`/${user.username}`);
+                      }}
+                      className="content__username"
+                    >
+                      @{user.username}
+                    </p>
+                  </div>
+                  <p className="content__text">{user.bio}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </>
+    );
   } else {
     return <div>NO RESULTS</div>;
   }
@@ -53,6 +93,7 @@ const SearchPage = ({
   deleteTweet,
   updatePrev,
   tweetSwitch,
+  searchUsers,
 }) => {
   //query
   const [query, setQuery] = useState("");
@@ -82,7 +123,7 @@ const SearchPage = ({
     if (t === "latest") {
       searchTweets(q, page);
     } else if (t === "people") {
-      console.log("SEARCH FOR PEOPLE");
+      searchUsers(q, page);
     }
     updatePrev(history.location.pathname);
   }, []);
@@ -93,7 +134,9 @@ const SearchPage = ({
         searchTweets(query, page);
       }
     } else if (type === "people") {
-      console.log("SEARCH FOR PEOPLE");
+      if (page !== 1) {
+        searchUsers(query, page);
+      }
     }
   }, [page]);
 
@@ -111,10 +154,17 @@ const SearchPage = ({
 
     if (fetch && scrollHeight - scrollTop === clientHeight) {
       setPage((prev) => prev + 1);
-      setLength((prev) => {
-        if (prev === results.tweets.length) setFetch(false);
-        return results.tweets.length;
-      });
+      if (type === "latest") {
+        setLength((prev) => {
+          if (prev === results.tweets.length) setFetch(false);
+          return results.tweets.length;
+        });
+      } else if (type === "people") {
+        setLength((prev) => {
+          if (prev === results.users.length) setFetch(false);
+          return results.users.length;
+        });
+      }
     }
   };
 
@@ -213,6 +263,7 @@ const mapDispatch = (dispatch) => {
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweetSearch(tweetId)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweetSearch(tweetId)),
     tweetSwitch: (query) => dispatch(fetchTweetSwitch(query)),
+    searchUsers: (query, page) => dispatch(fetchSearchUsers(query, page)),
     updatePrev: (path) => {
       dispatch(fetchUpdatePrev(path));
     },

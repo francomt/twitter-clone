@@ -55,7 +55,7 @@ exports.getAllUsers = factory.getAll(User);
 
 exports.searchUsers = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(
-    User.find().select("name username photo"),
+    User.find().select("name username photo bio"),
     req.query
   )
     .regexFilter()

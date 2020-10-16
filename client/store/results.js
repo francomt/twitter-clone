@@ -1,11 +1,10 @@
 import axios from "axios";
 import history from "../history";
 
-//ACTION TYPES
+//ACTION TYPES TWEETS
 const SEARCH_TWEETS = "SEARCH_TWEETS";
 const LIKE_TWEET_SEARCH = "LIKE_TWEET_SEARCH";
 const DELETE_TWEET_SEARCH = "DELETE_TWEET_SEARCH";
-
 const TWEET_SWITCH = "TWEET_SWITCH";
 
 const searchTweets = (tweets, prev) => ({ type: SEARCH_TWEETS, tweets, prev });
@@ -17,7 +16,7 @@ export const fetchSearchTweets = (query, page = 1) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `/api/tweets/search?text=${query}&page=${page}&limit=8`
+        `/api/tweets/search?text=${query}&page=${page}&limit=25`
       );
       dispatch(searchTweets(data, history.location.search));
     } catch (error) {
@@ -78,6 +77,24 @@ export const fetchUpdatePrev = (path) => {
   };
 };
 
+//ACTION TYPES USERS
+const SEARCH_USERS = "SEARCH_USERS";
+
+const searchUsers = (users, prev) => ({ type: SEARCH_USERS, users, prev });
+
+export const fetchSearchUsers = (query, page = 1) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `/api/users/search?username=${query}&page=${page}&limit=25`
+      );
+      dispatch(searchUsers(data, history.location.search));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 const defaultState = {
   prev: "",
   tweets: [],
@@ -133,6 +150,26 @@ function searchReducer(state = defaultState, action) {
         return tweet.id !== action.tweetId;
       });
       return { ...state, tweets: filtered };
+
+    //USERS //////////////////////////////
+    case SEARCH_USERS:
+      if (action.users.data) {
+        if (action.prev !== state.prev) {
+          return {
+            prev: action.prev,
+            users: [...action.users.data.users],
+            tweets: [...state.tweets],
+          };
+        } else {
+          return {
+            prev: action.prev,
+            users: [...state.users, ...action.users.data.users],
+            tweets: [...state.tweets],
+          };
+        }
+      } else {
+        return state;
+      }
 
     default:
       return state;
