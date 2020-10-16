@@ -5,6 +5,7 @@ import {
   fetchDeleteTweet,
   fetchLikeTweet,
   fetchProfileFeed,
+  fetchUnlikeTweet,
 } from "../store/tweets";
 import { fetchProfile } from "../store/profile";
 import history from "../history";
@@ -17,6 +18,7 @@ const ProfilePage = ({
   me,
   deleteTweet,
   likeTweet,
+  unlikeTweet,
 }) => {
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
@@ -116,6 +118,7 @@ const ProfilePage = ({
                     me={me}
                     deleteTweet={deleteTweet}
                     likeTweet={likeTweet}
+                    unlikeTweet={unlikeTweet}
                   />
                 );
               })}
@@ -141,6 +144,7 @@ const mapDispatch = (dispatch, ownProps) => {
     getTweets: (page) => dispatch(fetchProfileFeed(username, page)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
+    unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
   };
 };
 

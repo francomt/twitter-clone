@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchDeleteTweet, fetchLikeTweet, fetchFeed } from "../store/tweets";
+import {
+  fetchDeleteTweet,
+  fetchLikeTweet,
+  fetchUnlikeTweet,
+  fetchFeed,
+} from "../store/tweets";
 import { CreateTweet, Tweet } from "./modules/index";
 import { debounce } from "lodash";
 import axios from "axios";
@@ -97,7 +102,14 @@ class FeedPage extends Component {
   }, 350);
 
   render() {
-    const { location, feed, me, deleteTweet, likeTweet } = this.props;
+    const {
+      location,
+      feed,
+      me,
+      deleteTweet,
+      likeTweet,
+      unlikeTweet,
+    } = this.props;
 
     const searchResults = this.state.results;
 
@@ -163,6 +175,7 @@ class FeedPage extends Component {
                       me={me}
                       deleteTweet={deleteTweet}
                       likeTweet={likeTweet}
+                      unlikeTweet={unlikeTweet}
                     />
                   );
                 })}
@@ -187,6 +200,7 @@ const mapDispatch = (dispatch) => {
     getFeed: (userId, page) => dispatch(fetchFeed(userId, page)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
+    unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
   };
 };
 

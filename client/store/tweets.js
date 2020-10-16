@@ -79,6 +79,17 @@ export const fetchLikeTweet = (tweetId) => {
   };
 };
 
+export const fetchUnlikeTweet = (tweetId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/tweets/unlike/${tweetId}`);
+      dispatch(likeTweet(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const fetchUpdatePrev = (path) => {
   return (dispatch) => {
     dispatch(updatePrev(path));

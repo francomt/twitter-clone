@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import history from "../../history";
 
-const Tweet = ({ tweet, me, deleteTweet, likeTweet }) => {
+const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
   const liked = tweet.userLikes.some((user) => {
     return user.id === me.id;
   });
@@ -137,7 +137,7 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet }) => {
               <div
                 className="content__like-container"
                 onClick={() => {
-                  console.log("CLICKED");
+                  unlikeTweet(tweet.id);
                 }}
               >
                 <div className="content__icon-box">
