@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import history from "../../history";
+import tweetImagePreview from "./tweetImagePreviews";
 
 const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
   const liked = tweet.userLikes.some((user) => {
@@ -132,6 +133,13 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
             </div>
           </div>
           <p className="content__text">{tweet.text}</p>
+          {tweet.images.length ? (
+            <div className="pictures-container">
+              {tweetImagePreview(tweet.images)}
+            </div>
+          ) : (
+            ""
+          )}
           <div className="content__shares">
             {liked ? (
               <div

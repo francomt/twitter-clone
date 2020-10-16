@@ -163,7 +163,7 @@ class FeedPage extends Component {
         >
           <div className="feed-middle">
             <div className="create-tweet-container">
-              <CreateTweet location={location} photo={me.photo} />
+              <CreateTweet location={location} photo={me.photo} user={me.id} />
             </div>
             <div className="feed-container">
               {feed &&

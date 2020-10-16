@@ -212,13 +212,127 @@ body {
     height: 3rem;
     padding-top: 3.5rem; }
   .create-tweet__icon {
+    margin-left: 0.2rem;
+    margin-top: 0.2rem;
     height: 2.5rem;
     width: 2.5rem;
     fill: #1da1f2; }
 
+.create-form-container {
+  display: flex;
+  flex-direction: column; }
+
+.create-tweet-photos-container {
+  position: relative;
+  margin-top: 1.5rem;
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 100%; }
+  .create-tweet-photos-container::after {
+    content: "";
+    display: block;
+    padding-top: 60%; }
+
+.create-tweet-image-icon-container {
+  position: relative; }
+
+.create-tweet-input {
+  position: absolute;
+  color: transparent;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  height: 3rem; }
+  .create-tweet-input:hover {
+    cursor: pointer; }
+  .create-tweet-input::-webkit-file-upload-button {
+    visibility: hidden; }
+  .create-tweet-input:focus {
+    outline: none; }
+
+.tweet-photo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; }
+
+.tweet-photo-2-first {
+  position: absolute;
+  width: 49%;
+  border-radius: 15px;
+  height: 100%;
+  object-fit: cover; }
+
+.tweet-photo-2-second {
+  position: absolute;
+  right: 0;
+  border-radius: 15px;
+  width: 49%;
+  height: 100%;
+  object-fit: cover; }
+
+.tweet-photo-3-first {
+  position: absolute;
+  width: 49%;
+  border-radius: 15px;
+  height: 100%;
+  object-fit: cover; }
+
+.tweet-photo-3-second {
+  position: absolute;
+  right: 0;
+  border-radius: 15px;
+  width: 49%;
+  height: 48.5%;
+  object-fit: cover; }
+
+.tweet-photo-3-third {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  width: 49%;
+  height: 48.5%;
+  object-fit: cover; }
+
+.tweet-photo-4-first {
+  position: absolute;
+  width: 49%;
+  border-radius: 15px;
+  height: 48.5%;
+  object-fit: cover; }
+
+.tweet-photo-4-second {
+  position: absolute;
+  right: 0;
+  border-radius: 15px;
+  width: 49%;
+  height: 48.5%;
+  object-fit: cover; }
+
+.tweet-photo-4-third {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  width: 49%;
+  height: 48.5%;
+  object-fit: cover; }
+
+.tweet-photo-4-fourth {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-radius: 15px;
+  width: 49%;
+  height: 48.5%;
+  object-fit: cover; }
+
 .tweet {
   height: auto;
   padding: 1rem;
+  padding-right: 2rem;
   border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
   transition: all 0.2s; }
   .tweet:hover {
@@ -394,6 +508,17 @@ body {
     display: flex;
     justify-content: space-evenly;
     width: 100%; }
+
+.pictures-container {
+  position: relative;
+  margin-top: 1.5rem;
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 100%; }
+  .pictures-container::after {
+    content: "";
+    display: block;
+    padding-top: 60%; }
 
 .route-container {
   display: flex;

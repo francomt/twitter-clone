@@ -163,8 +163,6 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   if (req.body.photo !== "undefined") query.photo = req.body.photo;
   if (req.body.coverImg !== "undefined") query.coverImg = req.body.coverImg;
 
-  console.log("THIS IS QUERY", query);
-
   const user = await User.findByIdAndUpdate(req.params.id, query, {
     new: true,
     runValidators: true,

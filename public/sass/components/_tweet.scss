@@ -1,6 +1,7 @@
 .tweet {
   height: auto;
   padding: 1rem;
+  padding-right: 2rem;
   border-bottom: $border-main;
   transition: all 0.2s;
 
@@ -243,5 +244,19 @@
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+  }
+}
+
+.pictures-container {
+  position: relative;
+  margin-top: 1.5rem;
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 100%;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-top: 60%;
   }
 }
