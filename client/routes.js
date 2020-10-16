@@ -8,6 +8,8 @@ import {
   SignupPage,
   LoginPage,
   EditProfilePage,
+  SearchPage,
+  ExplorePage,
 } from "./components";
 import { fetchMe, fetchLogout } from "./store/auth";
 import { navIcons } from "./components/modules/Svgs";
@@ -49,6 +51,9 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
       <Redirect from="/i/signup" to="/home" />
       <Route path="/home" component={FeedPage} />
       <Route exact path="/profile" component={EditProfilePage} />
+      <Route exact path="/explore" component={ExplorePage} />
+      {/* <Redirect from="/search" to="/explore" /> */}
+      <Route path="/search" component={SearchPage} />
       <Route path="/:username" component={ProfilePage} />
       <Redirect from="/" to="/home" />
     </Switch>

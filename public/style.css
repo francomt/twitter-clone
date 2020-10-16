@@ -526,7 +526,8 @@ body {
 
 .logo-nav {
   height: 3.5rem;
-  fill: #fff; }
+  fill: #fff;
+  margin-left: 1rem; }
 
 .nav {
   display: flex;
@@ -755,6 +756,17 @@ body {
     height: 7rem;
     background-color: #15202b; }
     .search-results__item:hover {
+      cursor: pointer;
+      background-color: #192734; }
+  .search-results__item-query {
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    height: 7rem;
+    background-color: #15202b; }
+    .search-results__item-query:hover {
       cursor: pointer;
       background-color: #192734; }
   .search-results__user {
