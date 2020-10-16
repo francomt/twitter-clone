@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Tweet } from "./modules/index";
-import { fetchDeleteTweet, fetchProfileFeed } from "../store/tweets";
+import {
+  fetchDeleteTweet,
+  fetchLikeTweet,
+  fetchProfileFeed,
+} from "../store/tweets";
 import { fetchProfile } from "../store/profile";
 import history from "../history";
 
@@ -12,6 +16,7 @@ const ProfilePage = ({
   tweets,
   me,
   deleteTweet,
+  likeTweet,
 }) => {
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
@@ -110,6 +115,7 @@ const ProfilePage = ({
                     tweet={tweet}
                     me={me}
                     deleteTweet={deleteTweet}
+                    likeTweet={likeTweet}
                   />
                 );
               })}
@@ -134,6 +140,7 @@ const mapDispatch = (dispatch, ownProps) => {
     getProfile: () => dispatch(fetchProfile(username)),
     getTweets: (page) => dispatch(fetchProfileFeed(username, page)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
+    likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
   };
 };
 
