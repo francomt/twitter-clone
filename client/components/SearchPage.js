@@ -5,6 +5,7 @@ import {
   fetchSearchTweets,
   fetchUnlikeTweetSearch,
   fetchDeleteTweetSearch,
+  fetchTweetSwitch,
 } from "../store/results";
 import { fetchUpdatePrev } from "../store/tweets";
 import Tweet from "./modules/Tweet";
@@ -51,6 +52,7 @@ const SearchPage = ({
   unlikeTweet,
   deleteTweet,
   updatePrev,
+  tweetSwitch,
 }) => {
   //query
   const [query, setQuery] = useState("");
@@ -98,8 +100,9 @@ const SearchPage = ({
   useEffect(() => {
     if (type === "people") {
       history.push(`/search?q=${query}&t=people`);
-    } else {
+    } else if (type === "latest") {
       history.push(`/search?q=${query}`);
+      tweetSwitch(query);
     }
   }, [type]);
 
@@ -209,6 +212,7 @@ const mapDispatch = (dispatch) => {
     likeTweet: (tweetId) => dispatch(fetchLikeTweetSearch(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweetSearch(tweetId)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweetSearch(tweetId)),
+    tweetSwitch: (query) => dispatch(fetchTweetSwitch(query)),
     updatePrev: (path) => {
       dispatch(fetchUpdatePrev(path));
     },
