@@ -6,7 +6,7 @@ const SEARCH_TWEETS = "SEARCH_TWEETS";
 const LIKE_TWEET_SEARCH = "LIKE_TWEET_SEARCH";
 const DELETE_TWEET_SEARCH = "DELETE_TWEET_SEARCH";
 
-const searchTweets = (tweets) => ({ type: SEARCH_TWEETS, tweets });
+const searchTweets = (tweets, prev) => ({ type: SEARCH_TWEETS, tweets, prev });
 const likeTweet = (tweet) => ({ type: LIKE_TWEET_SEARCH, tweet });
 const deleteTweet = (tweetId) => ({ type: DELETE_TWEET_SEARCH, tweetId });
 
@@ -14,9 +14,9 @@ export const fetchSearchTweets = (query, page = 1) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `/api/tweets/search?text=${query}&page=${page}&limit=30`
+        `/api/tweets/search?text=${query}&page=${page}&limit=8`
       );
-      dispatch(searchTweets(data));
+      dispatch(searchTweets(data, history.location.search));
     } catch (error) {
       console.error(error);
     }
@@ -72,7 +72,19 @@ function searchReducer(state = defaultState, action) {
   switch (action.type) {
     case SEARCH_TWEETS:
       if (action.tweets.data) {
-        return { ...state, tweets: [...action.tweets.data.tweets] };
+        if (action.prev !== state.prev) {
+          return {
+            prev: action.prev,
+            users: [...state.users],
+            tweets: [...action.tweets.data.tweets],
+          };
+        } else {
+          return {
+            prev: action.prev,
+            users: [...state.users],
+            tweets: [...state.tweets, ...action.tweets.data.tweets],
+          };
+        }
       } else {
         return state;
       }

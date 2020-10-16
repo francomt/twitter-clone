@@ -901,6 +901,7 @@ body {
     transition: all 0.2s;
     color: #8899a6; }
     .search-bottom__selection:hover {
+      cursor: pointer;
       background-color: rgba(29, 161, 242, 0.1); }
   .search-bottom__selection-active {
     display: flex;
@@ -912,6 +913,7 @@ body {
     border-bottom: solid 2.5px #1da1f2;
     color: #1da1f2; }
     .search-bottom__selection-active:hover {
+      cursor: pointer;
       background-color: rgba(29, 161, 242, 0.1); }
   .search-bottom__text {
     font-size: 1.6rem;

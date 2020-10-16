@@ -10,6 +10,38 @@ import { fetchUpdatePrev } from "../store/tweets";
 import Tweet from "./modules/Tweet";
 import history from "../history";
 
+const DisplayFeed = ({
+  type,
+  results,
+  me,
+  likeTweet,
+  unlikeTweet,
+  deleteTweet,
+}) => {
+  if (type === "latest" && results.tweets && results.tweets.length > 0) {
+    return (
+      <>
+        {results.tweets.map((tweet) => {
+          return (
+            <Tweet
+              key={tweet.id}
+              me={me}
+              tweet={tweet}
+              likeTweet={likeTweet}
+              unlikeTweet={unlikeTweet}
+              deleteTweet={deleteTweet}
+            />
+          );
+        })}
+      </>
+    );
+  } else if (type === "people") {
+    return <div>PEOPLE</div>;
+  } else {
+    return <div>NO RESULTS</div>;
+  }
+};
+
 const SearchPage = ({
   location,
   results,
@@ -20,9 +52,15 @@ const SearchPage = ({
   deleteTweet,
   updatePrev,
 }) => {
+  //query
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
   const [input, setInput] = useState("");
+
+  //pagination
+  const [page, setPage] = useState(1);
+  const [fetch, setFetch] = useState(true);
+  const [length, setLength] = useState(0);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -32,14 +70,50 @@ const SearchPage = ({
     if (!q) return history.push("/explore");
 
     //query type
-    const t = params.get("t");
+    const type = params.get("t");
+
+    const t = type ? type : "latest";
 
     setQuery(q);
-    setType(t ? t : "latest");
+    setType(t);
 
-    searchTweets(q);
+    if (t === "latest") {
+      searchTweets(q, page);
+    } else if (t === "people") {
+      console.log("SEARCH FOR PEOPLE");
+    }
     updatePrev(history.location.pathname);
   }, []);
+
+  useEffect(() => {
+    if (type === "latest") {
+      if (page !== 1) {
+        searchTweets(query, page);
+      }
+    } else if (type === "people") {
+      console.log("SEARCH FOR PEOPLE");
+    }
+  }, [page]);
+
+  useEffect(() => {
+    if (type === "people") {
+      history.push(`/search?q=${query}&t=people`);
+    } else {
+      history.push(`/search?q=${query}`);
+    }
+  }, [type]);
+
+  const handleScroll = (e) => {
+    const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+
+    if (fetch && scrollHeight - scrollTop === clientHeight) {
+      setPage((prev) => prev + 1);
+      setLength((prev) => {
+        if (prev === results.tweets.length) setFetch(false);
+        return results.tweets.length;
+      });
+    }
+  };
 
   return (
     <div className="search-page-container">
@@ -73,6 +147,12 @@ const SearchPage = ({
           </div>
           <div className="search-bottom">
             <div
+              onClick={() => {
+                setPage(1);
+                setLength(0);
+                setFetch(true);
+                setType("latest");
+              }}
               className={
                 type === "latest"
                   ? "search-bottom__selection-active"
@@ -82,6 +162,12 @@ const SearchPage = ({
               <p className="search-bottom__text">Latest</p>
             </div>
             <div
+              onClick={() => {
+                setPage(1);
+                setFetch(true);
+                setLength(0);
+                setType("people");
+              }}
               className={
                 type === "people"
                   ? "search-bottom__selection-active"
@@ -92,20 +178,18 @@ const SearchPage = ({
             </div>
           </div>
         </nav>
-        <div className="results-list-container style-scrollbars">
-          {results.tweets.length > 0 &&
-            results.tweets.map((tweet) => {
-              return (
-                <Tweet
-                  key={tweet.id}
-                  me={me}
-                  tweet={tweet}
-                  likeTweet={likeTweet}
-                  unlikeTweet={unlikeTweet}
-                  deleteTweet={deleteTweet}
-                />
-              );
-            })}
+        <div
+          onScroll={handleScroll}
+          className="results-list-container style-scrollbars"
+        >
+          <DisplayFeed
+            type={type}
+            me={me}
+            results={results}
+            likeTweet={likeTweet}
+            unlikeTweet={unlikeTweet}
+            deleteTweet={deleteTweet}
+          />
         </div>
       </div>
     </div>
@@ -121,7 +205,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    searchTweets: (query) => dispatch(fetchSearchTweets(query)),
+    searchTweets: (query, page) => dispatch(fetchSearchTweets(query, page)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweetSearch(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweetSearch(tweetId)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweetSearch(tweetId)),
