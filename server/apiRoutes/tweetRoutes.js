@@ -15,6 +15,8 @@ router.post(
   tweetController.createTweet
 );
 
+router.get("/search", tweetController.searchTweets);
+
 router.get("/:id", tweetController.getTweet);
 router.delete("/:id", tweetController.deleteTweet);
 

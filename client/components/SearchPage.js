@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { fetchSearchTweets } from "../store/results";
 import history from "../history";
 
-const SearchPage = ({ location }) => {
+const SearchPage = ({ location, results, searchTweets }) => {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
   const [input, setInput] = useState("");
@@ -17,9 +19,23 @@ const SearchPage = ({ location }) => {
 
     setQuery(q);
     setType(t ? t : "tweet");
-  });
 
-  return <div>SEARCHING!</div>;
+    searchTweets(q);
+  }, []);
+
+  return <div className="search-page-container"></div>;
 };
 
-export default SearchPage;
+const mapState = (state) => {
+  return {
+    results: state.searchReducer,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    searchTweets: (query) => dispatch(fetchSearchTweets(query)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(SearchPage);

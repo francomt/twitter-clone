@@ -61,6 +61,23 @@ exports.setTweetUser = (req, res, next) => {
   next();
 };
 
+exports.searchTweets = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Tweet.find(), req.query)
+    .regexFilter()
+    .sort()
+    .paginate();
+
+  const tweets = await features.query;
+
+  res.status(200).json({
+    status: "success",
+    results: tweets.length,
+    data: {
+      tweets,
+    },
+  });
+});
+
 exports.getAllTweets = catchAsync(async (req, res, next) => {
   let baseQuery = Tweet.find();
 

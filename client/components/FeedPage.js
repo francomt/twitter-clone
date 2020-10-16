@@ -63,10 +63,8 @@ class FeedPage extends Component {
     }
   }
 
-  async fetchResults(updatedPageNum = "", query) {
-    const pageNum = updatedPageNum ? `&page=${updatedPageNum}` : "";
-
-    const url = `/api/users/search?username=${query}&page=${pageNum}&limit=4`;
+  async fetchResults(updatedPageNum = "1", query) {
+    const url = `/api/users/search?username=${query}&page=1&limit=4`;
 
     if (this.cancel) {
       //cancel previous request before making a new request
@@ -153,7 +151,12 @@ class FeedPage extends Component {
             </form>
             <div className="search-results">
               {this.state.query.length > 0 && (
-                <div className="search-results__item-query">
+                <div
+                  onClick={() => {
+                    history.push(`/search?q=${this.state.input}`);
+                  }}
+                  className="search-results__item-query"
+                >
                   Search for "{this.state.query}"
                 </div>
               )}

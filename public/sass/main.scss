@@ -1,21 +1,22 @@
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
+@import "abstracts/variables";
+@import "abstracts/mixins";
 
-@import 'base/base';
-@import 'base/animations';
-@import 'base/utilities';
+@import "base/base";
+@import "base/animations";
+@import "base/utilities";
 
-@import 'components/button';
-@import 'components/input';
-@import 'components/searchbar';
-@import 'components/create-tweet';
-@import 'components/tweet';
+@import "components/button";
+@import "components/input";
+@import "components/searchbar";
+@import "components/create-tweet";
+@import "components/tweet";
 
-@import 'layout/nav';
-@import 'layout/main';
-@import 'layout/landing';
-@import 'layout/signup';
-@import 'layout/login';
-@import 'layout/feed';
-@import 'layout/profile';
-@import 'layout/edit-profile';
+@import "layout/nav";
+@import "layout/main";
+@import "layout/landing";
+@import "layout/signup";
+@import "layout/login";
+@import "layout/feed";
+@import "layout/profile";
+@import "layout/search";
+@import "layout/edit-profile";

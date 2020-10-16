@@ -52,7 +52,6 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
       <Route path="/home" component={FeedPage} />
       <Route exact path="/profile" component={EditProfilePage} />
       <Route exact path="/explore" component={ExplorePage} />
-      {/* <Redirect from="/search" to="/explore" /> */}
       <Route path="/search" component={SearchPage} />
       <Route path="/:username" component={ProfilePage} />
       <Redirect from="/" to="/home" />
