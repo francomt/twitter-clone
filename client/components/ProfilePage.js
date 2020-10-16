@@ -69,7 +69,7 @@ const ProfilePage = ({
           <div className="profile-info-container">
             <img
               className="profile__coverImg"
-              src={`/img/users/${profile.coverImg}`}
+              src={`/img/cover/${profile.coverImg}`}
             />
 
             <div className="profile__follow-edit">

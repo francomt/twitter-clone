@@ -46,7 +46,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
       .resize(1000, 500)
       .toFormat("jpeg")
       .jpeg({ quality: 90 })
-      .toFile(`public/img/users/${req.body.coverImg}`);
+      .toFile(`public/img/cover/${req.body.coverImg}`);
   }
   next();
 });
@@ -160,8 +160,10 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 
   if (req.body.name) query.name = req.body.name;
   if (req.body.bio) query.bio = req.body.bio;
-  if (req.body.photo) query.photo = req.body.photo;
-  if (req.body.coverImg) query.coverImg = req.body.coverImg;
+  if (req.body.photo !== "undefined") query.photo = req.body.photo;
+  if (req.body.coverImg !== "undefined") query.coverImg = req.body.coverImg;
+
+  console.log("THIS IS QUERY", query);
 
   const user = await User.findByIdAndUpdate(req.params.id, query, {
     new: true,

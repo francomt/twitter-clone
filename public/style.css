@@ -737,19 +737,71 @@ body {
   position: relative; }
 
 .edit-profile {
-  width: 40em; }
-  .edit-profile__photo {
+  width: 50em;
+  height: 55rem;
+  background-color: #15202b;
+  border: solid 8px #192734;
+  border-radius: 20px;
+  overflow: hidden; }
+  .edit-profile__coverImg-container {
+    width: 100%;
+    height: 17rem;
+    margin-bottom: 8rem; }
+  .edit-profile__coverImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(55%); }
+  .edit-profile__photo-container {
+    margin-left: 1rem;
+    position: absolute;
     height: 15rem;
     width: 15rem;
+    top: 9rem;
+    left: 0;
     border-radius: 50%;
-    filter: opacity(50%);
+    border: solid 5px #15202b; }
+  .edit-profile__photo {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    filter: brightness(55%);
     object-fit: cover; }
+  .edit-profile__upload-cover {
+    position: absolute;
+    color: transparent;
+    z-index: 50;
+    top: 43%;
+    left: 45.5%;
+    width: 3rem;
+    height: 3rem; }
+    .edit-profile__upload-cover:hover {
+      cursor: pointer; }
+    .edit-profile__upload-cover::-webkit-file-upload-button {
+      visibility: hidden; }
+    .edit-profile__upload-cover__icon-cover {
+      position: absolute;
+      z-index: 10;
+      top: 43%;
+      left: 45.5%;
+      fill: #fff;
+      height: 2.5rem;
+      width: 2.5rem; }
+    .edit-profile__upload-cover::before {
+      display: inline-block;
+      background: linear-gradient(top, #f9f9f9, #e3e3e3);
+      padding: 1rem;
+      cursor: pointer;
+      color: #fff;
+      -webkit-user-select: none; }
+    .edit-profile__upload-cover:focus {
+      outline: none; }
   .edit-profile__upload {
     position: absolute;
     color: transparent;
     z-index: 50;
-    top: 37%;
-    left: 17%;
+    top: 41%;
+    left: 41%;
     width: 3rem;
     height: 3rem; }
     .edit-profile__upload:hover {
@@ -759,8 +811,8 @@ body {
     .edit-profile__upload__icon {
       position: absolute;
       z-index: 10;
-      top: 38%;
-      left: 15%;
+      top: 41%;
+      left: 41%;
       fill: #fff;
       height: 2.5rem;
       width: 2.5rem; }
