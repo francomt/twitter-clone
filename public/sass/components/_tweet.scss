@@ -116,12 +116,24 @@
   }
 
   &__like {
+    fill: $color-red;
+    height: 1.6rem;
+    width: 1.6rem;
+  }
+
+  &__not-liked {
     fill: $color-font-dark;
     height: 1.6rem;
     width: 1.6rem;
   }
 
   &__like-num {
+    color: $color-red;
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  &__not-like-num {
     color: $color-font-dark;
     font-size: 1.5rem;
     font-weight: 300;
