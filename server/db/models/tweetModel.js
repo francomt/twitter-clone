@@ -18,6 +18,7 @@ const tweetSchema = mongoose.Schema(
       ref: "User",
       required: [true, "Tweet must belong to a user"],
     },
+    images: [String],
     userLikes: [{ type: mongoose.Schema.ObjectId, ref: "User", unique: true }],
   },
   //This allows virtual properties to appear in output

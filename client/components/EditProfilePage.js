@@ -27,7 +27,9 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
           const form = new FormData();
           form.append("name", e.target.name.value);
           form.append("bio", e.target.bio.value);
-          form.append("photo", e.target.photo.files[0]);
+          if (e.target.photo.files) {
+            form.append("photo", e.target.photo.files[0]);
+          }
 
           handleSubmit(me.id, form, me.username);
         }}

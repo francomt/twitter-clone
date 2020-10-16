@@ -4,6 +4,25 @@ const UserFollow = require("../db/models/userFollowModel");
 const catchAsync = require("../utilities/catchAsync");
 const APIFeatures = require("../utilities/apiFeatures");
 const factory = require("../routeControllers/factory");
+const multer = require("multer");
+const sharp = require("sharp");
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new Error("Not an image"), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadTweetImages = upload.fields([{ name: "images", maxCount: 4 }]);
 
 exports.setTweetUser = (req, res, next) => {
   //Used for merge params to look up all tweets from a certain user

@@ -21,21 +21,49 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.uploadUserPhoto = upload.single("photo");
+exports.uploadUserPhoto = upload.fields([
+  { name: "photo", maxCount: 1 },
+  { name: "coverImg", maxCount: 1 },
+]);
 
-exports.resizeUserPhoto = (req, res, next) => {
-  if (!req.file) return next();
+exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
+  if (req.files.photo) {
+    //Photo
+    req.body.photo = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+    await sharp(req.files.photo[0].buffer)
+      .resize(500, 500)
+      .toFormat("jpeg")
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/users/${req.body.photo}`);
+  }
 
-  sharp(req.file.buffer)
-    .resize(500, 500)
-    .toFormat("jpeg")
-    .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+  if (req.files.coverImg) {
+    //CoverImg
+    req.body.coverImg = `user-${req.user.id}-${Date.now()}-cover.jpeg`;
 
+    await sharp(req.files.coverImg[0].buffer)
+      .resize(1000, 500)
+      .toFormat("jpeg")
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/users/${req.body.coverImg}`);
+  }
   next();
-};
+});
+
+// exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
+//   if (!req.file) return next();
+
+//   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+
+//   await sharp(req.file.buffer)
+//     .resize(500, 500)
+//     .toFormat("jpeg")
+//     .jpeg({ quality: 90 })
+//     .toFile(`public/img/users/${req.file.filename}`);
+
+//   next();
+// });
 
 exports.getAllUsers = factory.getAll(User);
 
@@ -132,9 +160,8 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 
   if (req.body.name) query.name = req.body.name;
   if (req.body.bio) query.bio = req.body.bio;
-  if (req.file) query.photo = req.file.filename;
-
-  console.log("QUERY", query);
+  if (req.body.photo) query.photo = req.body.photo;
+  if (req.body.coverImg) query.coverImg = req.body.coverImg;
 
   const user = await User.findByIdAndUpdate(req.params.id, query, {
     new: true,
