@@ -22,7 +22,7 @@ Objective is to create a clone that mimics the features of Twitter.
 
 ### Feature currently being worked on
 
-- Bug where unfollowing only removes the follow on the other user's end
+- Add functionality to searchbar in search page
 
 ### Installation Instructions:
 

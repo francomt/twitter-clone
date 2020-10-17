@@ -44,7 +44,6 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
 
             if (uploads.length) {
               uploads.forEach((file) => {
-                console.log("EACH FILE", file);
                 form.append("images", file);
               });
             }

@@ -38,7 +38,7 @@ exports.resizeTweetPhoto = catchAsync(async (req, res, next) => {
         await sharp(file.buffer)
           .resize(500, 500)
           .toFormat("jpeg")
-          .jpeg({ quality: 90 })
+          .jpeg({ quality: 65 })
           .toFile(`public/img/tweets/${fileName}`);
 
         req.body.images.push(fileName);

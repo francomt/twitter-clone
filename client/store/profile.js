@@ -37,7 +37,7 @@ export const fetchUnfollow = (followIdOne, followIdTwo) => {
     try {
       await axios.post(`/api/users/unfollow`, {
         followingId: followIdOne,
-        id: followIdTwo,
+        followingIdTwo: followIdTwo,
       });
       dispatch(unfollowUser(followIdOne));
     } catch (error) {

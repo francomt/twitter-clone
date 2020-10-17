@@ -15,7 +15,9 @@ import history from "../history";
 const CheckFollow = ({ me, profile, unfollowUser, followUser }) => {
   let followIdOne;
 
-  if (profile && profile.followers && profile.followers.length > 0) {
+  let followIdTwo;
+
+  if (profile && profile.followers) {
     let following = profile.followers.some((follow) => {
       if (follow.user.id === me.id) {
         followIdOne = follow._id;
@@ -24,8 +26,6 @@ const CheckFollow = ({ me, profile, unfollowUser, followUser }) => {
     });
 
     if (following) {
-      let followIdTwo;
-
       me.following.forEach((follow) => {
         if (follow.followingId === followIdOne) {
           followIdTwo = follow._id;
@@ -214,7 +214,9 @@ const mapDispatch = (dispatch, ownProps) => {
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
     followUser: (userId) => {
       dispatch(fetchFollow(userId));
-      dispatch(fetchMe());
+      setTimeout(() => {
+        dispatch(fetchMe());
+      }, 500);
     },
     unfollowUser: (followIdOne, followIdTwo) => {
       dispatch(fetchUnfollow(followIdOne, followIdTwo));

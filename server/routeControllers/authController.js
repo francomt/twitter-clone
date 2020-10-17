@@ -22,7 +22,6 @@ const createAndSendToken = (user, statusCode, res) => {
     httpOnly: true,
   };
 
-  console.log("COOKIE OPTIONS", cookieOptions);
   //Only secure in production
   if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
@@ -45,7 +44,7 @@ const createAndSendToken = (user, statusCode, res) => {
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, username, password, passwordConfirm } = req.body;
 
-  console.log(name, username, email, password, passwordConfirm);
+  name, username, email, password, passwordConfirm;
 
   //Create user
   const newUser = await User.create({

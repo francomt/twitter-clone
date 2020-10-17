@@ -34,7 +34,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     await sharp(req.files.photo[0].buffer)
       .resize(500, 500)
       .toFormat("jpeg")
-      .jpeg({ quality: 90 })
+      .jpeg({ quality: 65 })
       .toFile(`public/img/users/${req.body.photo}`);
   }
 
@@ -45,7 +45,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     await sharp(req.files.coverImg[0].buffer)
       .resize(1000, 500)
       .toFormat("jpeg")
-      .jpeg({ quality: 90 })
+      .jpeg({ quality: 65 })
       .toFile(`public/img/cover/${req.body.coverImg}`);
   }
   next();
@@ -81,8 +81,6 @@ exports.getUser = catchAsync(async (req, res, next) => {
   } else {
     query = User.findById(req.params.id);
   }
-
-  console.log("HERE");
 
   const user = await query
     .populate("following", "-__v")
@@ -139,8 +137,9 @@ exports.followUser = catchAsync(async (req, res, next) => {
 
 exports.unfollowUser = catchAsync(async (req, res, next) => {
   //Deletes reference from both User1's FOLLOWING list and User2's FOLLOWERS list
+
   await UserFollow.findByIdAndDelete(req.body.followingId);
-  await UserFollow.findByIdAndDelete(req.body.id);
+  await UserFollow.findByIdAndDelete(req.body.followingIdTwo);
 
   res.status(204).json({
     status: "success",
