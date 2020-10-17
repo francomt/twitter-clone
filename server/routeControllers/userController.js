@@ -82,6 +82,8 @@ exports.getUser = catchAsync(async (req, res, next) => {
     query = User.findById(req.params.id);
   }
 
+  console.log("HERE");
+
   const user = await query
     .populate("following", "-__v")
     .populate("followers", "-__v");
@@ -135,6 +137,8 @@ exports.unfollowUser = catchAsync(async (req, res, next) => {
   //Deletes reference from both User1's FOLLOWING list and User2's FOLLOWERS list
   await UserFollow.findByIdAndDelete(req.body.followingId);
   await UserFollow.findByIdAndDelete(req.body.id);
+
+  console.log("DELETING", req.body);
 
   res.status(204).json({
     status: "success",

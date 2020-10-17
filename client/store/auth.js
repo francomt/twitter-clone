@@ -6,12 +6,17 @@ const GET_ME = "GET_ME";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 const UPDATE_ME = "UPDATE_ME";
+const UNFOLLOW_AUTH = "UNFOLLOW_AUTH";
 
 //ACTION CREATORS
 const getMe = (user) => ({ type: GET_ME, user });
 const login = (user) => ({ type: LOGIN, user });
 const logout = () => ({ type: LOGOUT });
 const updateMe = (user) => ({ type: UPDATE_ME, user });
+export const unfollowAuth = (followId) => ({
+  type: UNFOLLOW_AUTH,
+  followId,
+});
 
 const defaultUser = {};
 
@@ -41,7 +46,6 @@ export const fetchUpdateMe = (userId, body, username) => {
 };
 
 export const fetchLogin = (body) => {
-  console.log("THIS IS BODY", body);
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/api/auth/login", body);
@@ -99,6 +103,15 @@ function authReducer(state = defaultUser, action) {
       }
     case LOGOUT:
       return {};
+
+    case UNFOLLOW_AUTH:
+      const filtered = state.following.filter((follow) => {
+        return follow._id !== action.followId;
+      });
+      return {
+        ...state,
+        following: filtered,
+      };
     default:
       return state;
   }

@@ -18,7 +18,7 @@ router.get("/", userController.getAllUsers);
 
 router.get("/search", userController.searchUsers);
 
-router.delete("/unfollow", userController.unfollowUser);
+router.post("/unfollow", userController.unfollowUser);
 
 router.get("/:id", userController.getUser);
 

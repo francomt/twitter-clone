@@ -1,8 +1,8 @@
-const User = require('../db/models/userModel');
-const catchAsync = require('../utilities/catchAsync');
-const { promisify } = require('util');
-const jwt = require('jsonwebtoken');
-const { findById } = require('../db/models/userModel');
+const User = require("../db/models/userModel");
+const catchAsync = require("../utilities/catchAsync");
+const { promisify } = require("util");
+const jwt = require("jsonwebtoken");
+const { findById } = require("../db/models/userModel");
 
 //CREATES TOKEN SIGNATURE
 const signToken = (id) => {
@@ -22,18 +22,18 @@ const createAndSendToken = (user, statusCode, res) => {
     httpOnly: true,
   };
 
-  console.log( 'COOKIE OPTIONS', cookieOptions)
+  console.log("COOKIE OPTIONS", cookieOptions);
   //Only secure in production
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie("jwt", token, cookieOptions);
 
   //Don't show password in response
   user.password = undefined;
 
   //Send back token and user
   res.status(statusCode).json({
-    status: 'success',
+    status: "success",
     token,
     data: {
       user,
@@ -45,7 +45,7 @@ const createAndSendToken = (user, statusCode, res) => {
 exports.signup = catchAsync(async (req, res, next) => {
   const { name, email, username, password, passwordConfirm } = req.body;
 
-  console.log(name, username, email, password, passwordConfirm)
+  console.log(name, username, email, password, passwordConfirm);
 
   //Create user
   const newUser = await User.create({
@@ -63,29 +63,28 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 //LOGIN USER
 exports.login = catchAsync(async (req, res, next) => {
-  const {userInfo, password } = req.body;
+  const { userInfo, password } = req.body;
 
   //Check if email and password are in req.body
   if (!userInfo || !password) {
-    return next(new Error('Please provide email/username and password'));
+    return next(new Error("Please provide email/username and password"));
   }
 
-  let user
+  let user;
 
   //Check if user exists
   if (userInfo.includes("@")) {
-    user = await User.findOne({ email: userInfo }).select('+password');
+    user = await User.findOne({ email: userInfo }).select("+password");
   } else {
-    user = await User.findOne({ username: userInfo }).select('+password');
+    user = await User.findOne({ username: userInfo }).select("+password");
   }
-  
 
   //Check if password is correct
-  
-  const correct = await user.correctPassword(password, user.password)
+
+  const correct = await user.correctPassword(password, user.password);
 
   if (!user || !correct) {
-    return next(new Error('Incorrect email or password'));
+    return next(new Error("Incorrect email or password"));
   }
 
   user.__v = undefined;
@@ -94,10 +93,10 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = (req, res, next) => {
-  res.clearCookie('jwt');
+  res.clearCookie("jwt");
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
   });
 };
 
@@ -107,10 +106,10 @@ exports.protect = catchAsync(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith("Bearer")
   ) {
     //[0] = 'Bearer' and then grab the token at [1]
-    token = req.headers.authorization.split(' ')[1];
+    token = req.headers.authorization.split(" ")[1];
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
@@ -128,12 +127,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   const currentUser = await User.findById(decoded.id);
 
   //If user does not exist return error
-  if (!currentUser) return next(new Error('This user no longer exists'));
+  if (!currentUser) return next(new Error("This user no longer exists"));
 
   //Check if user changed password after JWT issued
   if (currentUser.changedPasswordAfter(decoded.iat))
     return next(
-      new Error('User recently changed password. Please log in again')
+      new Error("User recently changed password. Please log in again")
     );
 
   //Add user to req
@@ -143,10 +142,12 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 exports.getMe = catchAsync(async (req, res, next) => {
-  const me = await User.findById(req.user.id);
+  const me = await User.findById(req.user.id)
+    .populate("following", "-__v")
+    .populate("followers", "-__v");
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       me,
     },
