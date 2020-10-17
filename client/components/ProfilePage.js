@@ -49,7 +49,7 @@ const ProfilePage = ({
       <nav className="secondary-nav">
         <div
           onClick={() => {
-            history.goBack();
+            history.push("/");
           }}
           className="secondary-nav__back"
         >
