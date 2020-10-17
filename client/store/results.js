@@ -79,8 +79,10 @@ export const fetchUpdatePrev = (path) => {
 
 //ACTION TYPES USERS
 const SEARCH_USERS = "SEARCH_USERS";
+const USERS_SWITCH = "USERS_SWITCH";
 
 const searchUsers = (users, prev) => ({ type: SEARCH_USERS, users, prev });
+const usersSwitch = (users, prev) => ({ type: USERS_SWITCH, users, prev });
 
 export const fetchSearchUsers = (query, page = 1) => {
   return async (dispatch) => {
@@ -89,6 +91,19 @@ export const fetchSearchUsers = (query, page = 1) => {
         `/api/users/search?username=${query}&page=${page}&limit=25`
       );
       dispatch(searchUsers(data, history.location.search));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchUsersSwitch = (query) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `/api/users/search?username=${query}&page=1&limit=25`
+      );
+      dispatch(usersSwitch(data, history.location.search));
     } catch (error) {
       console.error(error);
     }
@@ -167,6 +182,17 @@ function searchReducer(state = defaultState, action) {
             tweets: [...state.tweets],
           };
         }
+      } else {
+        return state;
+      }
+
+    case USERS_SWITCH:
+      if (action.users.data) {
+        return {
+          prev: action.prev,
+          users: [...action.users.data.users],
+          tweets: [...state.tweets],
+        };
       } else {
         return state;
       }
