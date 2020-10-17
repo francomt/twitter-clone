@@ -22,7 +22,7 @@ Objective is to create a clone that mimics the features of Twitter.
 
 ### Feature currently being worked on
 
-- Add functionality to searchbar in search page
+- Display errors properly to user
 
 ### Installation Instructions:
 
