@@ -19,6 +19,7 @@ const ProfilePage = ({
   deleteTweet,
   likeTweet,
   unlikeTweet,
+  location,
 }) => {
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
@@ -26,11 +27,12 @@ const ProfilePage = ({
 
   useEffect(() => {
     getProfile();
-  }, []);
+    setPage(1);
+  }, [location]);
 
   useEffect(() => {
     getTweets(page);
-  }, [page]);
+  }, [page, location]);
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;

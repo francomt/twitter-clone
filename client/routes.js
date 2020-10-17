@@ -50,7 +50,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
       <Redirect from="/i/login" to="/home" />
       <Redirect from="/i/signup" to="/home" />
       <Route path="/home" component={FeedPage} />
-      <Route exact path="/profile" component={EditProfilePage} />
+      <Route exact path="/profile" component={withRouter(EditProfilePage)} />
       <Route exact path="/explore" component={ExplorePage} />
       <Route path="/search" component={SearchPage} />
       <Route path="/:username" component={ProfilePage} />
