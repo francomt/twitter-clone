@@ -10,6 +10,26 @@ import {
 import { fetchProfile } from "../store/profile";
 import history from "../history";
 
+const CheckFollow = ({ me, profile }) => {
+  if (profile && profile.followers && profile.followers.length > 0) {
+    let following = profile.followers.some((user) => {
+      return user.user.id === me;
+    });
+
+    if (following) {
+      return (
+        <button className="btn btn--outline profile__edit">Unfollow</button>
+      );
+    } else {
+      return <button className="btn btn--outline profile__edit">Follow</button>;
+    }
+  } else if (profile && profile.followers && profile.followers.length === 0) {
+    return <button className="btn btn--outline profile__edit">Follow</button>;
+  } else {
+    return <div></div>;
+  }
+};
+
 const ProfilePage = ({
   getTweets,
   getProfile,
@@ -85,9 +105,7 @@ const ProfilePage = ({
                   Edit profile
                 </button>
               ) : (
-                <button className="btn btn--outline profile__edit">
-                  Follow
-                </button>
+                <CheckFollow me={me.id} profile={profile} />
               )}
             </div>
 

@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userFollowSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   followingId: String,
   followedAt: {
@@ -13,10 +13,10 @@ const userFollowSchema = new mongoose.Schema({
 });
 
 userFollowSchema.pre(/^find/, async function (next) {
-  this.populate('user', 'name');
+  this.populate("user", "name username photo");
   next();
 });
 
-const UserFollow = mongoose.model('UserFollow', userFollowSchema);
+const UserFollow = mongoose.model("UserFollow", userFollowSchema);
 
 module.exports = UserFollow;
