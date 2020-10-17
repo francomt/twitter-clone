@@ -2,7 +2,7 @@
 
 ## Project Description:
 
-Objective is to create a clone that mimicks the features of Twitter.
+Objective is to create a clone that mimics the features of Twitter.
 
 ### **Current features:**
 
