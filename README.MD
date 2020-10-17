@@ -18,12 +18,11 @@ Objective is to create a clone that mimicks the features of Twitter.
 - Has infinite scrolling for all data
 - Can like and unlike tweets
 - Confirm delete tweet before deleting
-- Unfollow Users
-- Follow Users (CURRENTLY BACKEND ONLY)
+- Follow and Unfollow users
 
 ### Feature currently being worked on
 
-- Follow users on frontend
+- Bug where unfollowing only removes the follow on the other user's end
 
 ### Installation Instructions:
 

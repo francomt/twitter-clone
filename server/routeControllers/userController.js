@@ -108,10 +108,10 @@ exports.followUser = catchAsync(async (req, res, next) => {
   if (!following) next(new Error("Following account does not exist"));
 
   //User1 is created as a follower
-  const userFollower = await UserFollow.create({ user: currentUser.id });
+  let userFollower = await UserFollow.create({ user: currentUser.id });
 
   //User2 is created as a follow with reference to User1's follow
-  const userFollowing = await UserFollow.create({
+  let userFollowing = await UserFollow.create({
     user: following.id,
     followingId: userFollower.id,
   });
@@ -122,13 +122,17 @@ exports.followUser = catchAsync(async (req, res, next) => {
   //User1 is pushed into User2's FOLLOWER list
   following.followers.push(userFollower);
 
+  userFollower = await userFollower
+    .populate("user", "name photo username")
+    .execPopulate();
+
   await currentUser.save();
   await following.save();
 
   res.status(201).json({
     status: "success",
     data: {
-      user: currentUser,
+      follow: userFollower,
     },
   });
 });
@@ -137,8 +141,6 @@ exports.unfollowUser = catchAsync(async (req, res, next) => {
   //Deletes reference from both User1's FOLLOWING list and User2's FOLLOWERS list
   await UserFollow.findByIdAndDelete(req.body.followingId);
   await UserFollow.findByIdAndDelete(req.body.id);
-
-  console.log("DELETING", req.body);
 
   res.status(204).json({
     status: "success",

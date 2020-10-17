@@ -7,6 +7,7 @@ const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 const getProfile = (profile) => ({ type: GET_PROFILE, profile });
 
+const followUser = (follow) => ({ type: FOLLOW_USER, follow });
 const unfollowUser = (followId) => ({ type: UNFOLLOW_USER, followId });
 
 export const fetchProfile = (username) => {
@@ -20,12 +21,23 @@ export const fetchProfile = (username) => {
   };
 };
 
+export const fetchFollow = (userId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/users/${userId}/follow`);
+      dispatch(followUser(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const fetchUnfollow = (followIdOne, followIdTwo) => {
   return async (dispatch) => {
     try {
       await axios.post(`/api/users/unfollow`, {
-        id: followIdOne,
-        followingId: followIdTwo,
+        followingId: followIdOne,
+        id: followIdTwo,
       });
       dispatch(unfollowUser(followIdOne));
     } catch (error) {
@@ -56,6 +68,14 @@ function profileReducer(state = defaultState, action) {
       } else {
         return state;
       }
+
+    case FOLLOW_USER:
+      if (action.follow.data) {
+        return {
+          ...state,
+          followers: [action.follow.data.follow, ...state.followers],
+        };
+      } else return state;
 
     case UNFOLLOW_USER:
       const filtered = state.followers.filter((follow) => {

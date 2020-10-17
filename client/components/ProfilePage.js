@@ -7,11 +7,12 @@ import {
   fetchProfileFeed,
   fetchUnlikeTweet,
 } from "../store/tweets";
-import { fetchProfile, fetchUnfollow } from "../store/profile";
+import { fetchProfile, fetchUnfollow, fetchFollow } from "../store/profile";
 import { unfollowAuth } from "../store/auth";
+import { fetchMe } from "../store/auth";
 import history from "../history";
 
-const CheckFollow = ({ me, profile, unfollowUser }) => {
+const CheckFollow = ({ me, profile, unfollowUser, followUser }) => {
   let followIdOne;
 
   if (profile && profile.followers && profile.followers.length > 0) {
@@ -30,20 +31,10 @@ const CheckFollow = ({ me, profile, unfollowUser }) => {
           followIdTwo = follow._id;
         }
       });
-      // for (let i = 0; i < me.following.length; i++) {
-      //   const current = me.following[i];
-
-      //   if (current.followingId === followIdOne) {
-      //     followIdTwo = current._id;
-      //     return;
-      //   }
-      // }
 
       return (
         <button
           onClick={() => {
-            console.log("THIS IS ID ONE", followIdOne);
-            console.log("THIS IS ID TWO", followIdTwo);
             unfollowUser(followIdOne, followIdTwo);
           }}
           className="btn btn--outline profile__edit"
@@ -52,10 +43,28 @@ const CheckFollow = ({ me, profile, unfollowUser }) => {
         </button>
       );
     } else {
-      return <button className="btn btn--outline profile__edit">Follow</button>;
+      return (
+        <button
+          onClick={() => {
+            followUser(profile.id);
+          }}
+          className="btn btn--outline profile__edit"
+        >
+          Follow
+        </button>
+      );
     }
   } else if (profile && profile.followers && profile.followers.length === 0) {
-    return <button className="btn btn--outline profile__edit">Follow</button>;
+    return (
+      <button
+        onClick={() => {
+          followUser(profile.id);
+        }}
+        className="btn btn--outline profile__edit"
+      >
+        Follow
+      </button>
+    );
   } else {
     return <div></div>;
   }
@@ -72,6 +81,7 @@ const ProfilePage = ({
   unlikeTweet,
   location,
   unfollowUser,
+  followUser,
 }) => {
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
@@ -140,6 +150,7 @@ const ProfilePage = ({
                 <CheckFollow
                   me={me}
                   profile={profile}
+                  followUser={followUser}
                   unfollowUser={unfollowUser}
                 />
               )}
@@ -201,6 +212,10 @@ const mapDispatch = (dispatch, ownProps) => {
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
+    followUser: (userId) => {
+      dispatch(fetchFollow(userId));
+      dispatch(fetchMe());
+    },
     unfollowUser: (followIdOne, followIdTwo) => {
       dispatch(fetchUnfollow(followIdOne, followIdTwo));
       dispatch(unfollowAuth(followIdTwo));
