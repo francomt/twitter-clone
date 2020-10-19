@@ -84,7 +84,6 @@ export const fetchSignup = (body) => {
 function authReducer(state = defaultUser, action) {
   switch (action.type) {
     case GET_ME:
-      console.log("HERE", action);
       if (action.user.data) {
         return { ...action.user.data.me };
       } else {
