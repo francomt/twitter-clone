@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { fetchLogin } from '../store/auth';
-import history from '../history'
+import React from "react";
+import { connect } from "react-redux";
+import { fetchLogin } from "../store/auth";
+import history from "../history";
 
 const LandingPage = ({ handleSubmit }) => {
   return (
@@ -27,9 +27,7 @@ const LandingPage = ({ handleSubmit }) => {
           >
             <div className="wrapper util-margin-right-small">
               <input className="input" name="user"></input>
-              <span className="input-placeholder">
-                Username or email
-              </span>
+              <span className="input-placeholder">Username or email</span>
             </div>
             <div className="wrapper">
               <input className="input" name="password" type="password"></input>
@@ -61,14 +59,22 @@ const LandingPage = ({ handleSubmit }) => {
               Join Twitter today.
             </h5>
 
-            <button onClick={()=> {
-              history.push('/i/signup')
-            }} className="btn btn--solid util-margin-btm-medium">
+            <button
+              onClick={() => {
+                history.push("/i/signup");
+              }}
+              className="btn btn--solid util-margin-btm-medium"
+            >
               Sign up
             </button>
-            <button onClick={()=> {
-              history.push('/i/login')
-            }} className="btn btn--outline">Log in</button>
+            <button
+              onClick={() => {
+                history.push("/i/login");
+              }}
+              className="btn btn--outline"
+            >
+              Log in
+            </button>
           </div>
         </div>
       </div>

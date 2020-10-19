@@ -20,10 +20,6 @@ Objective is to create a clone that mimics the features of Twitter.
 - Confirm delete tweet before deleting
 - Follow and Unfollow users
 
-### Feature currently being worked on
-
-- Display errors properly to user
-
 ### Installation Instructions:
 
 - Fork and clone this repo to your local machine
