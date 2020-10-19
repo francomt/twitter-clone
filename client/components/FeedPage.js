@@ -219,7 +219,7 @@ class FeedPage extends Component {
 
 const mapState = (state, ownProps) => {
   return {
-    me: state.authReducer,
+    me: state.profilesReducer.me,
     feed: state.tweetReducer.feed,
     location: ownProps.location.pathname,
   };

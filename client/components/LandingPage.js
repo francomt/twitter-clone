@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchLogin } from "../store/auth";
+import { fetchLogin } from "../store/profiles";
 import history from "../history";
 
 const LandingPage = ({ handleSubmit }) => {

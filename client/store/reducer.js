@@ -1,13 +1,12 @@
 import { combineReducers } from "redux";
 import authReducer from "./auth";
 import tweetReducer from "./tweets";
-import profileReducer from "./profile";
+import profilesReducer from "./profiles";
 import searchReducer from "./results";
 
 const reducer = combineReducers({
-  authReducer,
+  profilesReducer,
   tweetReducer,
-  profileReducer,
   searchReducer,
 });
 

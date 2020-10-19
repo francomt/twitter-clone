@@ -7,7 +7,7 @@ import {
   fetchProfileFeed,
   fetchUnlikeTweet,
 } from "../store/tweets";
-import { fetchProfile, fetchUnfollow, fetchFollow } from "../store/profile";
+import { fetchProfileTwo, fetchUnfollow, fetchFollow } from "../store/profiles";
 import { unfollowAuth } from "../store/auth";
 import { fetchMe } from "../store/auth";
 import history from "../history";
@@ -198,16 +198,16 @@ const ProfilePage = ({
 
 const mapState = (state) => {
   return {
-    profile: state.profileReducer,
+    profile: state.profilesReducer.profile,
     tweets: state.tweetReducer.feed,
-    me: state.authReducer,
+    me: state.profilesReducer.me,
   };
 };
 
 const mapDispatch = (dispatch, ownProps) => {
   const username = ownProps.match.params.username;
   return {
-    getProfile: () => dispatch(fetchProfile(username)),
+    getProfile: () => dispatch(fetchProfileTwo(username)),
     getTweets: (page) => dispatch(fetchProfileFeed(username, page)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),

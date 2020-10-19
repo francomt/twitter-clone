@@ -6,7 +6,6 @@ const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 const getProfile = (profile) => ({ type: GET_PROFILE, profile });
-
 const followUser = (follow) => ({ type: FOLLOW_USER, follow });
 const unfollowUser = (followId) => ({ type: UNFOLLOW_USER, followId });
 
@@ -63,6 +62,7 @@ const defaultState = {};
 function profileReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_PROFILE:
+      console.log("HERE");
       if (action.profile.data) {
         return { ...action.profile.data.user };
       } else {

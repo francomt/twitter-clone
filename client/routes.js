@@ -11,7 +11,7 @@ import {
   SearchPage,
   ExplorePage,
 } from "./components";
-import { fetchMe, fetchLogout } from "./store/auth";
+import { fetchMe, fetchLogout } from "./store/profiles";
 import { navIcons } from "./components/modules/Svgs";
 import history from "./history";
 
@@ -120,8 +120,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
 
 const mapState = (state, ownProps) => {
   return {
-    userLoggedIn: !!state.authReducer.id,
-    me: state.authReducer,
+    userLoggedIn: !!state.profilesReducer.me.id,
+    me: state.profilesReducer.me,
     pathname: ownProps.location.pathname,
   };
 };
