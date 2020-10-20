@@ -59,7 +59,8 @@ export const fetchLogout = () => {
     try {
       await axios.get("/api/auth/logout");
       dispatch(logout());
-      history.go("/");
+      history.push("/");
+      history.go();
     } catch (error) {
       console.error(error);
     }

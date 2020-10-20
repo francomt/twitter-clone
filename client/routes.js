@@ -20,15 +20,13 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
 
   useEffect(() => {
     loadData();
-
-    if (pathname === "/home") {
-      selectIcon("home");
-    } else if (pathname === "/settings") {
-      selectIcon("settings");
-    } else if (pathname !== "/") {
-      selectIcon("profile");
-    }
   }, []);
+
+  useEffect(() => {
+    if (pathname === "/home") selectIcon("home");
+    else if (pathname === "/search") selectIcon("");
+    else selectIcon("profile");
+  }, [pathname]);
 
   //For selected icon
   const classValue = (currentVal, icon) => {

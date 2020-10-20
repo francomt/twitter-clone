@@ -62,7 +62,6 @@ const defaultState = {};
 function profileReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_PROFILE:
-      console.log("HERE");
       if (action.profile.data) {
         return { ...action.profile.data.user };
       } else {
