@@ -10,17 +10,12 @@ const GET_ME = "GET_ME";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 const UPDATE_ME = "UPDATE_ME";
-const UNFOLLOW_AUTH = "UNFOLLOW_AUTH";
 
 //Action creators
 const getMe = (user) => ({ type: GET_ME, user });
 const login = (user) => ({ type: LOGIN, user });
 const logout = () => ({ type: LOGOUT });
 const updateMe = (user) => ({ type: UPDATE_ME, user });
-export const unfollowAuth = (followId) => ({
-  type: UNFOLLOW_AUTH,
-  followId,
-});
 
 //Authentication thunks
 export const fetchMe = () => {
@@ -64,7 +59,7 @@ export const fetchLogout = () => {
     try {
       await axios.get("/api/auth/logout");
       dispatch(logout());
-      history.push("/");
+      history.go("/");
     } catch (error) {
       console.error(error);
     }
@@ -95,7 +90,11 @@ const UNFOLLOW_USER = "UNFOLLOW_USER";
 //Action creators
 const getProfile = (profile) => ({ type: GET_PROFILE_TWO, profile });
 const followUser = (follow) => ({ type: FOLLOW_USER, follow });
-const unfollowUser = (followId) => ({ type: UNFOLLOW_USER, followId });
+const unfollowUser = (meFollowing, profileFollower) => ({
+  type: UNFOLLOW_USER,
+  meFollowing,
+  profileFollower,
+});
 
 //Current profile thunks
 export const fetchProfileTwo = (username) => {
@@ -120,14 +119,14 @@ export const fetchFollow = (userId) => {
   };
 };
 
-export const fetchUnfollow = (followIdOne, followIdTwo) => {
+export const fetchUnfollow = (meFollowing, profileFollower) => {
   return async (dispatch) => {
     try {
       await axios.post(`/api/users/unfollow`, {
-        followingId: followIdOne,
-        followingIdTwo: followIdTwo,
+        followingId: meFollowing,
+        followingIdTwo: profileFollower,
       });
-      dispatch(unfollowUser(followIdOne));
+      dispatch(unfollowUser(meFollowing, profileFollower));
     } catch (error) {
       console.error(error);
     }
@@ -163,7 +162,7 @@ function profilesReducer(state = defaultState, action) {
 
     case UPDATE_ME:
       if (action.user.data) {
-        return { ...action.user.data.user };
+        return { ...state, me: action.user.data.user };
       } else {
         return state;
       }
@@ -174,16 +173,7 @@ function profilesReducer(state = defaultState, action) {
 
       return state;
     case LOGOUT:
-      return {};
-
-    case UNFOLLOW_AUTH:
-      const filtered = state.following.filter((follow) => {
-        return follow._id !== action.followId;
-      });
-      return {
-        ...state,
-        following: filtered,
-      };
+      return defaultState;
 
     //CURRENT PROFILE
     case GET_PROFILE_TWO:
@@ -193,6 +183,33 @@ function profilesReducer(state = defaultState, action) {
 
       return state;
 
+    case FOLLOW_USER:
+      if (action.follow.data) {
+        return {
+          me: {
+            ...state.me,
+            following: [action.follow.data.me, ...state.me.following],
+          },
+          profile: {
+            ...state.profile,
+            followers: [action.follow.data.follow, ...state.profile.followers],
+          },
+        };
+      }
+      return state;
+
+    case UNFOLLOW_USER:
+      const meFiltered = state.me.following.filter(
+        (follow) => follow._id !== action.meFollowing
+      );
+      const profileFiltered = state.profile.followers.filter(
+        (follow) => follow._id !== action.profileFollower
+      );
+
+      return {
+        me: { ...state.me, following: meFiltered },
+        profile: { ...state.profile, followers: profileFiltered },
+      };
     default:
       return state;
   }

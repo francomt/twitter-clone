@@ -8,34 +8,32 @@ import {
   fetchUnlikeTweet,
 } from "../store/tweets";
 import { fetchProfileTwo, fetchUnfollow, fetchFollow } from "../store/profiles";
-import { unfollowAuth } from "../store/auth";
-import { fetchMe } from "../store/auth";
 import history from "../history";
 
 const CheckFollow = ({ me, profile, unfollowUser, followUser }) => {
-  let followIdOne;
+  let profileFollower;
 
-  let followIdTwo;
+  let meFollowing;
 
   if (profile && profile.followers) {
     let following = profile.followers.some((follow) => {
       if (follow.user.id === me.id) {
-        followIdOne = follow._id;
+        profileFollower = follow._id;
       }
       return follow.user.id === me.id;
     });
 
     if (following) {
       me.following.forEach((follow) => {
-        if (follow.followingId === followIdOne) {
-          followIdTwo = follow._id;
+        if (follow.followingId === profileFollower) {
+          meFollowing = follow._id;
         }
       });
 
       return (
         <button
           onClick={() => {
-            unfollowUser(followIdOne, followIdTwo);
+            unfollowUser(meFollowing, profileFollower);
           }}
           className="btn btn--outline profile__edit"
         >
@@ -212,16 +210,9 @@ const mapDispatch = (dispatch, ownProps) => {
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
-    followUser: (userId) => {
-      dispatch(fetchFollow(userId));
-      setTimeout(() => {
-        dispatch(fetchMe());
-      }, 500);
-    },
-    unfollowUser: (followIdOne, followIdTwo) => {
-      dispatch(fetchUnfollow(followIdOne, followIdTwo));
-      dispatch(unfollowAuth(followIdTwo));
-    },
+    followUser: (userId) => dispatch(fetchFollow(userId)),
+    unfollowUser: (meFollowing, profileFollower) =>
+      dispatch(fetchUnfollow(meFollowing, profileFollower)),
   };
 };
 

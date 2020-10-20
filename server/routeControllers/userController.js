@@ -124,12 +124,17 @@ exports.followUser = catchAsync(async (req, res, next) => {
     .populate("user", "name photo username")
     .execPopulate();
 
+  userFollowing = await userFollowing
+    .populate("user", "name photo username")
+    .execPopulate();
+
   await currentUser.save();
   await following.save();
 
   res.status(201).json({
     status: "success",
     data: {
+      me: userFollowing,
       follow: userFollower,
     },
   });

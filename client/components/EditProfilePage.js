@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import history from "../history";
 import { connect } from "react-redux";
-import { fetchUpdateMe } from "../store/auth";
+import { fetchUpdateMe } from "../store/profiles";
 import { fetchUpdatePrev } from "../store/tweets";
 
 const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
@@ -121,7 +121,7 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
 
 const mapState = (state) => {
   return {
-    me: state.authReducer,
+    me: state.profilesReducer.me,
   };
 };
 
