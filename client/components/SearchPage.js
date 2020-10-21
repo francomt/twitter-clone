@@ -63,6 +63,16 @@ const SearchPage = ({
     }
   };
 
+  const latestClass =
+    type === "latest"
+      ? "search-bottom__selection-active"
+      : "search-bottom__selection";
+
+  const peopleClass =
+    type === "people"
+      ? "search-bottom__selection-active"
+      : "search-bottom__selection";
+
   return (
     <div className="search-page-container">
       <nav className="search-nav">
@@ -79,8 +89,28 @@ const SearchPage = ({
               </g>
             </svg>
           </div>
-          <form className="searchbar-container-page">
+          <form
+            className="searchbar-container-page"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const searchVal = e.target.search.value;
+
+              if (searchVal !== query) {
+                setLoading(true);
+                setPage(1);
+                setFetch(true);
+                setQuery(searchVal);
+
+                if (type === "latest") {
+                  history.push(`/search?q=${searchVal}`);
+                } else if (type === "people") {
+                  history.push(`/search?q=${searchVal}&t=people`);
+                }
+              }
+            }}
+          >
             <input
+              name="search"
               className="searchbar"
               placeholder="Search Twitter"
               defaultValue={query}
@@ -103,11 +133,7 @@ const SearchPage = ({
                 setType("latest");
               }
             }}
-            className={
-              type === "latest"
-                ? "search-bottom__selection-active"
-                : "search-bottom__selection"
-            }
+            className={latestClass}
           >
             <p className="search-bottom__text">Latest</p>
           </div>
@@ -121,11 +147,7 @@ const SearchPage = ({
                 setType("people");
               }
             }}
-            className={
-              type === "people"
-                ? "search-bottom__selection-active"
-                : "search-bottom__selection"
-            }
+            className={peopleClass}
           >
             <p className="search-bottom__text">People</p>
           </div>
