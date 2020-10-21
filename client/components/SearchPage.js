@@ -63,6 +63,24 @@ const SearchPage = ({
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchVal = e.target.search.value;
+
+    if (searchVal !== query) {
+      setLoading(true);
+      setPage(1);
+      setFetch(true);
+      setQuery(searchVal);
+
+      if (type === "latest") {
+        history.push(`/search?q=${searchVal}`);
+      } else if (type === "people") {
+        history.push(`/search?q=${searchVal}&t=people`);
+      }
+    }
+  };
+
   const latestClass =
     type === "latest"
       ? "search-bottom__selection-active"
@@ -89,26 +107,7 @@ const SearchPage = ({
               </g>
             </svg>
           </div>
-          <form
-            className="searchbar-container-page"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const searchVal = e.target.search.value;
-
-              if (searchVal !== query) {
-                setLoading(true);
-                setPage(1);
-                setFetch(true);
-                setQuery(searchVal);
-
-                if (type === "latest") {
-                  history.push(`/search?q=${searchVal}`);
-                } else if (type === "people") {
-                  history.push(`/search?q=${searchVal}&t=people`);
-                }
-              }
-            }}
-          >
+          <form className="searchbar-container-page" onSubmit={handleSubmit}>
             <input
               name="search"
               className="searchbar"
