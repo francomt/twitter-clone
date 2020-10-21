@@ -22,6 +22,7 @@ const SearchPage = ({
   //pagination
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
+  const [pageLoad, setPageLoad] = useState(false);
 
   //MOUNTING
   useEffect(() => {
@@ -54,10 +55,22 @@ const SearchPage = ({
 
         if (type === "latest") {
           if (stopTweets) setFetch(false);
-          else setPage((prev) => prev + 1);
+          else {
+            setPageLoad(true);
+            setTimeout(() => {
+              setPageLoad(false);
+            }, 150);
+            setPage((prev) => prev + 1);
+          }
         } else if (type === "people") {
           if (stopUsers) setFetch(false);
-          else setPage((prev) => prev + 1);
+          else {
+            setPageLoad(true);
+            setPage((prev) => prev + 1);
+            setTimeout(() => {
+              setPageLoad(false);
+            }, 150);
+          }
         }
       }
     }
@@ -166,7 +179,7 @@ const SearchPage = ({
               style={{ margin: "25px" }}
             />
           ) : (
-            <Results type={type} results={results} me={me} />
+            <Results type={type} results={results} me={me} loading={pageLoad} />
           )}
         </div>
         <div className="news-feed-right"></div>

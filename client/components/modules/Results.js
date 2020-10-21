@@ -1,6 +1,7 @@
 import React from "react";
 import { Tweet, User } from "./index";
 import { connect } from "react-redux";
+import Loader from "react-loader-spinner";
 
 import {
   fetchLikeTweetSearch,
@@ -15,22 +16,49 @@ const Results = ({
   likeTweet,
   unlikeTweet,
   deleteTweet,
+  loading,
 }) => {
   if (type === "latest") {
-    return results.tweets.data.tweets.map((tweet) => (
-      <Tweet
-        key={tweet.id}
-        me={me}
-        tweet={tweet}
-        likeTweet={likeTweet}
-        unlikeTweet={unlikeTweet}
-        deleteTweet={deleteTweet}
-      />
-    ));
+    return (
+      <>
+        {results.tweets.data.tweets.map((tweet) => (
+          <Tweet
+            key={tweet.id}
+            me={me}
+            tweet={tweet}
+            likeTweet={likeTweet}
+            unlikeTweet={unlikeTweet}
+            deleteTweet={deleteTweet}
+          />
+        ))}
+        {loading && (
+          <Loader
+            type="Oval"
+            color="#1da1f2"
+            height={40}
+            width={40}
+            style={{ margin: "25px" }}
+          />
+        )}
+      </>
+    );
   } else if (type === "people") {
-    return results.users.data.users.map((user) => (
-      <User key={user.id} user={user} />
-    ));
+    return (
+      <>
+        {results.users.data.users.map((user) => (
+          <User key={user.id} user={user} />
+        ))}
+        {loading && (
+          <Loader
+            type="Oval"
+            color="#1da1f2"
+            height={40}
+            width={40}
+            style={{ margin: "25px" }}
+          />
+        )}
+      </>
+    );
   } else {
     return <p>Not Found</p>;
   }
