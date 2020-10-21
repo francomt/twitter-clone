@@ -99,6 +99,17 @@ const unfollowUser = (meFollowing, profileFollower) => ({
   profileFollower,
 });
 
+const quickFollow = (follow, userId) => ({
+  type: QUICK_FOLLOW,
+  follow,
+  userId,
+});
+const quickUnfollow = (meFollowing, profileFollower) => ({
+  type: QUICK_UNFOLLOW,
+  meFollowing,
+  profileFollower,
+});
+
 //Current profile thunks
 export const fetchProfileTwo = (username) => {
   return async (dispatch) => {
@@ -122,6 +133,17 @@ export const fetchFollow = (userId) => {
   };
 };
 
+export const fetchQuickFollow = (userId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/users/${userId}/follow`);
+      dispatch(quickFollow(data, userId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const fetchUnfollow = (meFollowing, profileFollower) => {
   return async (dispatch) => {
     try {
@@ -130,6 +152,20 @@ export const fetchUnfollow = (meFollowing, profileFollower) => {
         followingIdTwo: profileFollower,
       });
       dispatch(unfollowUser(meFollowing, profileFollower));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchQuickUnfollow = (meFollowing, profileFollower) => {
+  return async (dispatch) => {
+    try {
+      await axios.post(`/api/users/unfollow`, {
+        followingId: meFollowing,
+        followingIdTwo: profileFollower,
+      });
+      dispatch(quickUnfollow(meFollowing));
     } catch (error) {
       console.error(error);
     }
@@ -176,10 +212,7 @@ export const fetchSearchUsers = (query, page = 1, initialLoad = false) => {
 const defaultState = {
   me: {},
   profile: {},
-  search: {
-    prev: "",
-    users: {},
-  },
+  search: {},
 };
 
 function profilesReducer(state = defaultState, action) {
@@ -249,29 +282,58 @@ function profilesReducer(state = defaultState, action) {
       if (action.initialLoad) {
         return {
           ...state,
-          search: {
-            prev: action.prev,
-            users: action.users,
-          },
+          search: action.users,
         };
       } else {
         return {
           ...state,
           search: {
-            prev: action.prev,
-            users: {
-              ...state.search.users,
-              results: state.search.users.results + action.users.results,
-              data: {
-                users: [
-                  ...state.search.users.data.users,
-                  ...action.users.data.users,
-                ],
-              },
+            ...state.search,
+            results: state.search.results + action.users.results,
+            data: {
+              users: [...state.search.data.users, ...action.users.data.users],
             },
           },
         };
       }
+
+    case QUICK_FOLLOW:
+      const userResults = state.search.data.users.map((user) => {
+        if (user.id === action.userId) {
+          user.followers = [action.follow.data.follow._id, ...user.followers];
+          return user;
+        }
+
+        return user;
+      });
+
+      if (action.follow.data) {
+        return {
+          ...state,
+          me: {
+            ...state.me,
+            following: [action.follow.data.me, ...state.me.following],
+          },
+          search: {
+            ...state.search,
+            data: {
+              users: userResults,
+            },
+          },
+        };
+      }
+
+      return state;
+
+    case QUICK_UNFOLLOW:
+      const meSearchFiltered = state.me.following.filter(
+        (follow) => follow._id !== action.meFollowing
+      );
+
+      return {
+        ...state,
+        me: { ...state.me, following: meSearchFiltered },
+      };
 
     default:
       return state;

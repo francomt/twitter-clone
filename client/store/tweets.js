@@ -9,7 +9,11 @@ const DELETE_TWEET = "DELETE_TWEET";
 const LIKE_TWEET = "LIKE_TWEET";
 const UPDATE_PREV = "UPDATE_PREV";
 
-const getFeed = (feed, prev) => ({ type: GET_FEED, feed, prev });
+const getFeed = (feed, initialLoad) => ({
+  type: GET_FEED,
+  feed,
+  initialLoad,
+});
 const getProfileFeed = (feed, prev) => ({ type: GET_PROFILE_FEED, feed, prev });
 const createTweet = (tweet, pathname) => ({
   type: CREATE_TWEET,
@@ -20,13 +24,13 @@ const deleteTweet = (tweetId) => ({ type: DELETE_TWEET, tweetId });
 const likeTweet = (tweet) => ({ type: LIKE_TWEET, tweet });
 const updatePrev = (prev) => ({ type: UPDATE_PREV, prev });
 
-export const fetchFeed = (userId, page = 1) => {
+export const fetchFeed = (userId, page = 1, initialLoad = false) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `/api/users/${userId}/feed?page=${page}&limit=25`
+        `/api/users/${userId}/feed?page=${page}&limit=9`
       );
-      dispatch(getFeed(data, history.location.pathname));
+      dispatch(getFeed(data, initialLoad));
     } catch (error) {
       console.error(error);
     }
@@ -96,19 +100,88 @@ export const fetchUpdatePrev = (path) => {
   };
 };
 
+///////////////////////////////
+////////Tweet Search//////////
+/////////////////////////////
+
+//Action types tweet search
+const SEARCH_TWEETS = "SEARCH_TWEETS";
+const LIKE_TWEET_SEARCH = "LIKE_TWEET_SEARCH";
+const DELETE_TWEET_SEARCH = "DELETE_TWEET_SEARCH";
+
+const searchTweets = (tweets, initialLoad) => ({
+  type: SEARCH_TWEETS,
+  tweets,
+  initialLoad,
+});
+const likeTweetSearch = (tweet) => ({ type: LIKE_TWEET_SEARCH, tweet });
+const deleteTweetSearch = (tweetId) => ({ type: DELETE_TWEET_SEARCH, tweetId });
+
+export const fetchSearchTweets = (query, page = 1, initialLoad = false) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `/api/tweets/search?text=${query}&page=${page}&limit=8`
+      );
+      dispatch(searchTweets(data, initialLoad));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchLikeTweetSearch = (tweetId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/tweets/like/${tweetId}`);
+      dispatch(likeTweetSearch(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchUnlikeTweetSearch = (tweetId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/tweets/unlike/${tweetId}`);
+      dispatch(likeTweetSearch(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchDeleteTweetSearch = (tweetId) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/api/tweets/${tweetId}`);
+      dispatch(deleteTweetSearch(tweetId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 const defaultState = {
   prev: "",
   feed: [],
+  search: {},
 };
 
 function tweetReducer(state = defaultState, action) {
   switch (action.type) {
     case GET_FEED:
       if (action.feed.data) {
-        if (action.prev !== state.prev) {
-          return { prev: action.prev, feed: [...action.feed.data.tweets] };
+        if (action.initialLoad) {
+          return {
+            ...state,
+            prev: action.prev,
+            feed: [...action.feed.data.tweets],
+          };
         } else {
           return {
+            ...state,
             prev: action.prev,
             feed: [...state.feed, ...action.feed.data.tweets],
           };
@@ -120,9 +193,14 @@ function tweetReducer(state = defaultState, action) {
     case GET_PROFILE_FEED:
       if (action.feed.data) {
         if (action.prev !== state.prev) {
-          return { prev: action.prev, feed: [...action.feed.data.tweets] };
+          return {
+            ...state,
+            prev: action.prev,
+            feed: [...action.feed.data.tweets],
+          };
         } else {
           return {
+            ...state,
             prev: action.prev,
             feed: [...state.feed, ...action.feed.data.tweets],
           };
@@ -135,6 +213,7 @@ function tweetReducer(state = defaultState, action) {
       if (action.tweet.data) {
         if (action.pathname === "/home") {
           return {
+            ...state,
             prev: state.prev,
             feed: [action.tweet.data.tweet, ...state.feed],
           };
@@ -149,7 +228,7 @@ function tweetReducer(state = defaultState, action) {
       const filtered = [...state.feed].filter((tweet) => {
         return tweet.id !== action.tweetId;
       });
-      return { prev: state.prev, feed: filtered };
+      return { ...state, prev: state.prev, feed: filtered };
 
     case LIKE_TWEET:
       if (action.tweet.data) {
@@ -165,7 +244,69 @@ function tweetReducer(state = defaultState, action) {
       }
 
     case UPDATE_PREV:
-      return { prev: action.prev, feed: [] };
+      return { ...state, prev: action.prev, feed: [] };
+
+    ///////////////////
+    // TWEET SEARCH //
+    /////////////////
+
+    case SEARCH_TWEETS:
+      if (action.initialLoad) {
+        return {
+          ...state,
+          search: action.tweets,
+        };
+      } else {
+        return {
+          ...state,
+          search: {
+            ...state.search,
+            results: state.search.results + action.tweets.results,
+            data: {
+              tweets: [
+                ...state.search.data.tweets,
+                ...action.tweets.data.tweets,
+              ],
+            },
+          },
+        };
+      }
+
+    case LIKE_TWEET_SEARCH:
+      if (action.tweet.data) {
+        const updated = state.search.data.tweets.map((tweet) => {
+          if (tweet.id === action.tweet.data.tweet.id)
+            return action.tweet.data.tweet;
+          else return tweet;
+        });
+
+        return {
+          ...state,
+          search: {
+            ...state.search,
+            data: {
+              tweets: updated,
+            },
+          },
+        };
+      }
+
+      return state;
+
+    case DELETE_TWEET_SEARCH:
+      const filteredSearch = state.search.data.tweets.filter((tweet) => {
+        return tweet.id !== action.tweetId;
+      });
+      return {
+        ...state,
+        search: {
+          ...state.search,
+          data: {
+            tweets: filteredSearch,
+          },
+        },
+      };
+
     default:
       return state;
   }

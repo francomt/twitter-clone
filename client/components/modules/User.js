@@ -1,26 +1,8 @@
 import React from "react";
 import history from "../../history";
+import { CheckFollow } from "./index";
 
-const checkFollow = (me, user) => {
-  const userFollowers = {};
-
-  for (let i = 0; i < user.followers.length; i++) {
-    const currentId = user.followers[i];
-
-    userFollowers[currentId] = true;
-  }
-
-  for (let j = 0; j < me.following.length; j++) {
-    const current = me.following[j];
-    if (userFollowers[current.followingId]) return true;
-  }
-
-  return false;
-};
-
-const User = ({ me, user, followUser }) => {
-  const following = checkFollow(me, user);
-
+const User = ({ me, user, followUser, unfollowUser }) => {
   return (
     <div key={user.id} className="tweet">
       <div className="tweet__container">
@@ -51,16 +33,12 @@ const User = ({ me, user, followUser }) => {
                 @{user.username}
               </p>
             </div>
-            {following ? (
-              <button className="btn btn--quick-follow">Following</button>
-            ) : (
-              <button
-                onClick={() => followUser(user.id)}
-                className="btn btn--outline btn--quick-follow"
-              >
-                Follow
-              </button>
-            )}
+            <CheckFollow
+              me={me}
+              user={user}
+              followUser={followUser}
+              unfollowUser={unfollowUser}
+            />
           </div>
           <p className="content__text">{user.bio}</p>
         </div>

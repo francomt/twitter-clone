@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchSearchTweets } from "../store/results";
+import { fetchSearchTweets, fetchUpdatePrev } from "../store/tweets";
 import { fetchSearchUsers } from "../store/profiles";
-import { fetchUpdatePrev } from "../store/tweets";
 import { Results } from "./modules";
 import history from "../history";
 import Loader from "react-loader-spinner";
 
 const SearchPage = ({
-  results,
   me,
   users,
+  tweets,
   updatePrev,
   URLquery,
   URLtype,
@@ -32,11 +31,11 @@ const SearchPage = ({
     if (!query) return history.push("/explore");
 
     searchQuery(type, query, page, true);
-    updatePrev();
+    // updatePrev();
 
     setTimeout(() => {
       setLoading(false);
-    }, 425);
+    }, 500);
   }, [query, type]);
 
   //ON PAGE UPDATE
@@ -51,9 +50,8 @@ const SearchPage = ({
 
     if (!loadingData) {
       if (fetch && scrollHeight - scrollTop === clientHeight) {
-        const stopTweets =
-          results.tweets.results === results.tweets.totalResults;
-        const stopUsers = users.users.results === users.users.totalResults;
+        const stopTweets = tweets.results === tweets.totalResults;
+        const stopUsers = users.results === users.totalResults;
 
         if (type === "latest") {
           if (stopTweets) setFetch(false);
@@ -183,7 +181,7 @@ const SearchPage = ({
           ) : (
             <Results
               type={type}
-              results={results}
+              tweetResults={tweets}
               userResults={users}
               me={me}
               loading={pageLoad}
@@ -201,7 +199,7 @@ const mapState = (state, ownProps) => {
   return {
     me: state.profilesReducer.me,
     users: state.profilesReducer.search,
-    results: state.searchReducer,
+    tweets: state.tweetReducer.search,
     URLquery: params.get("q"),
     URLtype: params.get("t") ? params.get("t") : "latest",
   };

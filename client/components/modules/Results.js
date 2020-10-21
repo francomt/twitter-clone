@@ -7,13 +7,13 @@ import {
   fetchLikeTweetSearch,
   fetchUnlikeTweetSearch,
   fetchDeleteTweetSearch,
-} from "../../store/results";
+} from "../../store/tweets";
 
-import { fetchFollow } from "../../store/profiles";
+import { fetchQuickFollow, fetchQuickUnfollow } from "../../store/profiles";
 
 const Results = ({
   type,
-  results,
+  tweetResults,
   userResults,
   me,
   likeTweet,
@@ -21,11 +21,12 @@ const Results = ({
   deleteTweet,
   loading,
   followUser,
+  unfollowUser,
 }) => {
   if (type === "latest") {
     return (
       <>
-        {results.tweets.data.tweets.map((tweet) => (
+        {tweetResults.data.tweets.map((tweet) => (
           <Tweet
             key={tweet.id}
             me={me}
@@ -49,8 +50,14 @@ const Results = ({
   } else if (type === "people") {
     return (
       <>
-        {userResults.users.data.users.map((user) => (
-          <User key={user.id} user={user} followUser={followUser} me={me} />
+        {userResults.data.users.map((user) => (
+          <User
+            key={user.id}
+            user={user}
+            followUser={followUser}
+            unfollowUser={unfollowUser}
+            me={me}
+          />
         ))}
         {loading && (
           <Loader
@@ -73,7 +80,9 @@ const mapDispatch = (dispatch) => {
     likeTweet: (tweetId) => dispatch(fetchLikeTweetSearch(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweetSearch(tweetId)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweetSearch(tweetId)),
-    followUser: (userId) => dispatch(fetchFollow(userId)),
+    followUser: (userId) => dispatch(fetchQuickFollow(userId)),
+    unfollowUser: (meFollowing, profileFollower) =>
+      dispatch(fetchQuickUnfollow(meFollowing, profileFollower)),
   };
 };
 

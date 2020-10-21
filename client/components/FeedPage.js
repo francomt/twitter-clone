@@ -34,7 +34,7 @@ class FeedPage extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.props.getFeed(this.props.me.id, this.state.page);
+    this.props.getFeed(this.props.me.id, this.state.page, true);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -227,7 +227,8 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getFeed: (userId, page) => dispatch(fetchFeed(userId, page)),
+    getFeed: (userId, page, initialLoad) =>
+      dispatch(fetchFeed(userId, page, initialLoad)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
