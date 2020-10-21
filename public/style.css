@@ -58,6 +58,9 @@ body {
 .util-margin-top-large {
   margin-top: 4rem !important; }
 
+.util-margin-btm-xxsmall {
+  margin-bottom: 0.25rem !important; }
+
 .util-margin-btm-small {
   margin-bottom: 1rem !important; }
 
@@ -112,6 +115,9 @@ body {
       background-color: rgba(29, 161, 242, 0.1); }
   .btn--tweet {
     width: 10rem; }
+  .btn--quick-follow {
+    width: 12rem;
+    height: 3.5rem; }
   .btn--neutral {
     background-color: #253341; }
     .btn--neutral:hover {
@@ -343,6 +349,7 @@ body {
 
 .tweet {
   height: auto;
+  width: 100%;
   padding: 1rem;
   padding-right: 2rem;
   border-bottom: solid 1.3px rgba(255, 255, 255, 0.1);
@@ -369,6 +376,12 @@ body {
     display: flex;
     width: 100%; }
     .content__user:hover > .content__name {
+      text-decoration: underline; }
+  .content__user-search {
+    display: flex;
+    flex-direction: column;
+    width: 100%; }
+    .content__user-search:hover > .content__name {
       text-decoration: underline; }
   .content__name {
     color: #fff;
@@ -882,7 +895,8 @@ body {
 
 .search-nav {
   height: fit-content;
-  width: 100%;
+  width: 60%;
+  border-right: solid 1.3px rgba(255, 255, 255, 0.1);
   border-bottom: solid 1.3px rgba(255, 255, 255, 0.1); }
 
 .search-top {
@@ -922,8 +936,18 @@ body {
 .results-list-container {
   height: 100%;
   display: flex;
-  flex-direction: column;
   overflow: auto; }
+
+.search-feed-middle {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: solid 1.3px rgba(255, 255, 255, 0.1); }
+
+.news-feed-right {
+  width: 25%; }
 
 .edit-profile-container {
   background-color: #15202b;

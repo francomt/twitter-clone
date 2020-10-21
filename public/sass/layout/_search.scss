@@ -7,8 +7,8 @@
 
 .search-nav {
   height: fit-content;
-  width: 100%;
-
+  width: 60%;
+  border-right: $border-main;
   border-bottom: $border-main;
 }
 
@@ -61,6 +61,18 @@
 .results-list-container {
   height: 100%;
   display: flex;
-  flex-direction: column;
   overflow: auto;
+}
+
+.search-feed-middle {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: $border-main;
+}
+
+.news-feed-right {
+  width: 25%;
 }

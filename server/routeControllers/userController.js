@@ -64,9 +64,14 @@ exports.searchUsers = catchAsync(async (req, res, next) => {
 
   const doc = await features.query;
 
+  const search = new RegExp(req.query.username, "i");
+
+  const totalResults = await User.countDocuments({ username: search });
+
   res.status(200).json({
     status: "success",
     results: doc.length,
+    totalResults,
     data: {
       users: doc,
     },

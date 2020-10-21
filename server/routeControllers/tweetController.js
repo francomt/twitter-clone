@@ -69,9 +69,14 @@ exports.searchTweets = catchAsync(async (req, res, next) => {
 
   const tweets = await features.query;
 
+  const search = new RegExp(req.query.text, "i");
+
+  const totalResults = await Tweet.countDocuments({ text: search });
+
   res.status(200).json({
     status: "success",
     results: tweets.length,
+    totalResults,
     data: {
       tweets,
     },

@@ -1,5 +1,6 @@
 .tweet {
   height: auto;
+  width: 100%;
   padding: 1rem;
   padding-right: 2rem;
   border-bottom: $border-main;
@@ -36,6 +37,16 @@
 
   &__user {
     display: flex;
+    width: 100%;
+
+    &:hover > .content__name {
+      text-decoration: underline;
+    }
+  }
+
+  &__user-search {
+    display: flex;
+    flex-direction: column;
     width: 100%;
 
     &:hover > .content__name {

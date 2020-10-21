@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./userModel");
-const arrayUniquePlugin = require("mongoose-unique-array");
+// const arrayUniquePlugin = require("mongoose-unique-array");
 
 const tweetSchema = mongoose.Schema(
   {
@@ -19,7 +19,7 @@ const tweetSchema = mongoose.Schema(
       required: [true, "Tweet must belong to a user"],
     },
     images: [String],
-    userLikes: [{ type: mongoose.Schema.ObjectId, ref: "User", unique: true }],
+    userLikes: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
   },
   //This allows virtual properties to appear in output
   {
@@ -29,7 +29,7 @@ const tweetSchema = mongoose.Schema(
   }
 );
 
-tweetSchema.plugin(arrayUniquePlugin);
+// tweetSchema.plugin(arrayUniquePlugin);
 
 //PRE-FIND MIDDLEWARE
 
