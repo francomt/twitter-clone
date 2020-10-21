@@ -14,6 +14,7 @@ import { fetchFollow } from "../../store/profiles";
 const Results = ({
   type,
   results,
+  userResults,
   me,
   likeTweet,
   unlikeTweet,
@@ -48,7 +49,7 @@ const Results = ({
   } else if (type === "people") {
     return (
       <>
-        {results.users.data.users.map((user) => (
+        {userResults.users.data.users.map((user) => (
           <User key={user.id} user={user} followUser={followUser} me={me} />
         ))}
         {loading && (

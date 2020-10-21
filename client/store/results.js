@@ -6,21 +6,22 @@ const SEARCH_TWEETS = "SEARCH_TWEETS";
 const LIKE_TWEET_SEARCH = "LIKE_TWEET_SEARCH";
 const DELETE_TWEET_SEARCH = "DELETE_TWEET_SEARCH";
 
-const searchTweets = (tweets, prev) => ({
+const searchTweets = (tweets, initialLoad) => ({
   type: SEARCH_TWEETS,
   tweets,
-  prev,
+
+  initialLoad,
 });
 const likeTweet = (tweet) => ({ type: LIKE_TWEET_SEARCH, tweet });
 const deleteTweet = (tweetId) => ({ type: DELETE_TWEET_SEARCH, tweetId });
 
-export const fetchSearchTweets = (query, page = 1) => {
+export const fetchSearchTweets = (query, page = 1, initialLoad = false) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
         `/api/tweets/search?text=${query}&page=${page}&limit=8`
       );
-      dispatch(searchTweets(data, history.location.search));
+      dispatch(searchTweets(data, initialLoad));
     } catch (error) {
       console.error(error);
     }
@@ -66,34 +67,14 @@ export const fetchUpdatePrev = (path) => {
   };
 };
 
-//ACTION TYPES USERS
-const SEARCH_USERS = "SEARCH_USERS";
-
-const searchUsers = (users, prev) => ({ type: SEARCH_USERS, users, prev });
-
-export const fetchSearchUsers = (query, page = 1) => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(
-        `/api/users/search?username=${query}&page=${page}&limit=10`
-      );
-      dispatch(searchUsers(data, history.location.search));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-};
-
 const defaultState = {
-  prev: "",
   tweets: {},
-  users: {},
 };
 
 function searchReducer(state = defaultState, action) {
   switch (action.type) {
     case SEARCH_TWEETS:
-      if (action.prev !== state.prev) {
+      if (action.initialLoad) {
         return {
           prev: action.prev,
           tweets: action.tweets,
@@ -149,27 +130,6 @@ function searchReducer(state = defaultState, action) {
           },
         },
       };
-
-    //USERS //////////////////////////////
-    case SEARCH_USERS:
-      if (action.prev !== state.prev) {
-        return {
-          ...state,
-          prev: action.prev,
-          users: action.users,
-        };
-      } else {
-        return {
-          ...state,
-          users: {
-            ...state.users,
-            results: state.users.results + action.users.results,
-            data: {
-              users: [...state.users.data.users, ...action.users.data.users],
-            },
-          },
-        };
-      }
 
     default:
       return state;

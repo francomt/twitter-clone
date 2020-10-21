@@ -148,9 +148,38 @@ export const updateProfile = (userId, body, username) => {
   };
 };
 
+///////////////////////////////
+//////// USER SEARCH  ////////
+/////////////////////////////
+
+const SEARCH_USERS = "SEARCH_USERS";
+
+const searchUsers = (users, initialLoad) => ({
+  type: SEARCH_USERS,
+  users,
+  initialLoad,
+});
+
+export const fetchSearchUsers = (query, page = 1, initialLoad = false) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `/api/users/search?username=${query}&page=${page}&limit=10`
+      );
+      dispatch(searchUsers(data, initialLoad));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 const defaultState = {
   me: {},
   profile: {},
+  search: {
+    prev: "",
+    users: {},
+  },
 };
 
 function profilesReducer(state = defaultState, action) {
@@ -189,6 +218,7 @@ function profilesReducer(state = defaultState, action) {
     case FOLLOW_USER:
       if (action.follow.data) {
         return {
+          ...state,
           me: {
             ...state.me,
             following: [action.follow.data.me, ...state.me.following],
@@ -210,9 +240,39 @@ function profilesReducer(state = defaultState, action) {
       );
 
       return {
+        ...state,
         me: { ...state.me, following: meFiltered },
         profile: { ...state.profile, followers: profileFiltered },
       };
+
+    case SEARCH_USERS:
+      if (action.initialLoad) {
+        return {
+          ...state,
+          search: {
+            prev: action.prev,
+            users: action.users,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          search: {
+            prev: action.prev,
+            users: {
+              ...state.search.users,
+              results: state.search.users.results + action.users.results,
+              data: {
+                users: [
+                  ...state.search.users.data.users,
+                  ...action.users.data.users,
+                ],
+              },
+            },
+          },
+        };
+      }
+
     default:
       return state;
   }

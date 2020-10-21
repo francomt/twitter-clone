@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { fetchSearchTweets, fetchSearchUsers } from "../store/results";
+import { fetchSearchTweets } from "../store/results";
+import { fetchSearchUsers } from "../store/profiles";
 import { fetchUpdatePrev } from "../store/tweets";
 import { Results } from "./modules";
 import history from "../history";
@@ -9,6 +10,7 @@ import Loader from "react-loader-spinner";
 const SearchPage = ({
   results,
   me,
+  users,
   updatePrev,
   URLquery,
   URLtype,
@@ -29,7 +31,7 @@ const SearchPage = ({
     //If no query, redirect to explore page
     if (!query) return history.push("/explore");
 
-    searchQuery(type, query, page, loadingData);
+    searchQuery(type, query, page, true);
     updatePrev();
 
     setTimeout(() => {
@@ -40,7 +42,7 @@ const SearchPage = ({
   //ON PAGE UPDATE
   useEffect(() => {
     if (!loadingData) {
-      searchQuery(type, query, page, loadingData);
+      searchQuery(type, query, page);
     }
   }, [page]);
 
@@ -51,7 +53,7 @@ const SearchPage = ({
       if (fetch && scrollHeight - scrollTop === clientHeight) {
         const stopTweets =
           results.tweets.results === results.tweets.totalResults;
-        const stopUsers = results.users.results === results.users.totalResults;
+        const stopUsers = users.users.results === users.users.totalResults;
 
         if (type === "latest") {
           if (stopTweets) setFetch(false);
@@ -179,7 +181,13 @@ const SearchPage = ({
               style={{ margin: "25px" }}
             />
           ) : (
-            <Results type={type} results={results} me={me} loading={pageLoad} />
+            <Results
+              type={type}
+              results={results}
+              userResults={users}
+              me={me}
+              loading={pageLoad}
+            />
           )}
         </div>
         <div className="news-feed-right"></div>
@@ -192,6 +200,7 @@ const mapState = (state, ownProps) => {
   const params = new URLSearchParams(ownProps.location.search);
   return {
     me: state.profilesReducer.me,
+    users: state.profilesReducer.search,
     results: state.searchReducer,
     URLquery: params.get("q"),
     URLtype: params.get("t") ? params.get("t") : "latest",
@@ -200,9 +209,11 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    searchQuery: (type, query, page) => {
-      if (type === "latest") dispatch(fetchSearchTweets(query, page));
-      else if (type === "people") dispatch(fetchSearchUsers(query, page));
+    searchQuery: (type, query, page, initialLoad) => {
+      if (type === "latest")
+        dispatch(fetchSearchTweets(query, page, initialLoad));
+      else if (type === "people")
+        dispatch(fetchSearchUsers(query, page, initialLoad));
     },
     updatePrev: () => {
       dispatch(fetchUpdatePrev(history.location.pathname));
