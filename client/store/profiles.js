@@ -87,6 +87,8 @@ export const fetchSignup = (body) => {
 const GET_PROFILE_TWO = "GET_PROFILE";
 const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
+const QUICK_FOLLOW = "QUICK_FOLLOW";
+const QUICK_UNFOLLOW = "QUICK_UNFOLLOW";
 
 //Action creators
 const getProfile = (profile) => ({ type: GET_PROFILE_TWO, profile });

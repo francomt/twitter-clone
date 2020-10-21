@@ -9,6 +9,8 @@ import {
   fetchDeleteTweetSearch,
 } from "../../store/results";
 
+import { fetchFollow } from "../../store/profiles";
+
 const Results = ({
   type,
   results,
@@ -17,6 +19,7 @@ const Results = ({
   unlikeTweet,
   deleteTweet,
   loading,
+  followUser,
 }) => {
   if (type === "latest") {
     return (
@@ -46,7 +49,7 @@ const Results = ({
     return (
       <>
         {results.users.data.users.map((user) => (
-          <User key={user.id} user={user} />
+          <User key={user.id} user={user} followUser={followUser} me={me} />
         ))}
         {loading && (
           <Loader
@@ -69,6 +72,7 @@ const mapDispatch = (dispatch) => {
     likeTweet: (tweetId) => dispatch(fetchLikeTweetSearch(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweetSearch(tweetId)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweetSearch(tweetId)),
+    followUser: (userId) => dispatch(fetchFollow(userId)),
   };
 };
 
