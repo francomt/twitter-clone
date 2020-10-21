@@ -38,6 +38,7 @@ const User = ({ me, user, followUser, unfollowUser }) => {
               user={user}
               followUser={followUser}
               unfollowUser={unfollowUser}
+              type="quick"
             />
           </div>
           <p className="content__text">{user.bio}</p>

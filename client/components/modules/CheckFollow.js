@@ -1,17 +1,26 @@
 import React from "react";
 
-const CheckFollow = ({ me, user, followUser, unfollowUser }) => {
+const CheckFollow = ({ me, user, followUser, unfollowUser, type }) => {
   const userFollowers = {};
 
   let following = false;
 
   let meFollowingId;
+  let userFollowing;
 
   if (user && user.followers) {
-    for (let i = 0; i < user.followers.length; i++) {
-      const currentId = user.followers[i];
+    if (type === "quick") {
+      for (let i = 0; i < user.followers.length; i++) {
+        const currentId = user.followers[i];
 
-      userFollowers[currentId] = true;
+        userFollowers[currentId] = true;
+      }
+    } else {
+      for (let i = 0; i < user.followers.length; i++) {
+        const currentFollow = user.followers[i];
+
+        userFollowers[currentFollow._id] = true;
+      }
     }
   }
 
@@ -20,6 +29,7 @@ const CheckFollow = ({ me, user, followUser, unfollowUser }) => {
       const current = me.following[j];
       if (userFollowers[current.followingId]) {
         meFollowingId = current._id;
+        userFollowing = current.followingId;
         following = true;
       }
     }

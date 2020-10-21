@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Tweet } from "./modules/index";
+import { Tweet, CheckFollow } from "./modules/index";
 import {
   fetchDeleteTweet,
   fetchLikeTweet,
@@ -9,64 +9,6 @@ import {
 } from "../store/tweets";
 import { fetchProfileTwo, fetchUnfollow, fetchFollow } from "../store/profiles";
 import history from "../history";
-
-const CheckFollow = ({ me, profile, unfollowUser, followUser }) => {
-  let profileFollower;
-
-  let meFollowing;
-
-  if (profile && profile.followers) {
-    let following = profile.followers.some((follow) => {
-      if (follow.user.id === me.id) {
-        profileFollower = follow._id;
-      }
-      return follow.user.id === me.id;
-    });
-
-    if (following) {
-      me.following.forEach((follow) => {
-        if (follow.followingId === profileFollower) {
-          meFollowing = follow._id;
-        }
-      });
-
-      return (
-        <button
-          onClick={() => {
-            unfollowUser(meFollowing, profileFollower);
-          }}
-          className="btn btn--outline profile__edit"
-        >
-          Unfollow
-        </button>
-      );
-    } else {
-      return (
-        <button
-          onClick={() => {
-            followUser(profile.id);
-          }}
-          className="btn btn--outline profile__edit"
-        >
-          Follow
-        </button>
-      );
-    }
-  } else if (profile && profile.followers && profile.followers.length === 0) {
-    return (
-      <button
-        onClick={() => {
-          followUser(profile.id);
-        }}
-        className="btn btn--outline profile__edit"
-      >
-        Follow
-      </button>
-    );
-  } else {
-    return <div></div>;
-  }
-};
 
 const ProfilePage = ({
   getTweets,
@@ -147,7 +89,7 @@ const ProfilePage = ({
               ) : (
                 <CheckFollow
                   me={me}
-                  profile={profile}
+                  user={profile}
                   followUser={followUser}
                   unfollowUser={unfollowUser}
                 />
