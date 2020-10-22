@@ -19,6 +19,7 @@ Objective is to create a clone that mimics the features of Twitter.
 - Can like and unlike tweets
 - Confirm delete tweet before deleting
 - Follow and Unfollow users
+- Quick Follow / Unfollow on search results & profile following/follower lists
 
 ### Installation Instructions:
 
