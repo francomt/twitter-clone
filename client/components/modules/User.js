@@ -33,13 +33,15 @@ const User = ({ me, user, followUser, unfollowUser }) => {
                 @{user.username}
               </p>
             </div>
-            <CheckFollow
-              me={me}
-              user={user}
-              followUser={followUser}
-              unfollowUser={unfollowUser}
-              type="quick"
-            />
+            {me.id !== user.id && (
+              <CheckFollow
+                me={me}
+                user={user}
+                followUser={followUser}
+                unfollowUser={unfollowUser}
+                type="quick"
+              />
+            )}
           </div>
           <p className="content__text">{user.bio}</p>
         </div>

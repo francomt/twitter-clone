@@ -13,7 +13,7 @@ const userFollowSchema = new mongoose.Schema({
 });
 
 userFollowSchema.pre(/^find/, async function (next) {
-  this.populate("user", "name username photo");
+  this.populate("user", "name username photo bio");
   next();
 });
 

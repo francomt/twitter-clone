@@ -7,7 +7,7 @@ import {
   fetchProfileFeed,
   fetchUnlikeTweet,
 } from "../store/tweets";
-import { fetchProfileTwo, fetchUnfollow, fetchFollow } from "../store/profiles";
+import { fetchProfile, fetchUnfollow, fetchFollow } from "../store/profiles";
 import history from "../history";
 import Loader from "react-loader-spinner";
 
@@ -58,7 +58,7 @@ const ProfilePage = ({
       <nav className="secondary-nav">
         <div
           onClick={() => {
-            history.push("/");
+            history.goBack();
           }}
           className="secondary-nav__back"
         >
@@ -123,11 +123,21 @@ const ProfilePage = ({
                 <p className="profile__bio">{profile.bio}</p>
 
                 <div className="profile__follow-follower">
-                  <p className="follow-count-text util-margin-right-medium">
+                  <p
+                    className="follow-count-text util-margin-right-medium"
+                    onClick={() => {
+                      history.push(`/${profile.username}/following`);
+                    }}
+                  >
                     <span className="bold">{profile.following.length}</span>{" "}
                     Following
                   </p>
-                  <p className="follow-count-text">
+                  <p
+                    className="follow-count-text"
+                    onClick={() => {
+                      history.push(`/${profile.username}/followers`);
+                    }}
+                  >
                     <span className="bold">{profile.followers.length}</span>{" "}
                     Followers
                   </p>
@@ -167,7 +177,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, ownProps) => {
   const username = ownProps.match.params.username;
   return {
-    getProfile: () => dispatch(fetchProfileTwo(username)),
+    getProfile: () => dispatch(fetchProfile(username)),
     getTweets: (page, initialLoad) =>
       dispatch(fetchProfileFeed(username, page, initialLoad)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),

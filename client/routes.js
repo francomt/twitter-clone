@@ -26,7 +26,11 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   useEffect(() => {
     if (pathname === "/home") selectIcon("home");
     else if (pathname === "/search") selectIcon("");
-    else selectIcon("profile");
+    else if (me && pathname.endsWith(me.username)) {
+      selectIcon("profile");
+    } else {
+      selectIcon("");
+    }
   }, [pathname]);
 
   //For selected icon

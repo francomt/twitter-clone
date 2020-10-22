@@ -1,0 +1,48 @@
+.follows-page-container {
+  width: 100%;
+  background-color: $color-primary-background;
+}
+
+.follows-bottom {
+  width: 60%;
+
+  display: flex;
+  border-right: $border-main;
+
+  &__selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 6rem;
+    transition: all 0.2s;
+    color: $color-font-dark;
+    border-bottom: $border-main-2;
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba($color-primary, 0.1);
+    }
+  }
+
+  &__selection-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    height: 6rem;
+    transition: all 0.2s;
+    border-bottom: solid 2.5px $color-primary;
+    color: $color-primary;
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgba($color-primary, 0.1);
+    }
+  }
+
+  &__text {
+    font-size: 1.6rem;
+    color: currentColor;
+  }
+}

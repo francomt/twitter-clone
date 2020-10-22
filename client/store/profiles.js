@@ -99,10 +99,12 @@ const unfollowUser = (meFollowing, profileFollower) => ({
   profileFollower,
 });
 
-const quickFollow = (follow, userId) => ({
+const quickFollow = (follow, userId, followType, selected) => ({
   type: QUICK_FOLLOW,
   follow,
   userId,
+  followType,
+  selected,
 });
 const quickUnfollow = (meFollowing, profileFollower) => ({
   type: QUICK_UNFOLLOW,
@@ -111,10 +113,21 @@ const quickUnfollow = (meFollowing, profileFollower) => ({
 });
 
 //Current profile thunks
-export const fetchProfileTwo = (username) => {
+export const fetchProfile = (username) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/users/${username}`);
+      dispatch(getProfile(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchProfileFollows = (username) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/users/${username}/follows`);
       dispatch(getProfile(data));
     } catch (error) {
       console.error(error);
@@ -133,11 +146,11 @@ export const fetchFollow = (userId) => {
   };
 };
 
-export const fetchQuickFollow = (userId) => {
+export const fetchQuickFollow = (userId, followType, selected) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`/api/users/${userId}/follow`);
-      dispatch(quickFollow(data, userId));
+      dispatch(quickFollow(data, userId, followType, selected));
     } catch (error) {
       console.error(error);
     }
@@ -298,29 +311,58 @@ function profilesReducer(state = defaultState, action) {
       }
 
     case QUICK_FOLLOW:
-      const userResults = state.search.data.users.map((user) => {
-        if (user.id === action.userId) {
-          user.followers = [action.follow.data.follow._id, ...user.followers];
-          return user;
-        }
+      console.log(action);
 
-        return user;
-      });
+      let userResults;
+
+      if (action.followType === "page") {
+        userResults = state.profile[action.selected].map((user) => {
+          if (user.id === action.userId) {
+            user.followers = [action.follow.data.follow._id, ...user.followers];
+            return user;
+          }
+
+          return user;
+        });
+      } else {
+        userResults = state.search.data.users.map((user) => {
+          if (user.id === action.userId) {
+            user.followers = [action.follow.data.follow._id, ...user.followers];
+            return user;
+          }
+
+          return user;
+        });
+      }
 
       if (action.follow.data) {
-        return {
-          ...state,
-          me: {
-            ...state.me,
-            following: [action.follow.data.me, ...state.me.following],
-          },
-          search: {
-            ...state.search,
-            data: {
-              users: userResults,
+        if (action.followType === "page") {
+          return {
+            ...state,
+            me: {
+              ...state.me,
+              following: [action.follow.data.me, ...state.me.following],
             },
-          },
-        };
+            profile: {
+              ...state.profile,
+              [action.selected]: userResults,
+            },
+          };
+        } else {
+          return {
+            ...state,
+            me: {
+              ...state.me,
+              following: [action.follow.data.me, ...state.me.following],
+            },
+            search: {
+              ...state.search,
+              data: {
+                users: userResults,
+              },
+            },
+          };
+        }
       }
 
       return state;

@@ -78,6 +78,35 @@ exports.searchUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getFollowing = catchAsync(async (req, res, next) => {
+  const doc = await User.find({ username: req.params.id }).populate(
+    "following followers"
+  );
+
+  const followingIds = doc[0].following.map((follow) => {
+    return follow.user.id;
+  });
+
+  const followerIds = doc[0].followers.map((follow) => {
+    return follow.user.id;
+  });
+
+  const following = await User.find({ _id: followingIds }).select(
+    "name username photo bio following followers"
+  );
+
+  const followers = await User.find({ _id: followerIds }).select(
+    "name username photo bio following followers"
+  );
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: { ...doc[0]._doc, following, followers },
+    },
+  });
+});
+
 exports.getUser = catchAsync(async (req, res, next) => {
   let query;
 

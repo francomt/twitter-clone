@@ -20,6 +20,8 @@ router.get("/search", userController.searchUsers);
 
 router.post("/unfollow", userController.unfollowUser);
 
+router.get("/:id/follows", userController.getFollowing);
+
 router.get("/:id", userController.getUser);
 
 router.patch(

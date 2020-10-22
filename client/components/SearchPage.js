@@ -111,6 +111,9 @@ const SearchPage = ({
           <div
             onClick={() => {
               history.goBack();
+              setTimeout(() => {
+                history.go();
+              }, 50);
             }}
             className="secondary-nav__back"
           >
