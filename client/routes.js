@@ -31,7 +31,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
     } else {
       selectIcon("");
     }
-  }, [pathname]);
+  }, [me, pathname]);
 
   //For selected icon
   const classValue = (currentVal, icon) => {
