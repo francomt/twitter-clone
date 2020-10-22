@@ -39,7 +39,7 @@ const CheckFollow = ({ me, user, followUser, unfollowUser, type }) => {
     return (
       <button
         onClick={() => {
-          unfollowUser(meFollowingId);
+          unfollowUser(meFollowingId, userFollowing);
         }}
         className="btn btn--quick-follow"
       >

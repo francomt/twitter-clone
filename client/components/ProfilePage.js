@@ -124,10 +124,12 @@ const ProfilePage = ({
 
                 <div className="profile__follow-follower">
                   <p className="follow-count-text util-margin-right-medium">
-                    <span className="bold">32</span> Following
+                    <span className="bold">{profile.following.length}</span>{" "}
+                    Following
                   </p>
                   <p className="follow-count-text">
-                    <span className="bold">78</span> Followers
+                    <span className="bold">{profile.followers.length}</span>{" "}
+                    Followers
                   </p>
                 </div>
               </div>
