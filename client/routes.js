@@ -84,7 +84,9 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
             className="nav__item"
             onClick={() => {
               selectIcon("profile");
-              history.push(`/${me.username}`);
+              if (history.location.pathname !== `/${me.username}`) {
+                history.push(`/${me.username}`);
+              }
             }}
           >
             <div className="icon-container">

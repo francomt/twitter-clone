@@ -29,8 +29,12 @@
 }
 
 .feed-middle {
-  height: 100%;
+  height: fit-content;
+  min-height: 100%;
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-right: $border-main;
 }
 

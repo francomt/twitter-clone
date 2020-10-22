@@ -201,7 +201,8 @@ body {
 
 .create-tweet-container {
   padding: 1rem;
-  display: flex; }
+  display: flex;
+  width: 100%; }
 
 .create-tweet {
   display: flex;
@@ -757,8 +758,12 @@ body {
   overflow: auto; }
 
 .feed-middle {
-  height: 100%;
+  height: fit-content;
+  min-height: 100%;
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-right: solid 1.3px rgba(255, 255, 255, 0.1); }
 
 .input-container {
@@ -812,10 +817,12 @@ body {
 
 .profile-feed-container {
   display: flex;
+  width: 100%;
   flex-direction: column; }
 
 .profile-bottom-half {
-  overflow: auto; }
+  overflow: auto;
+  min-height: 100%; }
 
 .profile-info-container {
   display: flex;
@@ -939,7 +946,7 @@ body {
   overflow: auto; }
 
 .search-feed-middle {
-  height: 100%;
+  height: fit-content;
   width: 60%;
   display: flex;
   flex-direction: column;

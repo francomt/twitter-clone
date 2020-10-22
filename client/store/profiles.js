@@ -84,14 +84,14 @@ export const fetchSignup = (body) => {
 /////////////////////////////
 
 //Action types
-const GET_PROFILE_TWO = "GET_PROFILE";
+const GET_PROFILE = "GET_PROFILE";
 const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
 const QUICK_FOLLOW = "QUICK_FOLLOW";
 const QUICK_UNFOLLOW = "QUICK_UNFOLLOW";
 
 //Action creators
-const getProfile = (profile) => ({ type: GET_PROFILE_TWO, profile });
+const getProfile = (profile) => ({ type: GET_PROFILE, profile });
 const followUser = (follow) => ({ type: FOLLOW_USER, follow });
 const unfollowUser = (meFollowing, profileFollower) => ({
   type: UNFOLLOW_USER,
@@ -241,7 +241,7 @@ function profilesReducer(state = defaultState, action) {
       return defaultState;
 
     //CURRENT PROFILE
-    case GET_PROFILE_TWO:
+    case GET_PROFILE:
       if (action.profile.data) {
         return { ...state, profile: action.profile.data.user };
       }

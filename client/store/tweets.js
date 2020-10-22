@@ -14,7 +14,11 @@ const getFeed = (feed, initialLoad) => ({
   feed,
   initialLoad,
 });
-const getProfileFeed = (feed, prev) => ({ type: GET_PROFILE_FEED, feed, prev });
+const getProfileFeed = (feed, initialLoad) => ({
+  type: GET_PROFILE_FEED,
+  feed,
+  initialLoad,
+});
 const createTweet = (tweet, pathname) => ({
   type: CREATE_TWEET,
   tweet,
@@ -37,13 +41,13 @@ export const fetchFeed = (userId, page = 1, initialLoad = false) => {
   };
 };
 
-export const fetchProfileFeed = (username, page = 1) => {
+export const fetchProfileFeed = (username, page = 1, initialLoad = false) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
         `/api/users/${username}/tweets?page=${page}&limit=25`
       );
-      dispatch(getProfileFeed(data, history.location.pathname));
+      dispatch(getProfileFeed(data, initialLoad));
     } catch (error) {
       console.error(error);
     }
@@ -192,11 +196,11 @@ function tweetReducer(state = defaultState, action) {
 
     case GET_PROFILE_FEED:
       if (action.feed.data) {
-        if (action.prev !== state.prev) {
+        if (action.initialLoad) {
           return {
             ...state,
             prev: action.prev,
-            feed: [...action.feed.data.tweets],
+            feed: action.feed.data.tweets,
           };
         } else {
           return {

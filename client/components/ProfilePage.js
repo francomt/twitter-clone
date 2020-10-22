@@ -9,6 +9,7 @@ import {
 } from "../store/tweets";
 import { fetchProfileTwo, fetchUnfollow, fetchFollow } from "../store/profiles";
 import history from "../history";
+import Loader from "react-loader-spinner";
 
 const ProfilePage = ({
   getTweets,
@@ -26,14 +27,18 @@ const ProfilePage = ({
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
   const [length, setLength] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProfile();
     setPage(1);
+    setTimeout(() => {
+      setLoading(false);
+    }, 150);
   }, [location]);
 
   useEffect(() => {
-    getTweets(page);
+    getTweets(page, true);
   }, [page, location]);
 
   const handleScroll = (e) => {
@@ -65,71 +70,84 @@ const ProfilePage = ({
         </div>
         <h3 className="nav-text util-margin-right-large">{profile.name}</h3>
       </nav>
+
       <div
         onScroll={handleScroll}
         className="profile-bottom-half style-scrollbars"
       >
         <div className="feed-middle">
-          <div className="profile-info-container">
-            <img
-              className="profile__coverImg"
-              src={`/img/cover/${profile.coverImg}`}
+          {loading ? (
+            <Loader
+              type="Oval"
+              color="#1da1f2"
+              height={40}
+              width={40}
+              style={{ margin: "25px" }}
             />
-
-            <div className="profile__follow-edit">
-              {me.id === profile.id ? (
-                <button
-                  onClick={() => {
-                    history.push("/profile");
-                  }}
-                  className="btn btn--outline profile__edit"
-                >
-                  Edit profile
-                </button>
-              ) : (
-                <CheckFollow
-                  me={me}
-                  user={profile}
-                  followUser={followUser}
-                  unfollowUser={unfollowUser}
+          ) : (
+            <>
+              <div className="profile-info-container">
+                <img
+                  className="profile__coverImg"
+                  src={`/img/cover/${profile.coverImg}`}
                 />
-              )}
-            </div>
 
-            <img
-              className="profile__photo"
-              src={`/img/users/${profile.photo}`}
-            />
+                <div className="profile__follow-edit">
+                  {me.id === profile.id ? (
+                    <button
+                      onClick={() => {
+                        history.push("/profile");
+                      }}
+                      className="btn btn--outline profile__edit"
+                    >
+                      Edit profile
+                    </button>
+                  ) : (
+                    <CheckFollow
+                      me={me}
+                      user={profile}
+                      followUser={followUser}
+                      unfollowUser={unfollowUser}
+                    />
+                  )}
+                </div>
 
-            <h1 className="profile__name">{profile.name}</h1>
-            <p className="profile__username">@{profile.username}</p>
+                <img
+                  className="profile__photo"
+                  src={`/img/users/${profile.photo}`}
+                />
 
-            <p className="profile__bio">{profile.bio}</p>
+                <h1 className="profile__name">{profile.name}</h1>
+                <p className="profile__username">@{profile.username}</p>
 
-            <div className="profile__follow-follower">
-              <p className="follow-count-text util-margin-right-medium">
-                <span className="bold">32</span> Following
-              </p>
-              <p className="follow-count-text">
-                <span className="bold">78</span> Followers
-              </p>
-            </div>
-          </div>
-          <div className="profile-feed-container">
-            {tweets &&
-              tweets.map((tweet) => {
-                return (
-                  <Tweet
-                    key={tweet.id}
-                    tweet={tweet}
-                    me={me}
-                    deleteTweet={deleteTweet}
-                    likeTweet={likeTweet}
-                    unlikeTweet={unlikeTweet}
-                  />
-                );
-              })}
-          </div>
+                <p className="profile__bio">{profile.bio}</p>
+
+                <div className="profile__follow-follower">
+                  <p className="follow-count-text util-margin-right-medium">
+                    <span className="bold">32</span> Following
+                  </p>
+                  <p className="follow-count-text">
+                    <span className="bold">78</span> Followers
+                  </p>
+                </div>
+              </div>
+              <div className="profile-feed-container">
+                {tweets &&
+                  tweets.map((tweet) => {
+                    return (
+                      <Tweet
+                        key={tweet.id}
+                        tweet={tweet}
+                        me={me}
+                        deleteTweet={deleteTweet}
+                        likeTweet={likeTweet}
+                        unlikeTweet={unlikeTweet}
+                      />
+                    );
+                  })}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -148,7 +166,8 @@ const mapDispatch = (dispatch, ownProps) => {
   const username = ownProps.match.params.username;
   return {
     getProfile: () => dispatch(fetchProfileTwo(username)),
-    getTweets: (page) => dispatch(fetchProfileFeed(username, page)),
+    getTweets: (page, initialLoad) =>
+      dispatch(fetchProfileFeed(username, page, initialLoad)),
     deleteTweet: (tweetId) => dispatch(fetchDeleteTweet(tweetId)),
     likeTweet: (tweetId) => dispatch(fetchLikeTweet(tweetId)),
     unlikeTweet: (tweetId) => dispatch(fetchUnlikeTweet(tweetId)),
