@@ -10,6 +10,7 @@ import {
   EditProfilePage,
   SearchPage,
   ExplorePage,
+  FollowsPage,
 } from "./components";
 import { fetchMe, fetchLogout } from "./store/profiles";
 import { navIcons } from "./components/modules/Svgs";
@@ -51,6 +52,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
       <Route exact path="/profile" component={withRouter(EditProfilePage)} />
       <Route exact path="/explore" component={ExplorePage} />
       <Route path="/search" component={SearchPage} />
+      <Route path="/:username/following" component={FollowsPage} />
+      <Route path="/:username/followers" component={FollowsPage} />
       <Route path="/:username" component={ProfilePage} />
       <Redirect from="/" to="/home" />
     </Switch>

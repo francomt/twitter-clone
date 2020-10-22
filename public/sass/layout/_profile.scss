@@ -92,6 +92,11 @@
   font-size: 1.6rem;
   color: $color-font-dark;
   font-weight: 300;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 .bold {

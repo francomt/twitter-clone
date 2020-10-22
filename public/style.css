@@ -889,6 +889,9 @@ body {
   font-size: 1.6rem;
   color: #8899a6;
   font-weight: 300; }
+  .follow-count-text:hover {
+    cursor: pointer;
+    text-decoration: underline; }
 
 .bold {
   font-weight: 600;
