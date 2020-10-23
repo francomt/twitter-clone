@@ -2,7 +2,6 @@ const User = require("../db/models/userModel");
 const catchAsync = require("../utilities/catchAsync");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
-const { findById } = require("../db/models/userModel");
 
 //CREATES TOKEN SIGNATURE
 const signToken = (id) => {
@@ -66,7 +65,10 @@ exports.login = catchAsync(async (req, res, next) => {
 
   //Check if email and password are in req.body
   if (!userInfo || !password) {
-    return next(new Error("Please provide email/username and password"));
+    return res.json({
+      status: "failed",
+      message: "Please provide both email/username and password",
+    });
   }
 
   let user;
@@ -78,8 +80,15 @@ exports.login = catchAsync(async (req, res, next) => {
     user = await User.findOne({ username: userInfo }).select("+password");
   }
 
-  //Check if password is correct
+  if (!user) {
+    return res.json({
+      status: "failed",
+      message:
+        "The email/username and password you entered did not match our records. Please double-check and try again.",
+    });
+  }
 
+  //Check if password is correct
   const correct = await user.correctPassword(password, user.password);
 
   if (!user || !correct) {

@@ -702,6 +702,12 @@ body {
     width: 55%;
     flex-direction: column; }
 
+.landing-err {
+  font-size: 1.5rem;
+  color: #e0245e;
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+
 .signup-page-container {
   display: flex;
   position: relative;

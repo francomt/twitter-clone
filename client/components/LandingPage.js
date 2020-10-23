@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { fetchLogin } from "../store/profiles";
 import history from "../history";
@@ -41,6 +41,7 @@ const LandingPage = ({ handleSubmit }) => {
               Log in
             </button>
           </form>
+
           <div className="right-body__header-container">
             <svg
               viewBox="0 0 24 24"
@@ -108,6 +109,7 @@ const mapDispatch = (dispatch) => {
       e.preventDefault();
       const userInfo = e.target.user.value;
       const password = e.target.password.value;
+
       dispatch(fetchLogin({ userInfo, password }));
     },
   };

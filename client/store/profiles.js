@@ -46,8 +46,14 @@ export const fetchLogin = (body) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/api/auth/login", body);
-      dispatch(login(data || {}));
-      history.push("/home");
+
+      if (data.status === "failed") {
+        history.push("/i/login");
+        dispatch(login(data));
+      } else {
+        history.push("/home");
+        dispatch(login(data));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -226,6 +232,7 @@ const defaultState = {
   me: {},
   profile: {},
   search: {},
+  errMsg: "",
 };
 
 function profilesReducer(state = defaultState, action) {
@@ -245,6 +252,10 @@ function profilesReducer(state = defaultState, action) {
         return state;
       }
     case LOGIN:
+      if (action.user.status === "failed") {
+        return { ...state, errMsg: action.user.message };
+      }
+
       if (action.user.data) {
         return { ...state, me: action.user.data.user };
       }
