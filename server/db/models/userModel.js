@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      max: 35,
     },
     email: {
       type: String,
@@ -20,9 +21,9 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: [true, "Username already in use"],
       validate: {
-        validator: /^(?=.{4,15}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+        validator: /^[a-z0-9_]{5,15}$/,
         message:
-          "Username must be between 4-15 characters, can only contain letters and numbers, cannot contain consecutive _ or . at the beginning or end.",
+          "Username must be between 5-15 characters, can only contain letters, numbers and '_'.",
       },
     },
     bio: {

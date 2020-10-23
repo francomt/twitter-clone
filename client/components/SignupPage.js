@@ -1,10 +1,59 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchSignup } from "../store/profiles";
 import history from "../history";
+import { debounce } from "lodash";
+const validator = require("validator");
 
 const SignupPage = ({ handleSubmit }) => {
+  const [nameErr, setNameErr] = useState(false);
+  const [usernameErr, setUsernameErr] = useState(false);
+  const [usernameMsg, setUsernameMsg] = useState("");
+  const [emailErr, setEmailErr] = useState(false);
+
+  const nameInputClass = nameErr
+    ? "input-error input-error__signup"
+    : "input input__signup";
+
+  const nameLabelClass = nameErr
+    ? "input-placeholder-error"
+    : "input-placeholder";
+
+  const usernamePattern = /^[a-z0-9_]{5,15}$/;
+
+  const usernameInputClass = usernameErr
+    ? "input-error input-error__signup"
+    : "input input__signup";
+
+  const usernameLabelClass = usernameErr
+    ? "input-placeholder-error"
+    : "input-placeholder";
+
   const nameInput = useRef(null);
+
+  const handleName = debounce((text) => {
+    if (text.length === 0) {
+      setNameErr(true);
+    } else {
+      setNameErr(false);
+    }
+  }, 250);
+
+  const handleUsername = debounce((text) => {
+    if (text.length < 5) {
+      setUsernameErr(true);
+      setUsernameMsg("Your username must be longer than 4 characters.");
+    } else if (text.length > 15) {
+      setUsernameErr(true);
+      setUsernameMsg("Your username must be shorter than 15 characters.");
+    } else if (!usernamePattern.test(text)) {
+      setUsernameErr(true);
+      setUsernameMsg("Your username can only contain letters, numbers and '_'");
+    } else {
+      setUsernameErr(false);
+      setUsernameMsg("");
+    }
+  }, 250);
 
   useEffect(() => {
     nameInput.current.focus();
@@ -35,19 +84,37 @@ const SignupPage = ({ handleSubmit }) => {
         <div className="wrapper wrapper__signup">
           <input
             ref={nameInput}
-            className="input input__signup"
+            onChange={(e) => {
+              handleName(e.target.value);
+            }}
+            className={nameInputClass}
             name="name"
+            required
           ></input>
-          <span className="input-placeholder">Name</span>
+          <span className={nameLabelClass}>Name</span>
+          {nameErr && <p className="signup-error">What's your name?</p>}
         </div>
 
         <div className="wrapper wrapper__signup">
-          <input className="input input__signup" name="username"></input>
-          <span className="input-placeholder">Username</span>
+          <input
+            className={usernameInputClass}
+            name="username"
+            onChange={(e) => {
+              handleUsername(e.target.value);
+            }}
+            required
+          ></input>
+          <span className={usernameLabelClass}>Username</span>
+          {usernameErr && <p className="signup-error">{usernameMsg}</p>}
         </div>
 
         <div className="wrapper wrapper__signup">
-          <input className="input input__signup" name="email"></input>
+          <input
+            className="input input__signup"
+            name="email"
+            type="email"
+            required
+          ></input>
           <span className="input-placeholder">Email</span>
         </div>
 
@@ -56,6 +123,7 @@ const SignupPage = ({ handleSubmit }) => {
             className="input input__signup"
             name="password"
             type="password"
+            required
           ></input>
           <span className="input-placeholder">Password</span>
         </div>
@@ -65,11 +133,12 @@ const SignupPage = ({ handleSubmit }) => {
             className="input input__signup"
             name="passwordConfirm"
             type="password"
+            required
           ></input>
           <span className="input-placeholder">Confirm Password</span>
         </div>
 
-        <button type="submit" className="btn">
+        <button type="submit" className="btn" disabled={true}>
           Sign up
         </button>
       </form>

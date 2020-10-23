@@ -129,15 +129,23 @@ body {
 
 .wrapper {
   display: flex;
+  position: relative;
   flex-direction: column; }
   .wrapper__signup {
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 0.8rem; }
 
 .input-placeholder {
   font-size: 1.5rem;
   font-weight: 400;
   transform: translate(5%, -300%);
   color: #8899a6; }
+
+.input-placeholder-error {
+  font-size: 1.5rem;
+  font-weight: 400;
+  transform: translate(5%, -300%);
+  color: #e0245e; }
 
 .input {
   height: 6rem;
@@ -156,6 +164,23 @@ body {
     border-bottom: solid 2.7px #1da1f2; }
   .input:focus ~ .input-placeholder {
     color: #1da1f2; }
+
+.input-error {
+  height: 6rem;
+  width: 20rem;
+  color: #fff;
+  background-color: #192734;
+  border: none;
+  border-radius: 2px;
+  border-bottom: solid 2.7px #e0245e;
+  padding: 2rem 1rem 0 1rem;
+  font-size: 2rem; }
+  .input-error__signup {
+    width: 100%; }
+  .input-error:focus {
+    outline: none; }
+  .input-error:focus ~ .input-placeholder {
+    color: #e0245e; }
 
 .searchbar-container {
   width: 25rem;
@@ -721,9 +746,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 60rem;
+  height: 100%;
   width: 50rem;
-  padding: 2rem 2.5rem; }
+  padding: 5rem 2.5rem 2rem 2.5rem; }
   .signup__logo {
     height: 3rem;
     margin-bottom: 2.5rem; }
@@ -737,6 +762,11 @@ body {
   fill: #1da1f2; }
   .back-arrow:hover {
     cursor: pointer; }
+
+.signup-error {
+  font-size: 1.5rem;
+  color: #e0245e;
+  transform: translateY(-60%); }
 
 .feed-page-container {
   background-color: #15202b;
