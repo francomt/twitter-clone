@@ -10,6 +10,9 @@ const SignupPage = ({ handleSubmit }) => {
   const [usernameErr, setUsernameErr] = useState(false);
   const [usernameMsg, setUsernameMsg] = useState("");
   const [emailErr, setEmailErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const [pass, setPassword] = useState("");
+  const [passConfirmErr, setPassConfirmErr] = useState(false);
 
   const nameInputClass = nameErr
     ? "input-error input-error__signup"
@@ -29,6 +32,32 @@ const SignupPage = ({ handleSubmit }) => {
     ? "input-placeholder-error"
     : "input-placeholder";
 
+  const emailInputClass = emailErr
+    ? "input-error input-error__signup"
+    : "input input__signup";
+
+  const emailLabelClass = emailErr
+    ? "input-placeholder-error"
+    : "input-placeholder";
+
+  const passwordInputClass = passwordErr
+    ? "input-error input-error__signup"
+    : "input input__signup";
+
+  const passwordLabelClass = passwordErr
+    ? "input-placeholder-error"
+    : "input-placeholder";
+
+  const passConfirmInputClass =
+    passConfirmErr && !passwordErr
+      ? "input-error input-error__signup"
+      : "input input__signup";
+
+  const passConfirmLabelClass =
+    passConfirmErr && !passwordErr
+      ? "input-placeholder-error"
+      : "input-placeholder";
+
   const nameInput = useRef(null);
 
   const handleName = debounce((text) => {
@@ -37,7 +66,10 @@ const SignupPage = ({ handleSubmit }) => {
     } else {
       setNameErr(false);
     }
-  }, 250);
+  }, 450);
+
+  const disabledForm =
+    nameErr || usernameErr || emailErr || passwordErr || passConfirmErr;
 
   const handleUsername = debounce((text) => {
     if (text.length < 5) {
@@ -53,14 +85,62 @@ const SignupPage = ({ handleSubmit }) => {
       setUsernameErr(false);
       setUsernameMsg("");
     }
-  }, 250);
+  }, 450);
+
+  const handleEmail = debounce((text) => {
+    if (!validator.isEmail(text)) {
+      setEmailErr(true);
+    } else {
+      setEmailErr(false);
+    }
+  }, 450);
+
+  const handlePassword = debounce((text) => {
+    if (text.length < 8) {
+      setPasswordErr(true);
+    } else {
+      setPasswordErr(false);
+    }
+  }, 450);
+
+  const handlePasswordConfirm = debounce((text) => {
+    if (text !== pass) {
+      setPassConfirmErr(true);
+    } else {
+      setPassConfirmErr(false);
+    }
+  }, 500);
 
   useEffect(() => {
     nameInput.current.focus();
   }, []);
 
   return (
-    <div onSubmit={handleSubmit} className="signup-page-container">
+    <div
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        const name = e.target.name.value;
+        const username = e.target.username.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const passwordConfirm = e.target.passwordConfirm.value;
+
+        if (
+          !name ||
+          !username ||
+          !email ||
+          !password ||
+          !passwordConfirm ||
+          disabledForm
+        ) {
+          return;
+        } else {
+          handleSubmit({ name, username, email, password, passwordConfirm });
+        }
+      }}
+      className="signup-page-container"
+    >
       <svg
         viewBox="0 0 24 24"
         onClick={() => {
@@ -89,7 +169,6 @@ const SignupPage = ({ handleSubmit }) => {
             }}
             className={nameInputClass}
             name="name"
-            required
           ></input>
           <span className={nameLabelClass}>Name</span>
           {nameErr && <p className="signup-error">What's your name?</p>}
@@ -102,7 +181,6 @@ const SignupPage = ({ handleSubmit }) => {
             onChange={(e) => {
               handleUsername(e.target.value);
             }}
-            required
           ></input>
           <span className={usernameLabelClass}>Username</span>
           {usernameErr && <p className="signup-error">{usernameMsg}</p>}
@@ -110,35 +188,52 @@ const SignupPage = ({ handleSubmit }) => {
 
         <div className="wrapper wrapper__signup">
           <input
-            className="input input__signup"
+            onChange={(e) => {
+              handleEmail(e.target.value);
+            }}
+            className={emailInputClass}
             name="email"
-            type="email"
-            required
           ></input>
-          <span className="input-placeholder">Email</span>
+          <span className={emailLabelClass}>Email</span>
+          {emailErr && (
+            <p className="signup-error">Please enter a valid email.</p>
+          )}
         </div>
 
         <div className="wrapper wrapper__signup">
           <input
-            className="input input__signup"
+            onChange={(e) => {
+              setPassword(e.target.value);
+              handlePassword(e.target.value);
+            }}
+            className={passwordInputClass}
             name="password"
             type="password"
-            required
           ></input>
-          <span className="input-placeholder">Password</span>
+          <span className={passwordLabelClass}>Password</span>
+          {passwordErr && (
+            <p className="signup-error">
+              Your password needs to be at least 8 characters.
+            </p>
+          )}
         </div>
 
         <div className="wrapper wrapper__signup">
           <input
-            className="input input__signup"
+            onChange={(e) => {
+              handlePasswordConfirm(e.target.value);
+            }}
+            className={passConfirmInputClass}
             name="passwordConfirm"
             type="password"
-            required
           ></input>
-          <span className="input-placeholder">Confirm Password</span>
+          <span className={passConfirmLabelClass}>Confirm Password</span>
+          {passConfirmErr && !passwordErr && (
+            <p className="signup-error">Passwords do not match.</p>
+          )}
         </div>
 
-        <button type="submit" className="btn" disabled={true}>
+        <button type="submit" className="btn">
           Sign up
         </button>
       </form>
@@ -148,17 +243,7 @@ const SignupPage = ({ handleSubmit }) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit: (e) => {
-      e.preventDefault();
-      const name = e.target.name.value;
-      const username = e.target.username.value;
-      const email = e.target.email.value;
-      const password = e.target.password.value;
-      const passwordConfirm = e.target.passwordConfirm.value;
-      dispatch(
-        fetchSignup({ name, username, email, password, passwordConfirm })
-      );
-    },
+    handleSubmit: (obj) => dispatch(fetchSignup(obj)),
   };
 };
 

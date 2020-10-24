@@ -78,10 +78,18 @@ exports.login = catchAsync(async (req, res, next) => {
     user = await User.findOne({ username: userInfo }).select("+password");
   }
 
+  if (!user) {
+    return res.json({
+      status: "failed",
+      message:
+        "The email/username and password you entered did not match our records. Please double-check and try again.",
+    });
+  }
+
   //Check if password is correct
   const correct = await user.correctPassword(password, user.password);
 
-  if (!user || !correct) {
+  if (!correct) {
     return res.json({
       status: "failed",
       message:
