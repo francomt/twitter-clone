@@ -10,8 +10,6 @@ const LoginPage = ({ handleSubmit, err }) => {
     nameInput.current.focus();
   }, []);
 
-  console.log(err);
-
   return (
     <div onSubmit={handleSubmit} className="signup-page-container">
       <svg

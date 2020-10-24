@@ -322,8 +322,6 @@ function profilesReducer(state = defaultState, action) {
       }
 
     case QUICK_FOLLOW:
-      console.log(action);
-
       let userResults;
 
       if (action.followType === "page") {
