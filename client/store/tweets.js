@@ -1,5 +1,4 @@
 import axios from "axios";
-import history from "../history";
 
 //ACTION TYPES
 const GET_FEED = "GET_FEED";
@@ -45,7 +44,7 @@ export const fetchProfileFeed = (username, page = 1, initialLoad = false) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `/api/users/${username}/tweets?page=${page}&limit=25`
+        `/api/users/${username}/tweets?page=${page}&limit=8`
       );
       dispatch(getProfileFeed(data, initialLoad));
     } catch (error) {

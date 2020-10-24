@@ -28,6 +28,7 @@ const ProfilePage = ({
   const [fetch, setFetch] = useState(true);
   const [length, setLength] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [initial, setInitial] = useState(true);
 
   useEffect(() => {
     getProfile();
@@ -38,7 +39,10 @@ const ProfilePage = ({
   }, [location]);
 
   useEffect(() => {
-    getTweets(page, true);
+    getTweets(page, initial);
+    if (initial) {
+      setInitial(false);
+    }
   }, [page, location]);
 
   const handleScroll = (e) => {

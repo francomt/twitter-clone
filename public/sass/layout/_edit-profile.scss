@@ -18,6 +18,9 @@
   border: solid 8px $color-primary-background-2;
   border-radius: 20px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &__coverImg-container {
     width: 100%;

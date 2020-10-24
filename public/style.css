@@ -858,7 +858,7 @@ body {
 
 .profile-bottom-half {
   overflow: auto;
-  min-height: 100%; }
+  height: 100%; }
 
 .profile-info-container {
   display: flex;
@@ -1048,7 +1048,10 @@ body {
   background-color: #15202b;
   border: solid 8px #192734;
   border-radius: 20px;
-  overflow: hidden; }
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
   .edit-profile__coverImg-container {
     width: 100%;
     height: 17rem;
