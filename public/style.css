@@ -115,6 +115,12 @@ body {
       background-color: rgba(29, 161, 242, 0.1); }
   .btn--tweet {
     width: 10rem; }
+  .btn--tweet-disabled {
+    width: 10rem;
+    filter: brightness(70%); }
+    .btn--tweet-disabled:hover {
+      cursor: default;
+      background-color: #1da1f2; }
   .btn--quick-follow {
     width: 14rem;
     height: 3.5rem; }

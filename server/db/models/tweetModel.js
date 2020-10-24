@@ -6,7 +6,6 @@ const tweetSchema = mongoose.Schema(
   {
     text: {
       type: String,
-      required: [true, "A tweet must have a least 1 character"],
       max: 280,
     },
     likes: {

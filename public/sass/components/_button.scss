@@ -38,6 +38,16 @@
     width: 10rem;
   }
 
+  &--tweet-disabled {
+    width: 10rem;
+    filter: brightness(70%);
+
+    &:hover {
+      cursor: default;
+      background-color: $color-primary;
+    }
+  }
+
   &--quick-follow {
     width: 14rem;
     height: 3.5rem;

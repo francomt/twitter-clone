@@ -7,6 +7,7 @@ import imagePreviews from "../modules/imagePreviews";
 const CreateTweet = ({ handleSubmit, photo, user }) => {
   const [uploads, setUploads] = useState([]);
   const [images, setImages] = useState([]);
+  const [text, setText] = useState("");
   const textarea = useRef(null);
 
   const handleChange = (e) => {
@@ -28,6 +29,12 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
     autosize(textarea.current);
   }, []);
 
+  const canUpload = text.length || images.length;
+
+  const tweetBtnClass = canUpload
+    ? "btn btn--tweet"
+    : "btn btn--tweet-disabled";
+
   return (
     <>
       <img src={`/img/users/${photo}`} className="tweet__profile-img" />
@@ -48,16 +55,23 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
               });
             }
 
-            handleSubmit(form);
-            e.target.text.value = "";
-            setImages([]);
-            setUploads([]);
+            if (images.length || text) {
+              handleSubmit(form);
+              e.target.text.value = "";
+              setImages([]);
+              setUploads([]);
+            } else {
+              return;
+            }
           }}
         >
           <textarea
             className="create-tweet__text"
             name="text"
             ref={textarea}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
             placeholder="What's happening"
             rows={1}
           />
@@ -87,7 +101,12 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
                 </g>
               </svg>
             </div>
-            <button type="submit" className="btn btn--tweet">
+
+            <button
+              type="submit"
+              className={tweetBtnClass}
+              disabled={!canUpload}
+            >
               Tweet
             </button>
           </div>
