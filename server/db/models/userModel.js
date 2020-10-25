@@ -32,11 +32,11 @@ const userSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default: "default.png",
+      default: "https://twitter-clonecopy.s3.amazonaws.com/default.png",
     },
     coverImg: {
       type: String,
-      default: "defaultCover.jpg",
+      default: "https://twitter-clonecopy.s3.amazonaws.com/defaultCover.jpg",
     },
     password: {
       type: String,

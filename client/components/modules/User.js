@@ -7,7 +7,7 @@ const User = ({ me, user, followUser, unfollowUser }) => {
     <div key={user.id} className="tweet">
       <div className="tweet__container">
         <img
-          src={`/img/users/${user.photo}`}
+          src={user.photo}
           onClick={() => {
             history.push(`/${user.username}`);
           }}

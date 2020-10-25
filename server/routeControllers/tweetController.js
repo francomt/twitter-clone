@@ -5,10 +5,19 @@ const catchAsync = require("../utilities/catchAsync");
 const APIFeatures = require("../utilities/apiFeatures");
 const factory = require("../routeControllers/factory");
 const multer = require("multer");
-const sharp = require("sharp");
+const multerS3 = require("multer-s3");
 const crypto = require("crypto");
+const aws = require("aws-sdk");
 
-const multerStorage = multer.memoryStorage();
+aws.config.update({
+  secretAccessKey: process.env.AWS_S3_ACCESS_KEY,
+  accessKeyId: process.env.AWS_S3_ACCESS_ID,
+  region: "us-east-1",
+});
+
+const s3 = new aws.S3();
+
+// const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
@@ -19,7 +28,16 @@ const multerFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage: multerStorage,
+  // storage: multerStorage,
+  storage: multerS3({
+    s3: s3,
+    bucket: "twitter-clonecopy",
+    acl: "public-read",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: function (req, file, cb) {
+      cb(null, `tweet-${crypto.randomBytes(20).toString("hex")}-${Date.now()}`); //use Date.now() for unique file keys
+    },
+  }),
   fileFilter: multerFilter,
 });
 
@@ -31,17 +49,7 @@ exports.resizeTweetPhoto = catchAsync(async (req, res, next) => {
 
     await Promise.all(
       req.files.map(async (file) => {
-        const fileName = `tweet-${crypto
-          .randomBytes(20)
-          .toString("hex")}-${Date.now()}.jpeg`;
-
-        await sharp(file.buffer)
-          .resize(500, 500)
-          .toFormat("jpeg")
-          .jpeg({ quality: 65 })
-          .toFile(`public/img/tweets/${fileName}`);
-
-        req.body.images.push(fileName);
+        req.body.images.push(file.location);
       })
     );
   }

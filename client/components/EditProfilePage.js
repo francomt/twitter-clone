@@ -50,7 +50,7 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
           <div className="edit-profile__coverImg-container">
             <img
               ref={outputCover}
-              src={`/img/cover/${me.coverImg}`}
+              src={me.coverImg}
               className="edit-profile__coverImg"
             />
             <input
@@ -71,11 +71,7 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
             </svg>
           </div>
           <div className="edit-profile__photo-container">
-            <img
-              ref={output}
-              className="edit-profile__photo"
-              src={`/img/users/${me.photo}`}
-            />
+            <img ref={output} className="edit-profile__photo" src={me.photo} />
             <input
               onChange={handleChange}
               className="edit-profile__upload"

@@ -37,7 +37,7 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
 
   return (
     <>
-      <img src={`/img/users/${photo}`} className="tweet__profile-img" />
+      <img src={photo} className="tweet__profile-img" />
       <div className="create-tweet">
         <form
           className="create-form-container"

@@ -91,10 +91,7 @@ const ProfilePage = ({
           ) : (
             <>
               <div className="profile-info-container">
-                <img
-                  className="profile__coverImg"
-                  src={`/img/cover/${profile.coverImg}`}
-                />
+                <img className="profile__coverImg" src={profile.coverImg} />
 
                 <div className="profile__follow-edit">
                   {me.id === profile.id ? (
@@ -116,10 +113,7 @@ const ProfilePage = ({
                   )}
                 </div>
 
-                <img
-                  className="profile__photo"
-                  src={`/img/users/${profile.photo}`}
-                />
+                <img className="profile__photo" src={profile.photo} />
 
                 <h1 className="profile__name">{profile.name}</h1>
                 <p className="profile__username">@{profile.username}</p>

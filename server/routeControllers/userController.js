@@ -4,9 +4,19 @@ const factory = require("./factory");
 const catchAsync = require("../utilities/catchAsync");
 const APIFeatures = require("../utilities/apiFeatures");
 const multer = require("multer");
-const sharp = require("sharp");
+const multerS3 = require("multer-s3");
+const crypto = require("crypto");
+const aws = require("aws-sdk");
 
-const multerStorage = multer.memoryStorage();
+aws.config.update({
+  secretAccessKey: process.env.AWS_S3_ACCESS_KEY,
+  accessKeyId: process.env.AWS_S3_ACCESS_ID,
+  region: "us-east-1",
+});
+
+const s3 = new aws.S3();
+
+// const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
@@ -17,7 +27,16 @@ const multerFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage: multerStorage,
+  // storage: multerStorage,
+  storage: multerS3({
+    s3: s3,
+    bucket: "twitter-clonecopy",
+    acl: "public-read",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    key: function (req, file, cb) {
+      cb(null, `tweet-${crypto.randomBytes(20).toString("hex")}-${Date.now()}`); //use Date.now() for unique file keys
+    },
+  }),
   fileFilter: multerFilter,
 });
 
@@ -29,24 +48,12 @@ exports.uploadUserPhoto = upload.fields([
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
   if (req.files.photo) {
     //Photo
-    req.body.photo = `user-${req.user.id}-${Date.now()}.jpeg`;
-
-    await sharp(req.files.photo[0].buffer)
-      .resize(500, 500)
-      .toFormat("jpeg")
-      .jpeg({ quality: 65 })
-      .toFile(`public/img/users/${req.body.photo}`);
+    req.body.photo = req.files.photo[0].location;
   }
 
   if (req.files.coverImg) {
     //CoverImg
-    req.body.coverImg = `user-${req.user.id}-${Date.now()}-cover.jpeg`;
-
-    await sharp(req.files.coverImg[0].buffer)
-      .resize(1000, 500)
-      .toFormat("jpeg")
-      .jpeg({ quality: 65 })
-      .toFile(`public/img/cover/${req.body.coverImg}`);
+    req.body.coverImg = req.files.coverImg[0].location;
   }
   next();
 });
