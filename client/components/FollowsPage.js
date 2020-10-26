@@ -24,7 +24,7 @@ const FollowsPage = ({
     getProfile();
     setTimeout(() => {
       setLoading(false);
-    }, 150);
+    }, 250);
   }, []);
 
   const followersClass =
@@ -113,6 +113,7 @@ const Selection = ({ selected, profile, me, followUser, unfollowUser }) => {
           user={user}
           followUser={followUser}
           unfollowUser={unfollowUser}
+          selected="followers"
         />
       );
     });
@@ -125,6 +126,7 @@ const Selection = ({ selected, profile, me, followUser, unfollowUser }) => {
           user={user}
           followUser={followUser}
           unfollowUser={unfollowUser}
+          selected="following"
         />
       );
     });

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const db = process.env.DATABASE.replace(
-  '<PASSWORD>',
+  "<PASSWORD>",
   process.env.DATABASE_PASSWORD
 );
 
@@ -13,7 +13,7 @@ async function connect() {
       useFindAndModify: false,
       useUnifiedTopology: true,
     });
-    console.log('DB Connected Successfully');
+    console.log("DB Connected Successfully");
   } catch (error) {
     console.error(error);
   }

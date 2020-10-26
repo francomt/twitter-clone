@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Tweet, CheckFollow } from "./modules/index";
+import { Tweet, CheckFollow, CheckFollower } from "./modules/index";
 import {
   fetchDeleteTweet,
   fetchLikeTweet,
@@ -35,11 +35,10 @@ const ProfilePage = ({
     setPage(1);
     setTimeout(() => {
       setLoading(false);
-    }, 150);
+    }, 250);
   }, [location]);
 
   useEffect(() => {
-    console.log(initial);
     getTweets(page, initial);
     if (initial) {
       setInitial(false);
@@ -117,7 +116,12 @@ const ProfilePage = ({
                 <img className="profile__photo" src={profile.photo} />
 
                 <h1 className="profile__name">{profile.name}</h1>
-                <p className="profile__username">@{profile.username}</p>
+                <div className="profile__username-container">
+                  <p className="profile__username">@{profile.username}</p>
+                  {me.id !== profile.id && (
+                    <CheckFollower me={me} user={profile} />
+                  )}
+                </div>
 
                 <p className="profile__bio">{profile.bio}</p>
 

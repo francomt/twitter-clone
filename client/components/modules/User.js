@@ -1,8 +1,8 @@
 import React from "react";
 import history from "../../history";
-import { CheckFollow } from "./index";
+import { CheckFollow, CheckFollower } from "./index";
 
-const User = ({ me, user, followUser, unfollowUser }) => {
+const User = ({ me, user, followUser, unfollowUser, selected }) => {
   return (
     <div key={user.id} className="tweet">
       <div className="tweet__container">
@@ -24,14 +24,24 @@ const User = ({ me, user, followUser, unfollowUser }) => {
               >
                 {user.name}
               </p>
-              <p
-                onClick={() => {
-                  history.push(`/${user.username}`);
-                }}
-                className="content__username"
-              >
-                @{user.username}
-              </p>
+              <div className="profile__username-container">
+                <p
+                  onClick={() => {
+                    history.push(`/${user.username}`);
+                  }}
+                  className="content__username"
+                >
+                  @{user.username}
+                </p>
+                {me.id !== user.id && (
+                  <CheckFollower
+                    me={me}
+                    user={user}
+                    type="quick"
+                    option={selected}
+                  />
+                )}
+              </div>
             </div>
             {me.id !== user.id && (
               <CheckFollow

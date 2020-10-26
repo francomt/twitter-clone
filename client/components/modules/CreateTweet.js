@@ -11,6 +11,7 @@ const CreateTweet = ({
   rows,
   navFill,
   navPopup,
+  focus,
 }) => {
   const [uploads, setUploads] = useState([]);
   const [images, setImages] = useState([]);
@@ -32,9 +33,11 @@ const CreateTweet = ({
   };
 
   useEffect(() => {
-    textarea.current.focus();
+    if (focus) {
+      textarea.current.focus();
+    }
     autosize(textarea.current);
-  }, []);
+  }, [focus]);
 
   const canUpload = text.length || images.length;
 

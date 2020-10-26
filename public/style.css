@@ -967,6 +967,22 @@ body {
   display: inline-block;
   margin-left: 2rem; }
 
+.profile__username-container {
+  display: flex;
+  align-items: center; }
+
+.profile__follows-you {
+  margin-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 5px;
+  padding: 0.5rem;
+  color: #8899a6;
+  background-color: #253341; }
+
 .profile__username {
   font-size: 1.6rem;
   color: #8899a6;
@@ -1157,8 +1173,8 @@ body {
     .edit-profile__upload-cover__icon-cover {
       position: absolute;
       z-index: 10;
-      top: 43%;
-      left: 45.5%;
+      top: 30%;
+      left: 47.5%;
       fill: #fff;
       height: 2.5rem;
       width: 2.5rem; }

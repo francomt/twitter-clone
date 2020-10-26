@@ -19,6 +19,7 @@ import history from "./history";
 
 const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   const [selectedIcon, selectIcon] = useState("home");
+  const [popupFocus, setPopupFocus] = useState(false);
 
   const fillPage = useRef(null);
   const createTweetPopup = useRef(null);
@@ -26,11 +27,13 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   const handlePopup = () => {
     fillPage.current.style.display = "flex";
     createTweetPopup.current.style.display = "flex";
+    setPopupFocus(true);
   };
 
   const handleClose = () => {
     fillPage.current.style.display = "none";
     createTweetPopup.current.style.display = "none";
+    setPopupFocus(false);
   };
 
   useEffect(() => {
@@ -153,6 +156,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
                 navFill={fillPage}
                 navPopup={createTweetPopup}
                 location={`/${selectedIcon}`}
+                focus={popupFocus}
               />
             </div>
           </div>
