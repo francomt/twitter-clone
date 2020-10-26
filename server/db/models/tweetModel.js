@@ -24,7 +24,7 @@ const tweetSchema = mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-    timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
+    timestamps: { currentTime: () => Date.now() },
   }
 );
 

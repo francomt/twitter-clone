@@ -480,6 +480,13 @@ body {
     font-size: 1.5rem;
     font-weight: 300; }
 
+.separator {
+  margin-left: 0.7rem;
+  margin-right: 0.7rem;
+  color: #8899a6;
+  font-weight: 600;
+  font-size: 1.5rem; }
+
 .tweet-popup-container {
   position: relative;
   margin-left: auto;

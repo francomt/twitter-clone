@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import history from "../../history";
 import tweetImagePreview from "./tweetImagePreviews";
+import TimeAgo from "react-timeago";
 
 const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
   const liked = tweet.userLikes.some((user) => {
@@ -63,6 +64,24 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
             >
               @{tweet.user.username}
             </p>
+
+            <p className="separator">·</p>
+
+            <TimeAgo
+              className="content__username"
+              date={tweet.createdAt}
+              live={false}
+              formatter={(val, unit) => {
+                if (val === 0 && unit === "second") return "now";
+
+                if (unit === "second") unit = "s";
+                else if (unit === "minute") unit = "m";
+                else if (unit === "hour") unit = "h";
+                else if (unit === "week") unit = "w";
+
+                return val + unit;
+              }}
+            />
 
             {/* Popup */}
             {me.id === tweet.user.id && (

@@ -152,6 +152,14 @@
   }
 }
 
+.separator {
+  margin-left: 0.7rem;
+  margin-right: 0.7rem;
+  color: $color-font-dark;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
 .tweet-popup-container {
   position: relative;
   margin-left: auto;
