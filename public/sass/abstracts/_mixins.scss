@@ -4,3 +4,46 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+//Media Queries
+
+@mixin respond-phone {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+/*
+
+ARGS
+-phone
+-tab-port
+-tab-land
+-big-desktop
+
+
+1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == main {
+    @media (max-width: 85.375em) {
+      //1366px / 16px
+      @content;
+    }
+  }
+
+  @if $breakpoint == main2 {
+    @media (max-width: 67.5em) {
+      //1080px / 16px
+      @content;
+    }
+  }
+
+  @if $breakpoint == main3 {
+    @media (max-width: 52.8125em) {
+      //845px / 16px
+      @content;
+    }
+  }
+}

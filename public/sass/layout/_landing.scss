@@ -3,11 +3,19 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+
+  @include respond(main3) {
+    min-height: 110rem;
+  }
 }
 
 .sub-container {
   display: flex;
   height: 88%;
+
+  @include respond(main3) {
+    flex-direction: column-reverse;
+  }
 }
 
 .footer {
@@ -29,6 +37,22 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+  }
+
+  &__signup {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+
+    @include respond(main3) {
+      display: flex;
+    }
+  }
+
+  &__button-wrapper {
+    width: 17rem;
   }
 }
 
@@ -72,6 +96,15 @@
   background-color: $color-primary-background;
   color: $color-font;
 
+  &__main-container {
+    max-width: 35rem;
+
+    @include respond(main3) {
+      padding: 2rem;
+      max-width: 38rem;
+    }
+  }
+
   &__form-container {
     display: flex;
 
@@ -81,13 +114,22 @@
     height: 20%;
 
     margin-bottom: 5rem;
+
+    @include respond(main2) {
+      display: none;
+    }
   }
 
   &__header-container {
     display: flex;
     height: 80%;
-    width: 55%;
+    width: 100%;
     flex-direction: column;
+    align-items: center;
+
+    @include respond(main2) {
+      justify-content: center;
+    }
   }
 }
 
