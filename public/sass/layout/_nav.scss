@@ -1,5 +1,6 @@
 .route-container {
   display: flex;
+  position: relative;
   height: 100vh;
 }
 
@@ -17,6 +18,20 @@
   height: 100%;
   background-color: $color-primary-background;
   border-right: $border-main;
+
+  &__fill-page {
+    background-color: rgba(#fff, 0.15);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 100;
+    display: none;
+    justify-content: center;
+  }
 
   &__item {
     display: flex;
@@ -85,5 +100,49 @@
     fill: $color-primary;
     height: 2rem;
     width: 2rem;
+  }
+}
+
+.tweet-popup_container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 150;
+  margin-top: 4rem;
+  height: fit-content;
+  width: 60rem;
+  background-color: $color-primary-background;
+  border-radius: 20px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 3.5rem;
+}
+
+.tweet-popup {
+  &__top {
+    height: 5rem;
+    width: 100%;
+    border-bottom: $border-main-2;
+    display: flex;
+    align-items: center;
+    padding: 0rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__content {
+    display: flex;
+    padding: 0 2rem;
+  }
+}
+
+.popup__logo {
+  height: 2.3rem;
+  width: 2.3rem;
+  fill: $color-primary;
+
+  &:hover {
+    cursor: pointer;
   }
 }

@@ -39,6 +39,7 @@ const ProfilePage = ({
   }, [location]);
 
   useEffect(() => {
+    console.log(initial);
     getTweets(page, initial);
     if (initial) {
       setInitial(false);

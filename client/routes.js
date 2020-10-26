@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import {
@@ -12,12 +12,26 @@ import {
   ExplorePage,
   FollowsPage,
 } from "./components";
+import { CreateTweet } from "./components/modules";
 import { fetchMe, fetchLogout } from "./store/profiles";
 import { navIcons } from "./components/modules/Svgs";
 import history from "./history";
 
 const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   const [selectedIcon, selectIcon] = useState("home");
+
+  const fillPage = useRef(null);
+  const createTweetPopup = useRef(null);
+
+  const handlePopup = () => {
+    fillPage.current.style.display = "flex";
+    createTweetPopup.current.style.display = "flex";
+  };
+
+  const handleClose = () => {
+    fillPage.current.style.display = "none";
+    createTweetPopup.current.style.display = "none";
+  };
 
   useEffect(() => {
     loadData();
@@ -26,11 +40,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
   useEffect(() => {
     if (pathname === "/home") selectIcon("home");
     else if (pathname === "/search") selectIcon("");
-    else if (me && pathname.endsWith(me.username)) {
-      selectIcon("profile");
-    } else {
-      selectIcon("");
-    }
+    else if (me && pathname.endsWith(me.username)) selectIcon("profile");
+    else selectIcon("");
   }, [me, pathname]);
 
   //For selected icon
@@ -101,16 +112,49 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
             </div>
             <h3 className={classValue(selectedIcon, "profile")}>Profile</h3>
           </div>
+
+          <div className="util-margin-btm-large">
+            <button
+              onClick={() => {
+                handlePopup();
+              }}
+              className="btn btn--nav"
+            >
+              Tweet
+            </button>
+          </div>
+
           <div
-            className="nav__item"
+            ref={fillPage}
             onClick={() => {
-              selectIcon("settings");
+              handleClose();
             }}
-          >
-            <div className="icon-container">
-              {navIcons(selectedIcon, "settings")}
+            className="nav__fill-page"
+          ></div>
+          <div ref={createTweetPopup} className="tweet-popup_container">
+            <div className="tweet-popup__top">
+              <svg
+                onClick={() => {
+                  handleClose();
+                }}
+                viewBox="0 0 24 24"
+                className="popup__logo"
+              >
+                <g>
+                  <path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path>
+                </g>
+              </svg>
             </div>
-            <h3 className={classValue(selectedIcon, "settings")}>Settings</h3>
+            <div className="tweet-popup__content">
+              <CreateTweet
+                photo={me.photo}
+                user={me.id}
+                rows={6}
+                navFill={fillPage}
+                navPopup={createTweetPopup}
+                location={`/${selectedIcon}`}
+              />
+            </div>
           </div>
 
           <div>

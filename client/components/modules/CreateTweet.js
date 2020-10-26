@@ -4,7 +4,14 @@ import autosize from "autosize";
 import { fetchCreateTweet } from "../../store/tweets";
 import imagePreviews from "../modules/imagePreviews";
 
-const CreateTweet = ({ handleSubmit, photo, user }) => {
+const CreateTweet = ({
+  handleSubmit,
+  photo,
+  user,
+  rows,
+  navFill,
+  navPopup,
+}) => {
   const [uploads, setUploads] = useState([]);
   const [images, setImages] = useState([]);
   const [text, setText] = useState("");
@@ -60,7 +67,16 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
               e.target.text.value = "";
               setImages([]);
               setUploads([]);
+
+              if (navFill) {
+                navFill.current.style.display = "none";
+                navPopup.current.style.display = "none";
+              }
             } else {
+              if (navFill) {
+                navFill.current.style.display = "none";
+                navPopup.current.style.display = "none";
+              }
               return;
             }
           }}
@@ -72,8 +88,8 @@ const CreateTweet = ({ handleSubmit, photo, user }) => {
             onChange={(e) => {
               setText(e.target.value);
             }}
-            placeholder="What's happening"
-            rows={1}
+            placeholder="What's happening?"
+            rows={images.length ? 2 : rows}
           />
 
           {uploads.length ? (

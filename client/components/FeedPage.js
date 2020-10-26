@@ -149,42 +149,46 @@ class FeedPage extends Component {
                 </g>
               </svg>
             </form>
-            <div className="search-results">
-              {this.state.query.length > 0 && (
-                <div
-                  onClick={() => {
-                    history.push(`/search?q=${this.state.input}`);
-                  }}
-                  className="search-results__item-query"
-                >
-                  Search for "{this.state.query}"
-                </div>
-              )}
 
-              {searchResults.length > 0 &&
-                searchResults.map((user) => {
-                  return (
-                    <div
-                      onClick={() => {
-                        history.push(`/${user.username}`);
-                      }}
-                      key={user.id}
-                      className="search-results__item"
-                    >
-                      <img
-                        src={`/img/users/${user.photo}`}
-                        className="tweet__profile-img tweet__profile-img--search"
-                      />
-                      <div className="search-results__user">
-                        <p className="search-results__user-name">{user.name}</p>
-                        <p className="search-results__user-username">
-                          @{user.username}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
+            {this.state.query.length > 0 && (
+              <>
+                <div className="search-results">
+                  <div
+                    onClick={() => {
+                      history.push(`/search?q=${this.state.input}`);
+                    }}
+                    className="search-results__item-query"
+                  >
+                    Search for "{this.state.query}"
+                  </div>
+                  {searchResults.length > 0 &&
+                    searchResults.map((user) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            history.push(`/${user.username}`);
+                          }}
+                          key={user.id}
+                          className="search-results__item"
+                        >
+                          <img
+                            src={user.photo}
+                            className="tweet__profile-img tweet__profile-img--search"
+                          />
+                          <div className="search-results__user">
+                            <p className="search-results__user-name">
+                              {user.name}
+                            </p>
+                            <p className="search-results__user-username">
+                              @{user.username}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </>
+            )}
           </div>
         </nav>
         <div
@@ -193,7 +197,12 @@ class FeedPage extends Component {
         >
           <div className="feed-middle">
             <div className="create-tweet-container">
-              <CreateTweet location={location} photo={me.photo} user={me.id} />
+              <CreateTweet
+                location={location}
+                photo={me.photo}
+                user={me.id}
+                rows={1}
+              />
             </div>
             <div className="feed-container">
               {feed &&

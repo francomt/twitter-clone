@@ -34,6 +34,14 @@
     }
   }
 
+  &--nav {
+    width: 10rem;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.1);
+    }
+  }
+
   &--tweet {
     width: 10rem;
   }

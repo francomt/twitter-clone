@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "../history";
 
 //ACTION TYPES
 const GET_FEED = "GET_FEED";
@@ -13,10 +14,11 @@ const getFeed = (feed, initialLoad) => ({
   feed,
   initialLoad,
 });
-const getProfileFeed = (feed, initialLoad) => ({
+const getProfileFeed = (feed, initialLoad, prev) => ({
   type: GET_PROFILE_FEED,
   feed,
   initialLoad,
+  prev,
 });
 const createTweet = (tweet, pathname) => ({
   type: CREATE_TWEET,
@@ -46,7 +48,7 @@ export const fetchProfileFeed = (username, page = 1, initialLoad = false) => {
       const { data } = await axios.get(
         `/api/users/${username}/tweets?page=${page}&limit=8`
       );
-      dispatch(getProfileFeed(data, initialLoad));
+      dispatch(getProfileFeed(data, initialLoad, history.location.pathname));
     } catch (error) {
       console.error(error);
     }
@@ -195,7 +197,7 @@ function tweetReducer(state = defaultState, action) {
 
     case GET_PROFILE_FEED:
       if (action.feed.data) {
-        if (action.initialLoad) {
+        if (action.initialLoad || action.prev !== state.prev) {
           return {
             ...state,
             prev: action.prev,
@@ -214,7 +216,7 @@ function tweetReducer(state = defaultState, action) {
 
     case CREATE_TWEET:
       if (action.tweet.data) {
-        if (action.pathname === "/home") {
+        if (action.pathname === "/home" || action.pathname === "/profile") {
           return {
             ...state,
             prev: state.prev,

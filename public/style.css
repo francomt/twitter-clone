@@ -113,6 +113,10 @@ body {
     border: solid 1px #1da1f2; }
     .btn--login:hover {
       background-color: rgba(29, 161, 242, 0.1); }
+  .btn--nav {
+    width: 10rem; }
+    .btn--nav:hover {
+      background-color: rgba(29, 161, 242, 0.1); }
   .btn--tweet {
     width: 10rem; }
   .btn--tweet-disabled {
@@ -586,6 +590,7 @@ body {
 
 .route-container {
   display: flex;
+  position: relative;
   height: 100vh; }
 
 .logo-nav {
@@ -601,6 +606,18 @@ body {
   height: 100%;
   background-color: #15202b;
   border-right: solid 1.3px rgba(255, 255, 255, 0.1); }
+  .nav__fill-page {
+    background-color: rgba(255, 255, 255, 0.15);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 100;
+    display: none;
+    justify-content: center; }
   .nav__item {
     display: flex;
     align-items: center;
@@ -649,6 +666,42 @@ body {
     fill: #1da1f2;
     height: 2rem;
     width: 2rem; }
+
+.tweet-popup_container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 150;
+  margin-top: 4rem;
+  height: fit-content;
+  width: 60rem;
+  background-color: #15202b;
+  border-radius: 20px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 3.5rem; }
+
+.tweet-popup__top {
+  height: 5rem;
+  width: 100%;
+  border-bottom: solid 2.3px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0rem 2rem;
+  margin-bottom: 1.5rem; }
+
+.tweet-popup__content {
+  display: flex;
+  padding: 0 2rem; }
+
+.popup__logo {
+  height: 2.3rem;
+  width: 2.3rem;
+  fill: #1da1f2; }
+  .popup__logo:hover {
+    cursor: pointer; }
 
 .header-main {
   font-size: 3.1rem;
