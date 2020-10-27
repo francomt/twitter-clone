@@ -27,15 +27,11 @@ const ProfilePage = ({
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
   const [length, setLength] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [initial, setInitial] = useState(true);
 
   useEffect(() => {
     getProfile();
     setPage(1);
-    setTimeout(() => {
-      setLoading(false);
-    }, 250);
   }, [location]);
 
   useEffect(() => {
@@ -80,15 +76,7 @@ const ProfilePage = ({
         className="profile-bottom-half style-scrollbars"
       >
         <div className="feed-middle">
-          {loading ? (
-            <Loader
-              type="Oval"
-              color="#1da1f2"
-              height={40}
-              width={40}
-              style={{ margin: "25px" }}
-            />
-          ) : (
+          {profile !== undefined && profile.following !== undefined ? (
             <>
               <div className="profile-info-container">
                 <img className="profile__coverImg" src={profile.coverImg} />
@@ -162,6 +150,14 @@ const ProfilePage = ({
                   })}
               </div>
             </>
+          ) : (
+            <Loader
+              type="Oval"
+              color="#1da1f2"
+              height={40}
+              width={40}
+              style={{ margin: "25px" }}
+            />
           )}
         </div>
       </div>

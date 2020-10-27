@@ -737,29 +737,50 @@ body {
   @media (max-width: 52.8125em) {
     .main-container {
       min-height: 110rem; } }
+  @media (max-width: 23.4375em) {
+    .main-container {
+      min-height: unset; } }
 
 .sub-container {
   display: flex;
-  height: 88%; }
+  height: 95%; }
   @media (max-width: 52.8125em) {
     .sub-container {
-      flex-direction: column-reverse; } }
+      flex-direction: column-reverse;
+      justify-content: flex-end; } }
+  @media (max-width: 23.4375em) {
+    .sub-container {
+      height: unset; } }
 
 .footer {
-  height: 12%;
+  height: 5%;
   background-color: #15202b;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   width: 100%;
   color: #8899a6;
-  font-size: 1.4rem;
-  font-weight: 400; }
+  font-size: 1.2rem;
+  font-weight: 400;
+  overflow: hidden; }
+  @media (max-width: 67.5em) {
+    .footer {
+      height: 7%; } }
+  @media (max-width: 52.8125em) {
+    .footer {
+      height: 12%; } }
+  @media (max-width: 23.4375em) {
+    .footer {
+      height: unset; } }
   .footer__container {
     display: flex;
     width: 100%;
-    justify-content: space-evenly; }
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem; }
+    .footer__container > p:not(:last-child) {
+      margin-right: 1rem; }
   .footer__signup {
     display: none;
     width: 100%;
@@ -777,6 +798,10 @@ body {
   flex: 1 1 0%;
   background-color: #71c9f8;
   overflow: hidden; }
+  @media (max-width: 23.4375em) {
+    .left-body {
+      flex: none;
+      height: 30rem; } }
   .left-body__header-container {
     position: absolute;
     top: 50%;
@@ -807,6 +832,10 @@ body {
   flex: 1;
   background-color: #15202b;
   color: #fff; }
+  @media (max-width: 23.4375em) {
+    .right-body {
+      flex: none;
+      padding-bottom: 1rem; } }
   .right-body__main-container {
     max-width: 35rem; }
     @media (max-width: 52.8125em) {

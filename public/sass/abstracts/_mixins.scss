@@ -46,4 +46,18 @@ ARGS
       @content;
     }
   }
+
+  @if $breakpoint == main4 {
+    @media (max-width: 46.875em) {
+      //750px / 16px
+      @content;
+    }
+  }
+
+  @if $breakpoint == iPhoneX {
+    @media (max-width: 23.4375em) {
+      //375px / 16px
+      @content;
+    }
+  }
 }

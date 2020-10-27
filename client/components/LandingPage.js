@@ -120,8 +120,8 @@ const LandingPage = ({ handleSubmit }) => {
           <p>Developers</p>
           <p>Directory</p>
           <p>Settings</p>
+          <p>© 2020 Twitter, Inc.</p>
         </div>
-        <p>© 2020 Twitter, Inc.</p>
       </div>
     </div>
   );

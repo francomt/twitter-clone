@@ -24,52 +24,60 @@ const Results = ({
   unfollowUser,
 }) => {
   if (type === "latest") {
-    return (
-      <>
-        {tweetResults.data.tweets.map((tweet) => (
-          <Tweet
-            key={tweet.id}
-            me={me}
-            tweet={tweet}
-            likeTweet={likeTweet}
-            unlikeTweet={unlikeTweet}
-            deleteTweet={deleteTweet}
-          />
-        ))}
-        {loading && (
-          <Loader
-            type="Oval"
-            color="#1da1f2"
-            height={40}
-            width={40}
-            style={{ margin: "25px" }}
-          />
-        )}
-      </>
-    );
+    if (tweetResults.data !== undefined) {
+      return (
+        <>
+          {tweetResults.data.tweets.map((tweet) => (
+            <Tweet
+              key={tweet.id}
+              me={me}
+              tweet={tweet}
+              likeTweet={likeTweet}
+              unlikeTweet={unlikeTweet}
+              deleteTweet={deleteTweet}
+            />
+          ))}
+          {loading && (
+            <Loader
+              type="Oval"
+              color="#1da1f2"
+              height={40}
+              width={40}
+              style={{ margin: "25px" }}
+            />
+          )}
+        </>
+      );
+    } else {
+      return "";
+    }
   } else if (type === "people") {
-    return (
-      <>
-        {userResults.data.users.map((user) => (
-          <User
-            key={user.id}
-            user={user}
-            followUser={followUser}
-            unfollowUser={unfollowUser}
-            me={me}
-          />
-        ))}
-        {loading && (
-          <Loader
-            type="Oval"
-            color="#1da1f2"
-            height={40}
-            width={40}
-            style={{ margin: "25px" }}
-          />
-        )}
-      </>
-    );
+    if (userResults.data !== undefined) {
+      return (
+        <>
+          {userResults.data.users.map((user) => (
+            <User
+              key={user.id}
+              user={user}
+              followUser={followUser}
+              unfollowUser={unfollowUser}
+              me={me}
+            />
+          ))}
+          {loading && (
+            <Loader
+              type="Oval"
+              color="#1da1f2"
+              height={40}
+              width={40}
+              style={{ margin: "25px" }}
+            />
+          )}
+        </>
+      );
+    } else {
+      return "";
+    }
   } else {
     return <p>Not Found</p>;
   }
