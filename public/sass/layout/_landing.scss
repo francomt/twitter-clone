@@ -8,7 +8,7 @@
     min-height: 110rem;
   }
 
-  @include respond(iPhoneX) {
+  @include respond(iPhoneProMax) {
     min-height: unset;
   }
 }
@@ -22,7 +22,7 @@
     justify-content: flex-end;
   }
 
-  @include respond(iPhoneX) {
+  @include respond(iPhoneProMax) {
     height: unset;
   }
 }
@@ -51,7 +51,7 @@
     height: 12%;
   }
 
-  @include respond(iPhoneX) {
+  @include respond(iPhoneProMax) {
     height: 100%;
     justify-content: start;
   }
@@ -92,9 +92,9 @@
   background-color: $color-primary-light;
   overflow: hidden;
 
-  @include respond(iPhoneX) {
+  @include respond(iPhoneProMax) {
+    height: 25rem;
     flex: none;
-    height: 20rem;
   }
 
   &__header-container {
@@ -106,7 +106,7 @@
     font-size: 2.5rem;
     color: $color-font;
 
-    @include respond(iPhoneX) {
+    @include respond(iPhoneProMax) {
       width: 80%;
       font-size: 2.3rem;
     }
@@ -114,7 +114,7 @@
     & > h5:not(:last-child) {
       margin-bottom: 3.5rem;
 
-      @include respond(iPhoneX) {
+      @include respond(iPhoneProMax) {
         margin-bottom: 2.5rem;
       }
     }
@@ -140,7 +140,8 @@
   background-color: $color-primary-background;
   color: $color-font;
 
-  @include respond(iPhoneX) {
+  @include respond(iPhoneProMax) {
+    justify-content: start;
     flex: none;
     padding-bottom: 1rem;
   }
@@ -178,6 +179,10 @@
 
     @include respond(main2) {
       justify-content: center;
+    }
+
+    @include respond(iPhoneProMax) {
+      height: unset;
     }
   }
 }

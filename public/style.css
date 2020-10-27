@@ -737,7 +737,7 @@ body {
   @media (max-width: 52.8125em) {
     .main-container {
       min-height: 110rem; } }
-  @media (max-width: 23.4375em) {
+  @media (max-width: 25.875em) {
     .main-container {
       min-height: unset; } }
 
@@ -748,7 +748,7 @@ body {
     .sub-container {
       flex-direction: column-reverse;
       justify-content: flex-end; } }
-  @media (max-width: 23.4375em) {
+  @media (max-width: 25.875em) {
     .sub-container {
       height: unset; } }
 
@@ -770,7 +770,7 @@ body {
   @media (max-width: 52.8125em) {
     .footer {
       height: 12%; } }
-  @media (max-width: 23.4375em) {
+  @media (max-width: 25.875em) {
     .footer {
       height: 100%;
       justify-content: start; } }
@@ -800,10 +800,10 @@ body {
   flex: 1 1 0%;
   background-color: #71c9f8;
   overflow: hidden; }
-  @media (max-width: 23.4375em) {
+  @media (max-width: 25.875em) {
     .left-body {
-      flex: none;
-      height: 20rem; } }
+      height: 25rem;
+      flex: none; } }
   .left-body__header-container {
     position: absolute;
     top: 50%;
@@ -814,13 +814,13 @@ body {
     flex-direction: column;
     font-size: 2.5rem;
     color: #fff; }
-    @media (max-width: 23.4375em) {
+    @media (max-width: 25.875em) {
       .left-body__header-container {
         width: 80%;
         font-size: 2.3rem; } }
     .left-body__header-container > h5:not(:last-child) {
       margin-bottom: 3.5rem; }
-      @media (max-width: 23.4375em) {
+      @media (max-width: 25.875em) {
         .left-body__header-container > h5:not(:last-child) {
           margin-bottom: 2.5rem; } }
 
@@ -841,8 +841,9 @@ body {
   flex: 1;
   background-color: #15202b;
   color: #fff; }
-  @media (max-width: 23.4375em) {
+  @media (max-width: 25.875em) {
     .right-body {
+      justify-content: start;
       flex: none;
       padding-bottom: 1rem; } }
   .right-body__main-container {
@@ -870,6 +871,9 @@ body {
     @media (max-width: 67.5em) {
       .right-body__header-container {
         justify-content: center; } }
+    @media (max-width: 25.875em) {
+      .right-body__header-container {
+        height: unset; } }
 
 .landing-err {
   font-size: 1.5rem;
