@@ -739,7 +739,8 @@ body {
       min-height: 110rem; } }
   @media (max-width: 25.875em) {
     .main-container {
-      min-height: unset; } }
+      min-height: unset;
+      height: 100%; } }
 
 .sub-container {
   display: flex;
