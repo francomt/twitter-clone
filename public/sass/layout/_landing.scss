@@ -94,7 +94,7 @@
   overflow: hidden;
 
   @include respond(iPhoneProMax) {
-    height: 25rem;
+    height: 21rem;
     flex: none;
   }
 
@@ -116,7 +116,7 @@
       margin-bottom: 3.5rem;
 
       @include respond(iPhoneProMax) {
-        margin-bottom: 2.5rem;
+        margin-bottom: 3.8rem;
       }
     }
   }
@@ -153,6 +153,12 @@
     @include respond(main3) {
       padding: 2rem;
       max-width: 38rem;
+    }
+
+    @include respond(iPhoneProMax) {
+      padding: 2.2rem;
+      max-width: inherit;
+      width: 100%;
     }
   }
 

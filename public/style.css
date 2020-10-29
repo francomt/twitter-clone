@@ -17,7 +17,8 @@ ARGS
   box-sizing: border-box; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  background-color: #15202b; }
 
 body {
   height: 100%;
@@ -717,7 +718,7 @@ body {
     cursor: pointer; }
 
 .header-main {
-  font-size: 3.1rem;
+  font-size: 2.9rem;
   line-height: 4.1rem; }
   .header-main--primary {
     color: #fff; }
@@ -806,7 +807,7 @@ body {
   overflow: hidden; }
   @media (max-width: 25.875em) {
     .left-body {
-      height: 25rem;
+      height: 21rem;
       flex: none; } }
   .left-body__header-container {
     position: absolute;
@@ -826,7 +827,7 @@ body {
       margin-bottom: 3.5rem; }
       @media (max-width: 25.875em) {
         .left-body__header-container > h5:not(:last-child) {
-          margin-bottom: 2.5rem; } }
+          margin-bottom: 3.8rem; } }
 
 .logo-landing {
   z-index: 1;
@@ -856,6 +857,11 @@ body {
       .right-body__main-container {
         padding: 2rem;
         max-width: 38rem; } }
+    @media (max-width: 25.875em) {
+      .right-body__main-container {
+        padding: 2.2rem;
+        max-width: inherit;
+        width: 100%; } }
   .right-body__form-container {
     display: flex;
     justify-content: center;
