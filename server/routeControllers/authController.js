@@ -19,13 +19,14 @@ const createAndSendToken = (user, statusCode, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
+    secure: req.secure || req.get("x-forwarded-proto") === "https",
   };
 
   //Only secure in production
-  if (process.env.NODE_ENV === "production") {
-    cookieOptions.secure = true;
-    console.log("PRODUCTION");
-  }
+  // if (process.env.NODE_ENV === "production") {
+  //   cookieOptions.secure = true;
+  //   console.log("PRODUCTION");
+  // }
 
   res.cookie("jwt", token, cookieOptions);
 
