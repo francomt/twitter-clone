@@ -68,7 +68,9 @@ const ProfilePage = ({
             </g>
           </svg>
         </div>
-        <h3 className="nav-text util-margin-right-large">{profile.name}</h3>
+        <h3 className="nav-text-feed util-margin-right-large">
+          {profile.name}
+        </h3>
       </nav>
 
       <div

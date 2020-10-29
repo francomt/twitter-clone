@@ -1,6 +1,10 @@
 .follows-page-container {
   width: 100%;
   background-color: $color-primary-background;
+
+  @include respond(iPhoneProMax) {
+    height: 81vh;
+  }
 }
 
 .follows-bottom {
@@ -8,6 +12,10 @@
 
   display: flex;
   border-right: $border-main;
+
+  @include respond(iPhoneProMax) {
+    width: 100%;
+  }
 
   &__selection {
     display: flex;

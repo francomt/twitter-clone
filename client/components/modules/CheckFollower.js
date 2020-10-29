@@ -15,7 +15,7 @@ const CheckFollower = ({ me, user, type }) => {
     for (let i = 0; i < user.following.length; i++) {
       const current = user.following[i];
 
-      if (current.user.id === me.id) {
+      if (current.user && current.user.id === me.id) {
         follower = true;
         break;
       }

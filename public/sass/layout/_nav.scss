@@ -215,11 +215,3 @@
     margin: 0;
   }
 }
-
-.create-tweet-nav-wrapper {
-  @include respond(iPhoneProMax) {
-    position: absolute;
-    bottom: 7rem;
-    right: 2rem;
-  }
-}

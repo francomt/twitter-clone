@@ -3,6 +3,10 @@
   flex-direction: column;
   width: 100%;
   background-color: $color-primary-background;
+
+  @include respond(iPhoneProMax) {
+    height: 81vh;
+  }
 }
 
 .profile-feed-container {

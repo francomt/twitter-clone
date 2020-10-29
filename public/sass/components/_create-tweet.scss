@@ -110,6 +110,15 @@
   }
 }
 
+.create-tweet-nav-wrapper {
+  @include respond(iPhoneProMax) {
+    position: absolute;
+    z-index: 1;
+    bottom: 7rem;
+    right: 2rem;
+  }
+}
+
 .tweet-photo {
   position: absolute;
   width: 100%;

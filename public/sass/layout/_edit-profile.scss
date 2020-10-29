@@ -5,6 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @include respond(iPhoneProMax) {
+    height: 81vh;
+  }
 }
 
 .edit-profile-photo-container {
@@ -21,6 +25,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @include respond(main3) {
+    width: 100%;
+    height: 80%;
+  }
 
   &__coverImg-container {
     width: 100%;
