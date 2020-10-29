@@ -35,7 +35,7 @@ export const fetchFeed = (userId, page = 1, initialLoad = false) => {
       const { data } = await axios.get(
         `/api/users/${userId}/feed?page=${page}&limit=9`
       );
-      console.log("THIS IS DATA", data);
+
       dispatch(getFeed(data, initialLoad));
     } catch (error) {
       console.error(error);

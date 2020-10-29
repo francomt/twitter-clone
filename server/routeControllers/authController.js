@@ -111,14 +111,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   //Check for token
   let token;
 
-  console.log("\n");
-  console.log("THIS IS COOKIE");
-  console.log(req.cookies);
-
-  console.log("\n");
-  console.log("THIS IS HEADER");
-  console.log(req.headers);
-
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -130,9 +122,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   //If no token, not logged in
-  // if (!token) return next(new Error('You are not logged in'));
   if (!token) {
-    console.log("YOU ARE NOT LOGGED IN");
     return res.json({});
   }
 
