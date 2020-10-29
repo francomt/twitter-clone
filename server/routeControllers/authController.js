@@ -11,24 +11,16 @@ const signToken = (id) => {
 };
 
 //CREATE AND SEND TOKEN
-const createAndSendToken = (user, statusCode, res) => {
+const createAndSendToken = (user, statusCode, req, res) => {
   const token = signToken(user.id);
 
-  const cookieOptions = {
+  res.cookie("jwt", token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
     secure: req.secure || req.get("x-forwarded-proto") === "https",
-  };
-
-  //Only secure in production
-  // if (process.env.NODE_ENV === "production") {
-  //   cookieOptions.secure = true;
-  //   console.log("PRODUCTION");
-  // }
-
-  res.cookie("jwt", token, cookieOptions);
+  });
 
   //Don't show password in response
   user.password = undefined;
@@ -58,7 +50,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   newUser.__v = undefined;
 
-  createAndSendToken(newUser, 201, res);
+  createAndSendToken(newUser, 201, req, res);
 });
 
 //LOGIN USER
@@ -103,7 +95,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   user.__v = undefined;
 
-  createAndSendToken(user, 200, res);
+  createAndSendToken(user, 200, req, res);
 });
 
 exports.logout = (req, res, next) => {
