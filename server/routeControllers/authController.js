@@ -22,7 +22,10 @@ const createAndSendToken = (user, statusCode, res) => {
   };
 
   //Only secure in production
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  if (process.env.NODE_ENV === "production") {
+    cookieOptions.secure = true;
+    console.log("PRODUCTION");
+  }
 
   res.cookie("jwt", token, cookieOptions);
 
@@ -114,6 +117,8 @@ exports.logout = (req, res, next) => {
 exports.protect = catchAsync(async (req, res, next) => {
   //Check for token
   let token;
+  console.log(req.headers);
+  console.log(req.cookies);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -127,6 +132,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   //If no token, not logged in
   // if (!token) return next(new Error('You are not logged in'));
   if (!token) {
+    console.log("YOU ARE NOT LOGGED IN");
     return res.json({});
   }
 
