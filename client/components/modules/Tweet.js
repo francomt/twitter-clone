@@ -77,6 +77,7 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
                 if (unit === "second") unit = "s";
                 else if (unit === "minute") unit = "m";
                 else if (unit === "hour") unit = "h";
+                else if (unit === "day") unit = "d";
                 else if (unit === "week") unit = "w";
 
                 return val + unit;

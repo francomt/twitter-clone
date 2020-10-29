@@ -2,6 +2,10 @@
   padding: 1rem;
   display: flex;
   width: 100%;
+
+  @include respond(iPhoneProMax) {
+    display: none;
+  }
 }
 
 .create-tweet {
@@ -38,6 +42,10 @@
     border-top: $border-main;
     height: 3rem;
     padding-top: 3.5rem;
+
+    @include respond(iPhoneProMax) {
+      position: relative;
+    }
   }
 
   &__icon {
@@ -70,6 +78,14 @@
 
 .create-tweet-image-icon-container {
   position: relative;
+}
+
+.tweet-popup-container {
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .create-tweet-input {

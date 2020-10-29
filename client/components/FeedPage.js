@@ -126,7 +126,7 @@ class FeedPage extends Component {
     return (
       <div className="feed-page-container">
         <nav className="secondary-nav">
-          <h3 className="nav-text util-margin-right-large">Home</h3>
+          <h3 className="nav-text-feed util-margin-right-large">Home</h3>
           <div className="input-container util-margin-auto-left util-margin-right-large">
             <form
               className="searchbar-container"

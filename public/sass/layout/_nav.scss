@@ -5,6 +5,7 @@
 
   @include respond(iPhoneProMax) {
     height: fit-content;
+    flex-direction: column-reverse;
   }
 }
 
@@ -12,16 +13,46 @@
   height: 3.5rem;
   fill: $color-font;
   margin-left: 1rem;
+
+  @include respond(iPhoneProMax) {
+    display: none;
+  }
 }
 
 .nav {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
   width: 33vw;
-  padding: 1.5rem 0 1rem 10rem;
   height: 100%;
   background-color: $color-primary-background;
   border-right: $border-main;
+
+  @include respond(main2) {
+    width: 20%;
+  }
+
+  @include respond(iPhoneProMax) {
+    width: 100%;
+    height: 5rem;
+    justify-content: center;
+    border-top: $border-main;
+    border-bottom: $border-main;
+  }
+
+  &__content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    @include respond(iPhoneProMax) {
+      flex-direction: row;
+      padding: 0;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      justify-content: space-evenly;
+    }
+  }
 
   &__fill-page {
     background-color: rgba(#fff, 0.15);
@@ -45,14 +76,16 @@
     padding: 1rem 3rem 1rem 1rem;
     border-radius: 50px;
     transition: all 0.3s;
+    margin-bottom: 1rem;
+
+    @include respond(iPhoneProMax) {
+      padding: 0;
+      margin: 0;
+    }
 
     &:hover {
       background-color: rgba($color-primary-dark, 0.1);
       cursor: pointer;
-    }
-
-    &:not(:last-child) {
-      margin-bottom: 3rem;
     }
   }
 
@@ -63,6 +96,10 @@
     &--selected {
       fill: $color-primary;
     }
+
+    @include respond(iPhoneProMax) {
+      height: 2.8rem;
+    }
   }
 }
 
@@ -71,9 +108,19 @@
   font-size: 2rem;
   padding-left: 1.5rem;
 
+  @include respond(main2) {
+    display: none;
+  }
+
   &--selected {
     color: $color-primary;
   }
+}
+
+.nav-text-feed {
+  color: $color-font;
+  font-size: 2rem;
+  padding-left: 1.5rem;
 }
 
 .secondary-nav {
@@ -122,6 +169,15 @@
   flex-direction: column;
   overflow: hidden;
   padding-bottom: 3.5rem;
+
+  @include respond(iPhoneProMax) {
+    position: fixed;
+    margin: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+  }
 }
 
 .tweet-popup {
@@ -148,5 +204,22 @@
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.logout-wrapper {
+  margin-top: auto;
+  margin-bottom: 0.5rem;
+
+  @include respond(iPhoneProMax) {
+    margin: 0;
+  }
+}
+
+.create-tweet-nav-wrapper {
+  @include respond(iPhoneProMax) {
+    position: absolute;
+    bottom: 7rem;
+    right: 2rem;
   }
 }
