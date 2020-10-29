@@ -9,7 +9,7 @@
   }
 
   @include respond(iPhoneProMax) {
-    min-height: unset;
+    min-height: auto;
     height: 100%;
   }
 }

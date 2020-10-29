@@ -2,6 +2,10 @@
   display: flex;
   position: relative;
   height: 100vh;
+
+  @include respond(iPhoneProMax) {
+    height: fit-content;
+  }
 }
 
 .logo-nav {

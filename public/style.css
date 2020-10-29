@@ -602,6 +602,9 @@ body {
   display: flex;
   position: relative;
   height: 100vh; }
+  @media (max-width: 25.875em) {
+    .route-container {
+      height: fit-content; } }
 
 .logo-nav {
   height: 3.5rem;
@@ -739,7 +742,7 @@ body {
       min-height: 110rem; } }
   @media (max-width: 25.875em) {
     .main-container {
-      min-height: unset;
+      min-height: auto;
       height: 100%; } }
 
 .sub-container {
