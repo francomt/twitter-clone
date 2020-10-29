@@ -130,8 +130,6 @@ exports.getAllTweets = catchAsync(async (req, res, next) => {
 
   const tweets = await features.query;
 
-  console.log(req);
-
   res.status(200).json({
     status: "success",
     results: tweets.length,
