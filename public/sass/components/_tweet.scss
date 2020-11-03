@@ -3,11 +3,11 @@
   width: 100%;
   padding: 1rem;
   padding-right: 2rem;
-  border-bottom: $border-main;
+  border-bottom: var(--border-main);
   transition: all 0.2s;
 
   &:hover {
-    background-color: $color-primary-background-2;
+    background-color: var(--color-primary-background-2);
   }
 
   &__container {
@@ -55,7 +55,7 @@
   }
 
   &__name {
-    color: $color-font;
+    color: var(--color-font);
     font-size: 1.5rem;
     font-weight: 500;
     margin-right: 0.5rem;
@@ -65,7 +65,7 @@
     }
   }
   &__username {
-    color: $color-font-dark;
+    color: var(--color-font-dark);
     font-size: 1.5rem;
     font-weight: 300;
 
@@ -75,14 +75,14 @@
   }
 
   &__text {
-    color: $color-font;
+    color: var(--color-font);
     font-size: 1.5rem;
     font-weight: 300;
     margin-top: 0.5rem;
   }
 
   &__popup {
-    fill: $color-font-dark;
+    fill: var(--color-font-dark);
     height: 1.5rem;
     width: 1.5rem;
 
@@ -115,38 +115,38 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgba($color-red, $alpha: 0.15);
+      background-color: rgba(var(--color-red), $alpha: 0.15);
     }
 
     &:hover > .content__like {
-      fill: $color-red;
+      fill: var(--color-red);
     }
 
     &:hover ~ .content__like-num {
-      color: $color-red;
+      color: var(--color-red);
     }
   }
 
   &__like {
-    fill: $color-red;
+    fill: var(--color-red);
     height: 1.6rem;
     width: 1.6rem;
   }
 
   &__not-liked {
-    fill: $color-font-dark;
+    fill: var(--color-font-dark);
     height: 1.6rem;
     width: 1.6rem;
   }
 
   &__like-num {
-    color: $color-red;
+    color: var(--color-red);
     font-size: 1.5rem;
     font-weight: 300;
   }
 
   &__not-like-num {
-    color: $color-font-dark;
+    color: var(--color-font-dark);
     font-size: 1.5rem;
     font-weight: 300;
   }
@@ -155,7 +155,7 @@
 .separator {
   margin-left: 0.7rem;
   margin-right: 0.7rem;
-  color: $color-font-dark;
+  color: var(--color-font-dark);
   font-weight: 600;
   font-size: 1.5rem;
 }
@@ -181,8 +181,8 @@
   height: fit-content;
   width: 13rem;
   z-index: 20;
-  background-color: $color-primary-background;
-  box-shadow: $box-shadow;
+  background-color: var(--color-primary-background);
+  box-shadow: var(--box-shadow);
   border-radius: 5px;
 
   &__list {
@@ -192,20 +192,20 @@
     transition: all 0.2s;
 
     &:hover {
-      background: $color-secondary-background;
+      background: var(--color-secondary-background);
       cursor: pointer;
     }
   }
 
   &__delete-icon {
-    fill: $color-red;
+    fill: var(--color-red);
     height: 2rem;
     width: 2rem;
     margin-right: 1rem;
   }
 
   &__delete-text {
-    color: $color-red;
+    color: var(--color-red);
     font-size: 1.6rem;
   }
 }
@@ -232,20 +232,20 @@
   flex-direction: column;
   height: 22rem;
   width: 32rem;
-  background-color: $color-primary-background;
+  background-color: var(--color-primary-background);
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
 
   &__header {
-    color: $color-font;
+    color: var(--color-font);
     font-weight: 600;
     font-size: 2.3rem;
     margin-bottom: 1rem;
   }
 
   &__body {
-    color: $color-font-dark;
+    color: var(--color-font-dark);
     font-size: 1.5rem;
     font-weight: 300;
     margin-bottom: 2rem;

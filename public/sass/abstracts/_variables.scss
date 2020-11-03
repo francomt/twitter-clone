@@ -1,19 +1,21 @@
-$color-primary: #1da1f2;
-$color-primary-light: #71c9f8;
-$color-primary-dark: #1b95e0;
+:root {
+  --color-primary: #1da1f2;
+  --color-primary-light: #71c9f8;
+  --color-primary-dark: #1b95e0;
 
-$color-red: #e0245e;
-$color-red-2: #c61f52;
+  --color-red: #e0245e;
+  --color-red-2: #c61f52;
 
-$color-primary-background: #15202b;
-$color-primary-background-2: #192734;
-$color-secondary-background: #253341;
-$color-secondary-background-2: #334659;
+  --color-primary-background: #15202b;
+  --color-primary-background-2: #192734;
+  --color-secondary-background: #253341;
+  --color-secondary-background-2: #334659;
 
-$color-font: #fff;
-$color-font-dark: #8899a6;
+  --color-font: #fff;
+  --color-font-dark: #8899a6;
 
-$border-main: solid 1.3px rgba($color-font, 0.1);
-$border-main-2: solid 2.3px rgba($color-font, 0.1);
-$box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px,
-  rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+  --border-main: solid 1.3px rgba(--color-font, 0.1);
+  --border-main-2: solid 2.3px rgba(--color-font, 0.1);
+  --box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px,
+    rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+}

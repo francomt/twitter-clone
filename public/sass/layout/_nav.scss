@@ -11,7 +11,7 @@
 
 .logo-nav {
   height: 3.5rem;
-  fill: $color-font;
+  fill: var(--color-font);
   margin-left: 1rem;
 
   @include respond(iPhoneProMax) {
@@ -24,8 +24,8 @@
   justify-content: flex-end;
   width: 33vw;
   height: 100%;
-  background-color: $color-primary-background;
-  border-right: $border-main;
+  background-color: var(--color-primary-background);
+  border-right: var(--border-main);
 
   @include respond(main2) {
     width: 20%;
@@ -35,8 +35,8 @@
     width: 100%;
     height: 5rem;
     justify-content: center;
-    border-top: $border-main;
-    border-bottom: $border-main;
+    border-top: var(--border-main);
+    border-bottom: var(--border-main);
   }
 
   &__content-container {
@@ -84,17 +84,17 @@
     }
 
     &:hover {
-      background-color: rgba($color-primary-dark, 0.1);
+      background-color: rgba(var(--color-primary-dark), 0.1);
       cursor: pointer;
     }
   }
 
   &__icon {
     height: 3.5rem;
-    fill: $color-font;
+    fill: var(--color-font);
 
     &--selected {
-      fill: $color-primary;
+      fill: var(--color-primary);
     }
 
     @include respond(iPhoneProMax) {
@@ -104,7 +104,7 @@
 }
 
 .nav-text {
-  color: $color-font;
+  color: var(--color-font);
   font-size: 2rem;
   padding-left: 1.5rem;
 
@@ -113,12 +113,12 @@
   }
 
   &--selected {
-    color: $color-primary;
+    color: var(--color-primary);
   }
 }
 
 .nav-text-feed {
-  color: $color-font;
+  color: var(--color-font);
   font-size: 2rem;
   padding-left: 1.5rem;
 }
@@ -127,7 +127,7 @@
   display: flex;
   min-height: 5.2rem;
   width: 100%;
-  border-bottom: $border-main;
+  border-bottom: var(--border-main);
   display: flex;
   align-items: center;
 
@@ -142,13 +142,13 @@
     transition: all 0.25s;
 
     &:hover {
-      background-color: rgba($color-primary, 0.15);
+      background-color: rgba(var(--color-primary), 0.15);
       cursor: pointer;
     }
   }
 
   &__back__arrow {
-    fill: $color-primary;
+    fill: var(--color-primary);
     height: 2rem;
     width: 2rem;
   }
@@ -163,7 +163,7 @@
   margin-top: 4rem;
   height: fit-content;
   width: 60rem;
-  background-color: $color-primary-background;
+  background-color: var(--color-primary-background);
   border-radius: 20px;
   display: none;
   flex-direction: column;
@@ -184,7 +184,7 @@
   &__top {
     height: 5rem;
     width: 100%;
-    border-bottom: $border-main-2;
+    border-bottom: var(--border-main-2);
     display: flex;
     align-items: center;
     padding: 0rem 2rem;
@@ -200,7 +200,7 @@
 .popup__logo {
   height: 2.3rem;
   width: 2.3rem;
-  fill: $color-primary;
+  fill: var(--color-primary);
 
   &:hover {
     cursor: pointer;

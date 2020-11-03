@@ -12,33 +12,33 @@
 .searchbar {
   height: 4rem;
   width: 100%;
-  color: $color-font;
+  color: var(--color-font);
   font-size: 1.5rem;
   font-weight: 400;
   padding-left: 4.5rem;
   border-radius: 55px;
   border: none;
-  background-color: $color-secondary-background;
+  background-color: var(--color-secondary-background);
 
   &::placeholder {
-    color: $color-font-dark;
+    color: var(--color-font-dark);
   }
 
   &:focus {
     outline: none;
-    border: solid 1px $color-primary;
+    border: solid 1px var(--color-primary);
     background-color: transparent;
   }
 
   &:focus ~ &__icon {
-    fill: $color-primary;
+    fill: var(--color-primary);
   }
 
   &__icon {
     position: absolute;
     top: 23%;
     left: 5%;
-    fill: $color-font-dark;
+    fill: var(--color-font-dark);
     height: 2rem;
     width: 2rem;
   }
@@ -47,7 +47,7 @@
     position: absolute;
     top: 23%;
     left: 1.5rem;
-    fill: $color-font-dark;
+    fill: var(--color-font-dark);
     height: 2rem;
     width: 2rem;
   }

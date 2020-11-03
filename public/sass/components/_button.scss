@@ -3,42 +3,42 @@
   border: none;
   height: 4rem;
   width: 100%;
-  background-color: $color-primary;
-  color: $color-font;
+  background-color: var(--color-primary);
+  color: var(--color-font);
   font-weight: 700;
   font-size: 1.6rem;
 
   &:hover {
     cursor: pointer;
-    background-color: $color-primary-dark;
+    background-color: var(--color-primary-dark);
   }
 
   &--outline {
     background-color: transparent;
-    color: $color-primary;
-    border: solid 1px $color-primary;
+    color: var(--color-primary);
+    border: solid 1px var(--color-primary);
 
     &:hover {
-      background-color: rgba($color-primary, 0.1);
+      background-color: rgba(var(--color-primary), 0.1);
     }
   }
 
   &--login {
     width: 10rem;
     background-color: transparent;
-    color: $color-primary;
-    border: solid 1px $color-primary;
+    color: var(--color-primary);
+    border: solid 1px var(--color-primary);
 
     &:hover {
-      background-color: rgba($color-primary, 0.1);
+      background-color: rgba(var(--color-primary), 0.1);
     }
   }
 
   &--logout {
     width: 10rem;
     background-color: transparent;
-    color: $color-primary;
-    border: solid 1px $color-primary;
+    color: var(--color-primary);
+    border: solid 1px var(--color-primary);
 
     &::before {
       content: "Logout";
@@ -65,7 +65,7 @@
     }
 
     &:hover {
-      background-color: rgba($color-primary, 0.1);
+      background-color: rgba(var(--color-primary), 0.1);
     }
   }
 
@@ -73,7 +73,7 @@
     width: 10rem;
 
     &:hover {
-      background-color: rgba($color-primary, 0.1);
+      background-color: rgba(var(--color-primary), 0.1);
     }
   }
 
@@ -105,7 +105,7 @@
     }
 
     &:hover {
-      background-color: rgba($color-primary, 0.1);
+      background-color: rgba(var(--color-primary), 0.1);
     }
   }
 
@@ -133,7 +133,7 @@
 
     &:hover {
       cursor: default;
-      background-color: $color-primary;
+      background-color: var(--color-primary);
     }
   }
 
@@ -143,18 +143,18 @@
   }
 
   &--neutral {
-    background-color: $color-secondary-background;
+    background-color: var(--color-secondary-background);
 
     &:hover {
-      background-color: $color-secondary-background-2;
+      background-color: var(--color-secondary-background-2);
     }
   }
 
   &--red {
-    background-color: $color-red;
+    background-color: var(--color-red);
 
     &:hover {
-      background-color: $color-red-2;
+      background-color: var(--color-red-2);
     }
   }
 }

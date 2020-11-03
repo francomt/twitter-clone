@@ -9,7 +9,7 @@
 html {
   // Defines 1rem
   font-size: 62.5%; //1rem = 10px >>>> 10/16 = 62.5%
-  background-color: $color-primary-background;
+  background-color: var(--color-primary-background);
 }
 
 body {
@@ -25,7 +25,7 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $color-font-dark;
+    background: var(--color-font-dark);
     border-radius: 10px;
   }
 

@@ -13,24 +13,24 @@
   font-size: 1.5rem;
   font-weight: 400;
   transform: translate(5%, -300%);
-  color: $color-font-dark;
+  color: var(--color-font-dark);
 }
 
 .input-placeholder-error {
   font-size: 1.5rem;
   font-weight: 400;
   transform: translate(5%, -300%);
-  color: $color-red;
+  color: var(--color-red);
 }
 
 .input {
   height: 6rem;
   width: 20rem;
-  color: $color-font;
-  background-color: $color-primary-background-2;
+  color: var(--color-font);
+  background-color: var(--color-primary-background-2);
   border: none;
   border-radius: 2px;
-  border-bottom: solid 2.7px $color-font-dark;
+  border-bottom: solid 2.7px var(--color-font-dark);
   padding: 2rem 1rem 0 1rem;
   font-size: 2rem;
 
@@ -40,22 +40,22 @@
 
   &:focus {
     outline: none;
-    border-bottom: solid 2.7px $color-primary;
+    border-bottom: solid 2.7px var(--color-primary);
   }
 
   &:focus ~ .input-placeholder {
-    color: $color-primary;
+    color: var(--color-primary);
   }
 }
 
 .input-error {
   height: 6rem;
   width: 20rem;
-  color: $color-font;
-  background-color: $color-primary-background-2;
+  color: var(--color-font);
+  background-color: var(--color-primary-background-2);
   border: none;
   border-radius: 2px;
-  border-bottom: solid 2.7px $color-red;
+  border-bottom: solid 2.7px var(--color-red);
   padding: 2rem 1rem 0 1rem;
   font-size: 2rem;
 
@@ -68,6 +68,6 @@
   }
 
   &:focus ~ .input-placeholder {
-    color: $color-red;
+    color: var(--color-red);
   }
 }

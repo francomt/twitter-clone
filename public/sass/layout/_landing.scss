@@ -30,7 +30,7 @@
 
 .footer {
   height: 5%;
-  background-color: $color-primary-background;
+  background-color: var(--color-primary-background);
 
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
 
   width: 100%;
 
-  color: $color-font-dark;
+  color: var(--color-font-dark);
   font-size: 1.2rem;
   font-weight: 400;
   overflow: hidden;
@@ -90,7 +90,7 @@
 .left-body {
   position: relative;
   flex: 1 1 0%;
-  background-color: $color-primary-light;
+  background-color: var(--color-primary-light);
   overflow: hidden;
 
   @include respond(iPhoneProMax) {
@@ -105,7 +105,7 @@
     flex-direction: column;
 
     font-size: 2.5rem;
-    color: $color-font;
+    color: var(--color-font);
 
     @include respond(iPhoneProMax) {
       width: 80%;
@@ -129,7 +129,7 @@
   right: -50vh;
   top: -30vh;
   max-width: none;
-  fill: $color-primary;
+  fill: var(--color-primary);
 }
 
 .right-body {
@@ -138,8 +138,8 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: $color-primary-background;
-  color: $color-font;
+  background-color: var(--color-primary-background);
+  color: var(--color-font);
 
   @include respond(iPhoneProMax) {
     justify-content: start;
@@ -196,7 +196,7 @@
 
 .landing-err {
   font-size: 1.5rem;
-  color: $color-red;
+  color: var(--color-red);
   margin-top: 1rem;
   margin-bottom: 1rem;
 }

@@ -1,5 +1,5 @@
 .feed-page-container {
-  background-color: $color-primary-background;
+  background-color: var(--color-primary-background);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
 
 .create-tweet-container {
   height: fit-content;
-  border-bottom: solid 1rem rgba($color-font, 0.1);
+  border-bottom: solid 1rem rgba(var(--color-font), 0.1);
   padding-right: 1.5em;
   padding-bottom: 3.5rem;
 }
@@ -43,15 +43,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-right: $border-main;
+  border-right: var(--border-main);
 
   @include respond(main3) {
     width: 100%;
   }
-
-  // @include respond(iPhoneProMax) {
-  //   height: 85vh;
-  // }
 }
 
 .input-container {
@@ -67,7 +63,7 @@
   position: absolute;
   top: 107%;
   left: 2.5%;
-  box-shadow: $box-shadow;
+  box-shadow: var(--box-shadow);
   border-radius: 15px;
   overflow: hidden;
   width: 95%;
@@ -78,26 +74,26 @@
     display: flex;
     align-items: center;
     height: 7rem;
-    background-color: $color-primary-background;
+    background-color: var(--color-primary-background);
 
     &:hover {
       cursor: pointer;
-      background-color: $color-primary-background-2;
+      background-color: var(--color-primary-background-2);
     }
   }
 
   &__item-query {
-    color: $color-font;
+    color: var(--color-font);
     font-size: 1.5rem;
     padding: 0 2rem;
     display: flex;
     align-items: center;
     height: 7rem;
-    background-color: $color-primary-background;
+    background-color: var(--color-primary-background);
 
     &:hover {
       cursor: pointer;
-      background-color: $color-primary-background-2;
+      background-color: var(--color-primary-background-2);
     }
   }
 
@@ -108,11 +104,11 @@
 
   &__user-name {
     font-size: 1.8rem;
-    color: $color-font;
+    color: var(--color-font);
   }
 
   &__user-username {
     font-size: 1.3rem;
-    color: $color-font-dark;
+    color: var(--color-font-dark);
   }
 }
