@@ -11,7 +11,7 @@
 
 .logo-nav {
   height: 3.5rem;
-  fill: var(--color-font);
+  fill: rgba(var(--color-font), 1);
   margin-left: 1rem;
 
   @include respond(iPhoneProMax) {
@@ -24,7 +24,7 @@
   justify-content: flex-end;
   width: 33vw;
   height: 100%;
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
   border-right: var(--border-main);
 
   @include respond(main2) {
@@ -91,10 +91,10 @@
 
   &__icon {
     height: 3.5rem;
-    fill: var(--color-font);
+    fill: rgba(var(--color-font), 1);
 
     &--selected {
-      fill: var(--color-primary);
+      fill: rgba(var(--color-primary), 1);
     }
 
     @include respond(iPhoneProMax) {
@@ -104,7 +104,7 @@
 }
 
 .nav-text {
-  color: var(--color-font);
+  color: rgba(var(--color-font), 1);
   font-size: 2rem;
   padding-left: 1.5rem;
 
@@ -113,12 +113,12 @@
   }
 
   &--selected {
-    color: var(--color-primary);
+    color: rgba(var(--color-primary), 1);
   }
 }
 
 .nav-text-feed {
-  color: var(--color-font);
+  color: rgba(var(--color-font), 1);
   font-size: 2rem;
   padding-left: 1.5rem;
 }
@@ -148,7 +148,7 @@
   }
 
   &__back__arrow {
-    fill: var(--color-primary);
+    fill: rgba(var(--color-primary), 1);
     height: 2rem;
     width: 2rem;
   }
@@ -163,7 +163,7 @@
   margin-top: 4rem;
   height: fit-content;
   width: 60rem;
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
   border-radius: 20px;
   display: none;
   flex-direction: column;
@@ -200,7 +200,7 @@
 .popup__logo {
   height: 2.3rem;
   width: 2.3rem;
-  fill: var(--color-primary);
+  fill: rgba(var(--color-primary), 1);
 
   &:hover {
     cursor: pointer;

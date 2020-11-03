@@ -13,24 +13,24 @@
   font-size: 1.5rem;
   font-weight: 400;
   transform: translate(5%, -300%);
-  color: var(--color-font-dark);
+  color: rgba(var(--color-font-dark), 1);
 }
 
 .input-placeholder-error {
   font-size: 1.5rem;
   font-weight: 400;
   transform: translate(5%, -300%);
-  color: var(--color-red);
+  color: rgba(var(--color-red), 1);
 }
 
 .input {
   height: 6rem;
   width: 20rem;
-  color: var(--color-font);
-  background-color: var(--color-primary-background-2);
+  color: rgba(var(--color-font), 1);
+  background-color: rgba(var(--color-primary-background-2), 1);
   border: none;
   border-radius: 2px;
-  border-bottom: solid 2.7px var(--color-font-dark);
+  border-bottom: solid 2.7px rgba(var(--color-font-dark), 1);
   padding: 2rem 1rem 0 1rem;
   font-size: 2rem;
 
@@ -40,22 +40,22 @@
 
   &:focus {
     outline: none;
-    border-bottom: solid 2.7px var(--color-primary);
+    border-bottom: solid 2.7px rgba(var(--color-primary), 1);
   }
 
   &:focus ~ .input-placeholder {
-    color: var(--color-primary);
+    color: rgba(var(--color-primary), 1);
   }
 }
 
 .input-error {
   height: 6rem;
   width: 20rem;
-  color: var(--color-font);
-  background-color: var(--color-primary-background-2);
+  color: rgba(var(--color-font), 1);
+  background-color: rgba(var(--color-primary-background-2), 1);
   border: none;
   border-radius: 2px;
-  border-bottom: solid 2.7px var(--color-red);
+  border-bottom: solid 2.7px rgba(var(--color-red), 1);
   padding: 2rem 1rem 0 1rem;
   font-size: 2rem;
 
@@ -68,6 +68,6 @@
   }
 
   &:focus ~ .input-placeholder {
-    color: var(--color-red);
+    color: rgba(var(--color-red), 1);
   }
 }

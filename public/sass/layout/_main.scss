@@ -3,7 +3,7 @@
   line-height: 4.1rem;
 
   &--primary {
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
   }
 }
 
@@ -12,11 +12,11 @@
   word-spacing: 0.2rem;
 
   &--primary {
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
   }
 }
 
 .logo-small {
   height: 5rem;
-  fill: var(--color-font);
+  fill: rgba(var(--color-font), 1);
 }

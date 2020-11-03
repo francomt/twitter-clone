@@ -1,21 +1,21 @@
 :root {
-  --color-primary: #1da1f2;
-  --color-primary-light: #71c9f8;
-  --color-primary-dark: #1b95e0;
+  --color-primary: 29, 161, 242; //#1da1f2
+  --color-primary-light: 113, 201, 248; //#71c9f8
+  --color-primary-dark: 27, 149, 224; //#1b95e0
 
-  --color-red: #e0245e;
-  --color-red-2: #c61f52;
+  --color-red: 224, 36, 94; //#e0245e
+  --color-red-2: 198, 31, 82; //#c61f52;
 
-  --color-primary-background: #15202b;
-  --color-primary-background-2: #192734;
-  --color-secondary-background: #253341;
-  --color-secondary-background-2: #334659;
+  --color-primary-background: 21, 32, 43; // #15202b
+  --color-primary-background-2: 25, 39, 52; //#192734;
+  --color-secondary-background: 37, 51, 65; //#253341;
+  --color-secondary-background-2: 51, 70, 89; // #334659;
 
-  --color-font: #fff;
-  --color-font-dark: #8899a6;
+  --color-font: 255, 255, 255; //#fff;
+  --color-font-dark: 136, 153, 166; //#8899a6;
 
-  --border-main: solid 1.3px rgba(--color-font, 0.1);
-  --border-main-2: solid 2.3px rgba(--color-font, 0.1);
+  --border-main: solid 1.3px rgba(var(--color-font), 0.1);
+  --border-main-2: solid 2.3px rgba(var(--color-font), 0.1);
   --box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px,
     rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
 }

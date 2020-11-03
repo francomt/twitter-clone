@@ -5,7 +5,7 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
 }
 
 .signup {
@@ -28,7 +28,7 @@
   left: 3%;
   height: 3rem;
   width: 3rem;
-  fill: var(--color-primary);
+  fill: rgba(var(--color-primary), 1);
 
   &:hover {
     cursor: pointer;
@@ -37,6 +37,6 @@
 
 .signup-error {
   font-size: 1.5rem;
-  color: var(--color-red);
+  color: rgba(var(--color-red), 1);
   transform: translateY(-60%);
 }

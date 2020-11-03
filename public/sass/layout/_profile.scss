@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
 
   @include respond(iPhoneProMax) {
     height: 81vh;
@@ -54,7 +54,7 @@
     position: absolute;
     top: 12.5rem;
     left: 1.3rem;
-    border: solid 5px var(--color-primary-background);
+    border: solid 5px rgba(var(--color-primary-background), 1);
     border-radius: 50%;
     height: 15rem;
     width: 15rem;
@@ -62,7 +62,7 @@
 
   &__name {
     font-size: 2.5rem;
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
     font-weight: 600;
     display: inline-block;
     margin-left: 2rem;
@@ -88,7 +88,7 @@
 
   &__username {
     font-size: 1.6rem;
-    color: var(--color-font-dark);
+    color: rgba(var(--color-font-dark), 1);
     font-weight: 500;
     display: inline-block;
     margin-left: 2rem;
@@ -96,7 +96,7 @@
 
   &__bio {
     font-size: 1.6rem;
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
     font-weight: 300;
     margin-left: 2rem;
     margin-top: 2rem;
@@ -112,7 +112,7 @@
 
 .follow-count-text {
   font-size: 1.6rem;
-  color: var(--color-font-dark);
+  color: rgba(var(--color-font-dark), 1);
   font-weight: 300;
 
   &:hover {
@@ -123,5 +123,5 @@
 
 .bold {
   font-weight: 600;
-  color: var(--color-font);
+  color: rgba(var(--color-font), 1);
 }

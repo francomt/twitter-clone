@@ -1,6 +1,6 @@
 .follows-page-container {
   width: 100%;
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
 
   @include respond(iPhoneProMax) {
     height: 81vh;
@@ -24,7 +24,7 @@
     flex: 1;
     height: 6rem;
     transition: all 0.2s;
-    color: var(--color-font-dark);
+    color: rgba(var(--color-font-dark), 1);
     border-bottom: var(--border-main-2);
 
     &:hover {
@@ -40,8 +40,8 @@
     flex: 1;
     height: 6rem;
     transition: all 0.2s;
-    border-bottom: solid 2.5px var(--color-primary);
-    color: var(--color-primary);
+    border-bottom: solid 2.5px rgba(var(--color-primary), 1);
+    color: rgba(var(--color-primary), 1);
 
     &:hover {
       cursor: pointer;

@@ -7,7 +7,7 @@
   transition: all 0.2s;
 
   &:hover {
-    background-color: var(--color-primary-background-2);
+    background-color: rgba(var(--color-primary-background-2), 1);
   }
 
   &__container {
@@ -55,7 +55,7 @@
   }
 
   &__name {
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
     font-size: 1.5rem;
     font-weight: 500;
     margin-right: 0.5rem;
@@ -65,7 +65,7 @@
     }
   }
   &__username {
-    color: var(--color-font-dark);
+    color: rgba(var(--color-font-dark), 1);
     font-size: 1.5rem;
     font-weight: 300;
 
@@ -75,14 +75,14 @@
   }
 
   &__text {
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
     font-size: 1.5rem;
     font-weight: 300;
     margin-top: 0.5rem;
   }
 
   &__popup {
-    fill: var(--color-font-dark);
+    fill: rgba(var(--color-font-dark), 1);
     height: 1.5rem;
     width: 1.5rem;
 
@@ -115,38 +115,38 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgba(var(--color-red), $alpha: 0.15);
+      background-color: rgba(var(--color-red), 0.15);
     }
 
     &:hover > .content__like {
-      fill: var(--color-red);
+      fill: rgba(var(--color-red), 1);
     }
 
     &:hover ~ .content__like-num {
-      color: var(--color-red);
+      color: rgba(var(--color-red), 1);
     }
   }
 
   &__like {
-    fill: var(--color-red);
+    fill: rgba(var(--color-red), 1);
     height: 1.6rem;
     width: 1.6rem;
   }
 
   &__not-liked {
-    fill: var(--color-font-dark);
+    fill: rgba(var(--color-font-dark), 1);
     height: 1.6rem;
     width: 1.6rem;
   }
 
   &__like-num {
-    color: var(--color-red);
+    color: rgba(var(--color-red), 1);
     font-size: 1.5rem;
     font-weight: 300;
   }
 
   &__not-like-num {
-    color: var(--color-font-dark);
+    color: rgba(var(--color-font-dark), 1);
     font-size: 1.5rem;
     font-weight: 300;
   }
@@ -155,7 +155,7 @@
 .separator {
   margin-left: 0.7rem;
   margin-right: 0.7rem;
-  color: var(--color-font-dark);
+  color: rgba(var(--color-font-dark), 1);
   font-weight: 600;
   font-size: 1.5rem;
 }
@@ -165,7 +165,6 @@
   position: fixed;
   top: 0;
   left: 0;
-
   overflow: auto;
   height: 100vh;
   width: 100vw;
@@ -181,8 +180,8 @@
   height: fit-content;
   width: 13rem;
   z-index: 20;
-  background-color: var(--color-primary-background);
-  box-shadow: var(--box-shadow);
+  background-color: rgba(var(--color-primary-background), 1);
+  box-shadow: rgba(var(--box-shadow), 1);
   border-radius: 5px;
 
   &__list {
@@ -192,20 +191,20 @@
     transition: all 0.2s;
 
     &:hover {
-      background: var(--color-secondary-background);
+      background: rgba(var(--color-secondary-background), 1);
       cursor: pointer;
     }
   }
 
   &__delete-icon {
-    fill: var(--color-red);
+    fill: rgba(var(--color-red), 1);
     height: 2rem;
     width: 2rem;
     margin-right: 1rem;
   }
 
   &__delete-text {
-    color: var(--color-red);
+    color: rgba(var(--color-red), 1);
     font-size: 1.6rem;
   }
 }
@@ -232,20 +231,20 @@
   flex-direction: column;
   height: 22rem;
   width: 32rem;
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
 
   &__header {
-    color: var(--color-font);
+    color: rgba(var(--color-font), 1);
     font-weight: 600;
     font-size: 2.3rem;
     margin-bottom: 1rem;
   }
 
   &__body {
-    color: var(--color-font-dark);
+    color: rgba(var(--color-font-dark), 1);
     font-size: 1.5rem;
     font-weight: 300;
     margin-bottom: 2rem;

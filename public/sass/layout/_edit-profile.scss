@@ -1,5 +1,5 @@
 .edit-profile-container {
-  background-color: var(--color-primary-background);
+  background-color: rgba(var(--color-primary-background), 1);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -18,8 +18,8 @@
 .edit-profile {
   width: 50em;
   height: 55rem;
-  background-color: var(--color-primary-background);
-  border: solid 8px var(--color-primary-background-2);
+  background-color: rgba(var(--color-primary-background), 1);
+  border: solid 8px rgba(var(--color-primary-background-2), 1);
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -52,7 +52,7 @@
     top: 9rem;
     left: 0;
     border-radius: 50%;
-    border: solid 5px var(--color-primary-background);
+    border: solid 5px rgba(var(--color-primary-background), 1);
   }
 
   &__photo {
@@ -95,7 +95,7 @@
       background: linear-gradient(top, #f9f9f9, #e3e3e3);
       padding: 1rem;
       cursor: pointer;
-      color: var(--color-font);
+      color: rgba(var(--color-font), 1);
       -webkit-user-select: none;
     }
 
@@ -136,7 +136,7 @@
       background: linear-gradient(top, #f9f9f9, #e3e3e3);
       padding: 1rem;
       cursor: pointer;
-      color: var(--color-font);
+      color: rgba(var(--color-font), 1);
       -webkit-user-select: none;
     }
 
