@@ -16,8 +16,6 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-// const multerStorage = multer.memoryStorage();
-
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
@@ -27,7 +25,6 @@ const multerFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  // storage: multerStorage,
   storage: multerS3({
     s3: s3,
     bucket: "twitter-clonecopy",
