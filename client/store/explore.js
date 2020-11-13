@@ -12,7 +12,7 @@ export const fetchExplore = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        "https://api.datanews.io/v1/news?apiKey=02q3ltc2vp4erdnxtx7mw5vcs&topic=general&size=25"
+        "http://api.datanews.io/v1/news?apiKey=02q3ltc2vp4erdnxtx7mw5vcs&topic=general&size=25"
       );
 
       dispatch(getExplore(data));
