@@ -18,7 +18,6 @@ aws.config.update({
 const s3 = new aws.S3();
 
 const multerFilter = (req, file, cb) => {
-  console.log("THIS IS THE FILE", file.mimetype);
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
