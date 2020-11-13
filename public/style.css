@@ -15,7 +15,8 @@
   --border-main: solid 1.3px rgba(var(--color-font), 0.1);
   --border-main-2: solid 2.3px rgba(var(--color-font), 0.1);
   --box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px,
-    rgba(136, 153, 166, 0.15) 0px 0px 3px 1px; }
+    rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+  --height: auto; }
 
 /*
 
@@ -1248,7 +1249,7 @@ body {
   flex-direction: column; }
   @media (max-width: 25.875em) {
     .feed-page-container {
-      height: 81vh; } }
+      height: var(--height); } }
 
 .create-tweet-container {
   height: fit-content;
@@ -1270,7 +1271,7 @@ body {
   overflow: auto; }
   @media (max-width: 25.875em) {
     .feed-page-half {
-      height: 100%; } }
+      height: unset; } }
 
 .feed-middle {
   height: fit-content;
@@ -1348,7 +1349,7 @@ body {
   background-color: rgba(var(--color-primary-background), 1); }
   @media (max-width: 25.875em) {
     .profile-page-container {
-      height: 81vh; } }
+      height: var(--height); } }
 
 .profile-feed-container {
   display: flex;
@@ -1454,7 +1455,7 @@ body {
   background-color: rgba(var(--color-primary-background), 1); }
   @media (max-width: 25.875em) {
     .follows-page-container {
-      height: 81vh; } }
+      height: var(--height); } }
 
 .follows-bottom {
   width: 60%;
@@ -1498,7 +1499,7 @@ body {
   background-color: rgba(var(--color-primary-background), 1); }
   @media (max-width: 25.875em) {
     .search-page-container {
-      height: 81vh; } }
+      height: var(--height); } }
 
 .search-nav {
   height: fit-content;
@@ -1576,7 +1577,7 @@ body {
   flex-direction: column; }
   @media (max-width: 25.875em) {
     .explore-page-container {
-      height: 81vh; } }
+      height: var(--height); } }
 
 .search-top-page {
   margin-top: 1rem;
@@ -1630,7 +1631,7 @@ body {
   align-items: center; }
   @media (max-width: 25.875em) {
     .edit-profile-container {
-      height: 81vh; } }
+      height: var(--height); } }
 
 .edit-profile-photo-container {
   position: relative; }

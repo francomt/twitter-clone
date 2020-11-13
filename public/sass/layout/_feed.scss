@@ -5,7 +5,7 @@
   flex-direction: column;
 
   @include respond(iPhoneProMax) {
-    height: 81vh;
+    height: var(--height);
   }
 }
 
@@ -32,7 +32,7 @@
   overflow: auto;
 
   @include respond(iPhoneProMax) {
-    height: 100%;
+    height: unset;
   }
 }
 

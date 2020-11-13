@@ -5,7 +5,7 @@
   background-color: rgba(var(--color-primary-background), 1);
 
   @include respond(iPhoneProMax) {
-    height: 81vh;
+    height: var(--height);
   }
 }
 

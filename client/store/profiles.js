@@ -240,7 +240,7 @@ const defaultState = {
   profile: {},
   search: {},
   errMsg: "",
-  mode: mode ? mode : "light",
+  mode: mode === "light" ? mode : "dark",
 };
 
 function profilesReducer(state = defaultState, action) {

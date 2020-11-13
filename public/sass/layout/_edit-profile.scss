@@ -7,7 +7,7 @@
   align-items: center;
 
   @include respond(iPhoneProMax) {
-    height: 81vh;
+    height: var(--height);
   }
 }
 

@@ -104,6 +104,9 @@ const Routes = ({
 
   const lightDefault = colorMode === "light" ? true : false;
 
+  const newHeight = `${window.innerHeight - 52}px`;
+  document.documentElement.style.setProperty("--height", newHeight);
+
   return (
     <div className="route-container">
       {userLoggedIn && pathname !== "/" && (
