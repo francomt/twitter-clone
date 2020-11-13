@@ -28,12 +28,12 @@ const FollowsPage = ({
   }, []);
 
   const followersClass =
-    selected === "followers"
+    pathname === "followers"
       ? "follows-bottom__selection-active"
       : "follows-bottom__selection";
 
   const followingClass =
-    selected === "following"
+    pathname === "following"
       ? "follows-bottom__selection-active"
       : "follows-bottom__selection";
 
@@ -90,7 +90,7 @@ const FollowsPage = ({
             />
           ) : (
             <Selection
-              selected={selected}
+              selected={pathname}
               profile={profile}
               me={me}
               followUser={followUser}

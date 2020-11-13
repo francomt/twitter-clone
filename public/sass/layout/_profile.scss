@@ -18,6 +18,7 @@
 .profile-bottom-half {
   overflow: auto;
   height: 100%;
+  display: flex;
 }
 
 .profile-info-container {
@@ -83,7 +84,7 @@
     border-radius: 5px;
     padding: 0.5rem;
     color: #8899a6;
-    background-color: #253341;
+    background-color: var(--follows-you);
   }
 
   &__username {

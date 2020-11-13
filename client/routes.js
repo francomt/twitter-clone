@@ -13,16 +13,28 @@ import {
   FollowsPage,
 } from "./components";
 import { CreateTweet } from "./components/modules";
-import { fetchMe, fetchLogout } from "./store/profiles";
+import { fetchExplore } from "./store/explore";
+import { fetchMe, fetchLogout, colorMode } from "./store/profiles";
 import { navIcons } from "./components/modules/Svgs";
 import history from "./history";
 
-const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
+const Routes = ({
+  userLoggedIn,
+  loadData,
+  handleLogout,
+  pathname,
+  me,
+  colorMode,
+  setMode,
+  getExplore,
+}) => {
   const [selectedIcon, selectIcon] = useState("home");
   const [popupFocus, setPopupFocus] = useState(false);
 
   const fillPage = useRef(null);
   const createTweetPopup = useRef(null);
+
+  const settingsList = useRef(null);
 
   const handlePopup = () => {
     fillPage.current.style.display = "flex";
@@ -36,12 +48,25 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
     setPopupFocus(false);
   };
 
+  const handleSettingsOpen = () => {
+    fillPage.current.style.display = "flex";
+    settingsList.current.style.display = "flex";
+  };
+
+  const handleSettingsClose = () => {
+    fillPage.current.style.display = "none";
+    settingsList.current.style.display = "none";
+  };
+
   useEffect(() => {
     loadData();
+    getExplore();
   }, []);
 
   useEffect(() => {
     if (pathname === "/home") selectIcon("home");
+    else if (pathname === "/explore" || pathname === "/search")
+      selectIcon("explore");
     else if (pathname === "/search") selectIcon("");
     else if (me && pathname.endsWith(me.username)) selectIcon("profile");
     else selectIcon("");
@@ -77,6 +102,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
     </Switch>
   );
 
+  const lightDefault = colorMode === "light" ? true : false;
+
   return (
     <div className="route-container">
       {userLoggedIn && pathname !== "/" && (
@@ -90,6 +117,8 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
                 <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path>
               </g>
             </svg>
+
+            {/* HOME */}
             <div
               className="nav__item"
               onClick={() => {
@@ -102,6 +131,22 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
               </div>
               <h3 className={classValue(selectedIcon, "home")}>Home</h3>
             </div>
+
+            {/* EXPLORE */}
+            <div
+              className="nav__item"
+              onClick={() => {
+                selectIcon("explore");
+                history.push("/explore");
+              }}
+            >
+              <div className="icon-container">
+                {navIcons(selectedIcon, "explore")}
+              </div>
+              <h3 className={classValue(selectedIcon, "explore")}>Explore</h3>
+            </div>
+
+            {/* PROFILE */}
             <div
               className="nav__item"
               onClick={() => {
@@ -116,6 +161,66 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
               </div>
               <h3 className={classValue(selectedIcon, "profile")}>Profile</h3>
             </div>
+
+            {/*  SETTINGS  */}
+            <div
+              className="nav__item"
+              onClick={() => {
+                handleSettingsOpen();
+              }}
+            >
+              <div className="icon-container">
+                {navIcons(selectedIcon, "settings")}
+              </div>
+              <h3 className={classValue(selectedIcon, "settings")}>Settings</h3>
+            </div>
+
+            <form
+              onChange={(e) => {
+                setMode(e.target.value);
+              }}
+              ref={settingsList}
+              className="settings-list"
+            >
+              <h1 className="settings__header">Customize your view</h1>
+              <div className="settings__container">
+                <label
+                  className={
+                    lightDefault
+                      ? "settings__light settings__selected"
+                      : "settings__light"
+                  }
+                  htmlFor="lightMode"
+                >
+                  <input
+                    id="lightMode"
+                    type="radio"
+                    name="mode"
+                    value="light"
+                    defaultChecked={lightDefault}
+                  />
+                  <p className="settings__text-light">Default</p>
+                </label>
+
+                <label
+                  className={
+                    !lightDefault
+                      ? "settings__dark settings__selected"
+                      : "settings__dark"
+                  }
+                  htmlFor="darkMode"
+                >
+                  <input
+                    id="darkMode"
+                    type="radio"
+                    name="mode"
+                    value="dark"
+                    defaultChecked={!lightDefault}
+                  />
+                  <p className="settings__text-dark">Dim</p>
+                </label>
+              </div>
+            </form>
 
             <div className="create-tweet-nav-wrapper">
               <button
@@ -132,6 +237,7 @@ const Routes = ({ userLoggedIn, loadData, handleLogout, pathname, me }) => {
               ref={fillPage}
               onClick={() => {
                 handleClose();
+                handleSettingsClose();
               }}
               className="nav__fill-page"
             ></div>
@@ -183,6 +289,7 @@ const mapState = (state, ownProps) => {
   return {
     userLoggedIn: !!state.profilesReducer.me.id,
     me: state.profilesReducer.me,
+    colorMode: state.profilesReducer.mode,
     pathname: ownProps.location.pathname,
   };
 };
@@ -193,6 +300,8 @@ const mapDispatch = (dispatch) => {
     handleLogout() {
       dispatch(fetchLogout());
     },
+    setMode: (mode) => dispatch(colorMode(mode)),
+    getExplore: () => dispatch(fetchExplore()),
   };
 };
 

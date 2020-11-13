@@ -6,7 +6,7 @@ import {
   fetchUnlikeTweet,
   fetchFeed,
 } from "../store/tweets";
-import { CreateTweet, Tweet } from "./modules/index";
+import { CreateTweet, Tweet, ExploreResults } from "./modules/index";
 import { debounce } from "lodash";
 import axios from "axios";
 import history from "../history";
@@ -119,6 +119,7 @@ class FeedPage extends Component {
       deleteTweet,
       likeTweet,
       unlikeTweet,
+      explore,
     } = this.props;
 
     const searchResults = this.state.results;
@@ -220,6 +221,13 @@ class FeedPage extends Component {
                 })}
             </div>
           </div>
+          <div className="feed-right">
+            <div className="explore-quick-container">
+              <h1 className="explore-quick-header">What's happening</h1>
+
+              <ExploreResults results={explore} type="quick" />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -231,6 +239,7 @@ const mapState = (state, ownProps) => {
     me: state.profilesReducer.me,
     feed: state.tweetReducer.feed,
     location: ownProps.location.pathname,
+    explore: state.exploreReducer,
   };
 };
 

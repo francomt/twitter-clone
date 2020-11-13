@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { lightMode, darkMode } from "./colorMode";
 
 ///////////////////////////////
 /////// AUTHENTICATION ///////
@@ -10,12 +11,14 @@ const GET_ME = "GET_ME";
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 const UPDATE_ME = "UPDATE_ME";
+const COLOR_MODE = "COLOR_MODE";
 
 //Action creators
 const getMe = (user) => ({ type: GET_ME, user });
 const login = (user) => ({ type: LOGIN, user });
 const logout = () => ({ type: LOGOUT });
 const updateMe = (user) => ({ type: UPDATE_ME, user });
+export const colorMode = (mode) => ({ type: COLOR_MODE, mode });
 
 //Authentication thunks
 export const fetchMe = () => {
@@ -228,11 +231,16 @@ export const fetchSearchUsers = (query, page = 1, initialLoad = false) => {
   };
 };
 
+const mode = window.localStorage.getItem("mode");
+
+mode === "light" ? lightMode() : darkMode();
+
 const defaultState = {
   me: {},
   profile: {},
   search: {},
   errMsg: "",
+  mode: mode ? mode : "light",
 };
 
 function profilesReducer(state = defaultState, action) {
@@ -384,6 +392,19 @@ function profilesReducer(state = defaultState, action) {
       return {
         ...state,
         me: { ...state.me, following: meSearchFiltered },
+      };
+
+    case COLOR_MODE:
+      if (action.mode === "light") {
+        window.localStorage.setItem("mode", "light");
+        lightMode();
+      } else {
+        window.localStorage.setItem("mode", "dark");
+        darkMode();
+      }
+      return {
+        ...state,
+        mode: action.mode,
       };
 
     default:

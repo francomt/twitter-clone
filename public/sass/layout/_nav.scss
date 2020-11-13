@@ -11,7 +11,7 @@
 
 .logo-nav {
   height: 3.5rem;
-  fill: rgba(var(--color-font), 1);
+  fill: rgba(var(--logo-color), 1);
   margin-left: 1rem;
 
   @include respond(iPhoneProMax) {
@@ -43,6 +43,17 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+
+    @include respond(main2) {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    @include respond(main3) {
+      margin-right: 0;
+    }
 
     @include respond(iPhoneProMax) {
       flex-direction: row;
@@ -69,6 +80,7 @@
   }
 
   &__item {
+    position: relative;
     display: flex;
     align-items: center;
     background-color: transparent;
@@ -193,6 +205,7 @@
 
   &__content {
     display: flex;
+    position: relative;
     padding: 0 2rem;
   }
 }
@@ -213,5 +226,71 @@
 
   @include respond(iPhoneProMax) {
     margin: 0;
+  }
+}
+
+.settings-list {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  @include absoluteCenter;
+  position: fixed;
+  z-index: 1000;
+  height: fit-content;
+  width: 35rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 15px;
+  background-color: rgba(var(--color-primary-background), 1);
+  box-shadow: var(--box-shadow);
+}
+
+.settings {
+  &__container {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  &__header {
+    color: rgba(var(--color-font), 1);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__selected {
+    border: solid 3px rgba(var(--color-primary), 1);
+  }
+
+  &__light {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 6rem;
+    border-radius: 6px;
+    background-color: #fff;
+  }
+
+  &__dark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 6rem;
+    border-radius: 6px;
+    background-color: #15202b;
+  }
+
+  &__text-light {
+    color: #000;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  &__text-dark {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-left: 1rem;
   }
 }

@@ -3,6 +3,10 @@
   flex-direction: column;
   width: 100%;
   background-color: rgba(var(--color-primary-background), 1);
+
+  @include respond(iPhoneProMax) {
+    height: 81vh;
+  }
 }
 
 .search-nav {
@@ -10,6 +14,10 @@
   width: 60%;
   border-right: var(--border-main);
   border-bottom: var(--border-main);
+
+  @include respond(main3) {
+    width: 100%;
+  }
 }
 
 .search-top {
@@ -33,6 +41,10 @@
     &:hover {
       cursor: pointer;
       background-color: rgba(var(--color-primary), 0.1);
+
+      @include respond(iPhoneProMax) {
+        background-color: rgba(var(--color-primary-background), 1);
+      }
     }
   }
 
@@ -67,12 +79,85 @@
 .search-feed-middle {
   height: fit-content;
   width: 60%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-right: var(--border-main);
+
+  @include respond(main3) {
+    width: 100%;
+  }
 }
 
 .news-feed-right {
   width: 25%;
+
+  @include respond(main3) {
+    width: 0%;
+  }
+}
+
+.explore-page-container {
+  background-color: rgba(var(--color-primary-background), 1);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include respond(iPhoneProMax) {
+    height: 81vh;
+  }
+}
+
+.search-top-page {
+  margin-top: 1rem;
+  display: flex;
+  width: 95%;
+}
+
+.searchbar-container-page-main {
+  width: 100%;
+  position: relative;
+}
+
+.no-results {
+  position: relative;
+  z-index: 25;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &-query {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    color: rgba(var(--color-font), 1);
+  }
+
+  &-text {
+    font-size: 2rem;
+    color: rgba(var(--color-font-dark), 1);
+  }
+}
+
+.explore-quick-container {
+  margin-top: 2rem;
+  background-color: rgba(var(--color-primary-background-2), 1);
+  border-radius: 10px;
+  width: 25%;
+  height: 80vh;
+  position: fixed;
+  top: 8%;
+
+  overflow: auto;
+}
+
+.explore-quick-header {
+  color: rgba(var(--color-font), 1);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-left: 2rem;
 }

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Tweet, CheckFollow, CheckFollower } from "./modules/index";
+import {
+  Tweet,
+  CheckFollow,
+  CheckFollower,
+  ExploreResults,
+} from "./modules/index";
 import {
   fetchDeleteTweet,
   fetchLikeTweet,
@@ -23,6 +28,7 @@ const ProfilePage = ({
   location,
   unfollowUser,
   followUser,
+  explore,
 }) => {
   const [page, setPage] = useState(1);
   const [fetch, setFetch] = useState(true);
@@ -162,6 +168,13 @@ const ProfilePage = ({
             />
           )}
         </div>
+        <div className="feed-right">
+          <div className="explore-quick-container">
+            <h1 className="explore-quick-header">What's happening</h1>
+
+            <ExploreResults results={explore} type="quick" />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -172,6 +185,7 @@ const mapState = (state) => {
     profile: state.profilesReducer.profile,
     tweets: state.tweetReducer.feed,
     me: state.profilesReducer.me,
+    explore: state.exploreReducer,
   };
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { fetchSearchTweets, fetchUpdatePrev } from "../store/tweets";
 import { fetchSearchUsers } from "../store/profiles";
-import { Results } from "./modules";
+import { Results, ExploreResults } from "./modules";
 import history from "../history";
 import Loader from "react-loader-spinner";
 
@@ -10,10 +10,10 @@ const SearchPage = ({
   me,
   users,
   tweets,
-  updatePrev,
   URLquery,
   URLtype,
   searchQuery,
+  explore,
 }) => {
   const [loadingData, setLoading] = useState(true);
   //query
@@ -184,6 +184,7 @@ const SearchPage = ({
           ) : (
             <Results
               type={type}
+              query={query}
               tweetResults={tweets}
               userResults={users}
               me={me}
@@ -191,7 +192,13 @@ const SearchPage = ({
             />
           )}
         </div>
-        <div className="news-feed-right"></div>
+        <div className="feed-right">
+          <div className="explore-quick-container">
+            <h1 className="explore-quick-header">What's happening</h1>
+
+            <ExploreResults results={explore} type="quick" />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -203,6 +210,7 @@ const mapState = (state, ownProps) => {
     me: state.profilesReducer.me,
     users: state.profilesReducer.search,
     tweets: state.tweetReducer.search,
+    explore: state.exploreReducer,
     URLquery: params.get("q"),
     URLtype: params.get("t") ? params.get("t") : "latest",
   };

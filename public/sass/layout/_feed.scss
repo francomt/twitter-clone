@@ -45,6 +45,10 @@
   align-items: center;
   border-right: var(--border-main);
 
+  @include respond(main2) {
+    width: 78%;
+  }
+
   @include respond(main3) {
     width: 100%;
   }
@@ -110,5 +114,15 @@
   &__user-username {
     font-size: 1.3rem;
     color: rgba(var(--color-font-dark), 1);
+  }
+}
+
+.feed-right {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+
+  @include respond(main2) {
+    display: none;
   }
 }

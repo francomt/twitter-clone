@@ -22,9 +22,10 @@ const Results = ({
   loading,
   followUser,
   unfollowUser,
+  query,
 }) => {
   if (type === "latest") {
-    if (tweetResults.data !== undefined) {
+    if (tweetResults.data !== undefined && tweetResults.results > 0) {
       return (
         <>
           {tweetResults.data.tweets.map((tweet) => (
@@ -49,10 +50,18 @@ const Results = ({
         </>
       );
     } else {
-      return "";
+      return (
+        <div className="no-results">
+          <h1 className="no-results-query">No results for "{query}"</h1>
+          <p className="no-results-text">
+            The term you entered did not bring up any results. You may have
+            mistyped your term.
+          </p>
+        </div>
+      );
     }
   } else if (type === "people") {
-    if (userResults.data !== undefined) {
+    if (userResults.data !== undefined && userResults.results > 0) {
       return (
         <>
           {userResults.data.users.map((user) => (
@@ -76,7 +85,15 @@ const Results = ({
         </>
       );
     } else {
-      return "";
+      return (
+        <div className="no-results">
+          <h1 className="no-results-query">No results for "{query}"</h1>
+          <p className="no-results-text">
+            The term you entered did not bring up any results. You may have
+            mistyped your term.
+          </p>
+        </div>
+      );
     }
   } else {
     return <p>Not Found</p>;
