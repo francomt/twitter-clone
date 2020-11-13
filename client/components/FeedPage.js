@@ -142,7 +142,7 @@ class FeedPage extends Component {
                   this.setState({ input: e.target.value });
                 }}
                 className="searchbar"
-                placeholder="Search Twitter"
+                placeholder="Search Tweeted"
               ></input>
               <svg viewBox="0 0 24 24" className="searchbar__icon">
                 <g>

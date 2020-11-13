@@ -58,7 +58,7 @@ const LandingPage = ({ handleSubmit }) => {
                 the world right now
               </h1>
               <h5 className="header-sub util-margin-btm-small">
-                Join Twitter today.
+                Join Tweeted today.
               </h5>
 
               <button
@@ -116,11 +116,11 @@ const LandingPage = ({ handleSubmit }) => {
           <p>Brand Resources</p>
           <p>Advertising</p>
           <p>Marketing</p>
-          <p>Twitter for Business</p>
+          <p>Tweeted for Business</p>
           <p>Developers</p>
           <p>Directory</p>
           <p>Settings</p>
-          <p>© 2020 Twitter, Inc.</p>
+          <p>© 2020 Tweeted, Inc. (All Rights Reserved to Twitter)</p>
         </div>
       </div>
     </div>

@@ -38,7 +38,7 @@ const ExplorePage = ({ results }) => {
               <input
                 name="search"
                 className="searchbar"
-                placeholder="Search Twitter"
+                placeholder="Search Tweeted"
               ></input>
               <svg viewBox="0 0 24 24" className="searchbar__icon-page">
                 <g>

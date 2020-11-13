@@ -30,7 +30,7 @@ const LoginPage = ({ handleSubmit, err }) => {
           </g>
         </svg>
         <h1 className="header-main header-main--primary util-margin-btm-small">
-          Log in to Twitter
+          Log in to Tweeted
         </h1>
         {err !== undefined && <p className="landing-err">{err}</p>}
         <div className="wrapper wrapper__signup">
