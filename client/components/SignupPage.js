@@ -22,7 +22,7 @@ const SignupPage = ({ handleSubmit }) => {
     ? "input-placeholder-error"
     : "input-placeholder";
 
-  const usernamePattern = /^[a-z0-9_]{5,15}$/;
+  const usernamePattern = /^[a-zA-Z0-9_]{5,15}$/;
 
   const usernameInputClass = usernameErr
     ? "input-error input-error__signup"

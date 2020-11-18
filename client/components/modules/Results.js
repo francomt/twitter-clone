@@ -28,16 +28,19 @@ const Results = ({
     if (tweetResults.data !== undefined && tweetResults.results > 0) {
       return (
         <>
-          {tweetResults.data.tweets.map((tweet) => (
-            <Tweet
-              key={tweet.id}
-              me={me}
-              tweet={tweet}
-              likeTweet={likeTweet}
-              unlikeTweet={unlikeTweet}
-              deleteTweet={deleteTweet}
-            />
-          ))}
+          {tweetResults.data.tweets.map((tweet) => {
+            console.log(tweet);
+            return (
+              <Tweet
+                key={tweet.id}
+                me={me}
+                tweet={tweet}
+                likeTweet={likeTweet}
+                unlikeTweet={unlikeTweet}
+                deleteTweet={deleteTweet}
+              />
+            );
+          })}
           {loading && (
             <Loader
               type="Oval"

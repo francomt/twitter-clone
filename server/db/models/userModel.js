@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: [true, "Username already in use"],
       validate: {
-        validator: /^[a-z0-9_]{5,15}$/,
+        validator: /^[a-zA-Z0-9_]{5,15}$/,
         message:
           "Username must be between 5-15 characters, can only contain letters, numbers and '_'.",
       },

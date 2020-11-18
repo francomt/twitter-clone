@@ -13,7 +13,11 @@
   display: flex;
   border-right: var(--border-main);
 
-  @include respond(iPhoneProMax) {
+  @include respond(main2) {
+    width: 78%;
+  }
+
+  @include respond(main3) {
     width: 100%;
   }
 

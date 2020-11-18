@@ -17,6 +17,10 @@
   @include respond(iPhoneProMax) {
     display: none;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .nav {

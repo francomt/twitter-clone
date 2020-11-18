@@ -207,7 +207,7 @@ body {
         width: 6rem;
         height: 6rem; } }
     .btn--nav-tweet:hover {
-      background-color: rgba(var(--color-primary), 0.1); }
+      background-color: rgba(var(--color-primary), 0.85); }
   .btn--tweet {
     width: 10rem;
     color: #fff; }
@@ -436,6 +436,8 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover; }
+  .tweet-photo:hover {
+    cursor: pointer; }
 
 .tweet-photo-2-first {
   position: absolute;
@@ -443,6 +445,8 @@ body {
   border-radius: 15px;
   height: 100%;
   object-fit: cover; }
+  .tweet-photo-2-first:hover {
+    cursor: pointer; }
 
 .tweet-photo-2-second {
   position: absolute;
@@ -451,6 +455,8 @@ body {
   width: 49%;
   height: 100%;
   object-fit: cover; }
+  .tweet-photo-2-second:hover {
+    cursor: pointer; }
 
 .tweet-photo-3-first {
   position: absolute;
@@ -458,6 +464,8 @@ body {
   border-radius: 15px;
   height: 100%;
   object-fit: cover; }
+  .tweet-photo-3-first:hover {
+    cursor: pointer; }
 
 .tweet-photo-3-second {
   position: absolute;
@@ -466,6 +474,8 @@ body {
   width: 49%;
   height: 48.5%;
   object-fit: cover; }
+  .tweet-photo-3-second:hover {
+    cursor: pointer; }
 
 .tweet-photo-3-third {
   position: absolute;
@@ -475,6 +485,8 @@ body {
   width: 49%;
   height: 48.5%;
   object-fit: cover; }
+  .tweet-photo-3-third:hover {
+    cursor: pointer; }
 
 .tweet-photo-4-first {
   position: absolute;
@@ -482,6 +494,8 @@ body {
   border-radius: 15px;
   height: 48.5%;
   object-fit: cover; }
+  .tweet-photo-4-first:hover {
+    cursor: pointer; }
 
 .tweet-photo-4-second {
   position: absolute;
@@ -490,6 +504,8 @@ body {
   width: 49%;
   height: 48.5%;
   object-fit: cover; }
+  .tweet-photo-4-second:hover {
+    cursor: pointer; }
 
 .tweet-photo-4-third {
   position: absolute;
@@ -499,6 +515,8 @@ body {
   width: 49%;
   height: 48.5%;
   object-fit: cover; }
+  .tweet-photo-4-third:hover {
+    cursor: pointer; }
 
 .tweet-photo-4-fourth {
   position: absolute;
@@ -508,6 +526,8 @@ body {
   width: 49%;
   height: 48.5%;
   object-fit: cover; }
+  .tweet-photo-4-fourth:hover {
+    cursor: pointer; }
 
 .tweet {
   height: auto;
@@ -791,6 +811,107 @@ body {
     cursor: pointer;
     background-color: rgba(var(--color-primary-background-2), 1); }
 
+.fill-page-tweet {
+  display: none;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #503030; }
+
+.fill-page-image {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  z-index: 1100;
+  max-width: 100%;
+  max-height: 100vh;
+  margin: auto; }
+
+.close-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1500;
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 300;
+  background-color: white;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 0.2s; }
+  .close-popup:hover {
+    cursor: pointer;
+    filter: brightness(70%); }
+
+.close-popup-preview {
+  display: flex;
+  position: absolute;
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  background-color: white;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 0.2s; }
+  .close-popup-preview-2 {
+    right: 50%;
+    transform: translateX(165%); }
+  .close-popup-preview-3 {
+    right: 50%;
+    bottom: 50%;
+    transform: translate(165%, 165%); }
+  .close-popup-preview-4 {
+    bottom: 50%;
+    transform: translateY(165%); }
+  .close-popup-preview:hover {
+    cursor: pointer;
+    filter: brightness(70%); }
+
+.slideshow {
+  display: none;
+  position: fixed;
+  top: 50%;
+  z-index: 1500;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 300;
+  background-color: white;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 0.2s; }
+  .slideshow-left {
+    left: 0;
+    margin-left: 1.5rem; }
+  .slideshow-right {
+    right: 0;
+    margin-right: 1.5rem; }
+  .slideshow:hover {
+    cursor: pointer;
+    filter: brightness(70%); }
+
 .route-container {
   display: flex;
   position: relative;
@@ -807,6 +928,8 @@ body {
   @media (max-width: 25.875em) {
     .logo-nav {
       display: none; } }
+  .logo-nav:hover {
+    cursor: pointer; }
 
 .nav {
   display: flex;
@@ -1297,6 +1420,7 @@ body {
 
 .search-results {
   position: absolute;
+  z-index: 10;
   top: 107%;
   left: 2.5%;
   box-shadow: var(--box-shadow);
@@ -1461,7 +1585,10 @@ body {
   width: 60%;
   display: flex;
   border-right: var(--border-main); }
-  @media (max-width: 25.875em) {
+  @media (max-width: 67.5em) {
+    .follows-bottom {
+      width: 78%; } }
+  @media (max-width: 52.8125em) {
     .follows-bottom {
       width: 100%; } }
   .follows-bottom__selection {
@@ -1604,6 +1731,10 @@ body {
   .no-results-text {
     font-size: 2rem;
     color: rgba(var(--color-font-dark), 1); }
+  .no-results-text-small {
+    font-size: 1.5rem;
+    margin-top: 0.6rem;
+    color: rgba(var(--color-font-dark), 1); }
 
 .explore-quick-container {
   margin-top: 2rem;
@@ -1678,8 +1809,8 @@ body {
     position: absolute;
     color: transparent;
     z-index: 50;
-    top: 43%;
-    left: 45.5%;
+    top: 29.5%;
+    left: 46%;
     width: 3rem;
     height: 3rem; }
     .edit-profile__upload-cover:hover {

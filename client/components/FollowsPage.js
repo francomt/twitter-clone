@@ -4,7 +4,7 @@ import {
   fetchQuickFollow,
   fetchQuickUnfollow,
 } from "../store/profiles";
-import { User } from "./modules";
+import { Selection } from "./modules";
 import { connect } from "react-redux";
 import history from "../history";
 import Loader from "react-loader-spinner";
@@ -52,7 +52,9 @@ const FollowsPage = ({
             </g>
           </svg>
         </div>
-        <h3 className="nav-text util-margin-right-large">{profile.name}</h3>
+        <h3 className="nav-text-feed util-margin-right-large">
+          {profile.name}
+        </h3>
       </nav>
       <div className="follows-bottom">
         <div
@@ -101,38 +103,6 @@ const FollowsPage = ({
       </div>
     </div>
   );
-};
-
-const Selection = ({ selected, profile, me, followUser, unfollowUser }) => {
-  if (selected === "followers") {
-    return profile.followers.map((user) => {
-      return (
-        <User
-          key={user.id}
-          me={me}
-          user={user}
-          followUser={followUser}
-          unfollowUser={unfollowUser}
-          selected="followers"
-        />
-      );
-    });
-  } else if (selected === "following") {
-    return profile.following.map((user) => {
-      return (
-        <User
-          key={user.id}
-          me={me}
-          user={user}
-          followUser={followUser}
-          unfollowUser={unfollowUser}
-          selected="following"
-        />
-      );
-    });
-  } else {
-    return <div>Not found</div>;
-  }
 };
 
 const mapState = (state, ownProps) => {

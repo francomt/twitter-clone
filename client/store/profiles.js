@@ -233,14 +233,14 @@ export const fetchSearchUsers = (query, page = 1, initialLoad = false) => {
 
 const mode = window.localStorage.getItem("mode");
 
-mode === "light" ? lightMode() : darkMode();
+mode === "dark" ? darkMode() : lightMode();
 
 const defaultState = {
   me: {},
   profile: {},
   search: {},
   errMsg: "",
-  mode: mode === "light" ? mode : "dark",
+  mode: mode === "dark" ? "dark" : "light",
 };
 
 function profilesReducer(state = defaultState, action) {

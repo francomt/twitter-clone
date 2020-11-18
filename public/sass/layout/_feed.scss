@@ -65,6 +65,7 @@
 
 .search-results {
   position: absolute;
+  z-index: 10;
   top: 107%;
   left: 2.5%;
   box-shadow: var(--box-shadow);

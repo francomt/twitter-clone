@@ -36,6 +36,16 @@ const Routes = ({
 
   const settingsList = useRef(null);
 
+  const newHeight = `${window.innerHeight - 52}px`;
+  document.documentElement.style.setProperty("--height", newHeight);
+
+  const resizeHeight = () => {
+    const newHeight = `${window.innerHeight - 10}px`;
+    document.documentElement.style.setProperty("--height", newHeight);
+  };
+
+  window.onresize = resizeHeight;
+
   const handlePopup = () => {
     fillPage.current.style.display = "flex";
     createTweetPopup.current.style.display = "flex";
@@ -104,15 +114,15 @@ const Routes = ({
 
   const lightDefault = colorMode === "light" ? true : false;
 
-  const newHeight = `${window.innerHeight - 52}px`;
-  document.documentElement.style.setProperty("--height", newHeight);
-
   return (
     <div className="route-container">
       {userLoggedIn && pathname !== "/" && (
         <nav className="nav">
           <div className="nav__content-container">
             <svg
+              onClick={() => {
+                history.push("/home");
+              }}
               viewBox="0 0 24 24"
               className="logo-nav util-align-self-start util-margin-btm-medium"
             >

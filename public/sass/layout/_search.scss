@@ -140,6 +140,12 @@
     font-size: 2rem;
     color: rgba(var(--color-font-dark), 1);
   }
+
+  &-text-small {
+    font-size: 1.5rem;
+    margin-top: 0.6rem;
+    color: rgba(var(--color-font-dark), 1);
+  }
 }
 
 .explore-quick-container {

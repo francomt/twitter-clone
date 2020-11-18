@@ -5,3 +5,5 @@ export { default as Results } from "./Results";
 export { default as CheckFollow } from "./CheckFollow";
 export { default as CheckFollower } from "./CheckFollower";
 export { default as ExploreResults } from "./ExploreResults";
+export { default as Selection } from "./Selection";
+export { default as ImagePreviews } from "./imagePreviews";

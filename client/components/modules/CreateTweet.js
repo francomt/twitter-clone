@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import autosize from "autosize";
 import { fetchCreateTweet } from "../../store/tweets";
-import imagePreviews from "../modules/imagePreviews";
+import { ImagePreviews } from "../modules/";
+import imageCompression from "browser-image-compression";
 
 const CreateTweet = ({
   handleSubmit,
@@ -18,18 +19,51 @@ const CreateTweet = ({
   const [text, setText] = useState("");
   const textarea = useRef(null);
 
-  const handleChange = (e) => {
-    e.persist();
-    setUploads((prev) => [...prev, e.target.files[0]]);
+  const handleImage = async (i, fileReader, e) => {
+    const testing = await imageCompression(e.target.files[i], {
+      maxSizeMB: 0.3,
+    });
 
-    const fileReader = new FileReader();
-    const oneImage = URL.createObjectURL(e.target.files[0]);
+    const newFile = new File([testing], "test.jpeg", {
+      type: e.target.files[i].type,
+    });
 
+    setUploads((prev) => [...prev, newFile]);
+    const oneImage = URL.createObjectURL(newFile);
     setImages((prev) => [...prev, oneImage]);
-
     fileReader.onload = function () {
       URL.revokeObjectURL(oneImage);
     };
+  };
+
+  const handleChange = (e) => {
+    e.persist();
+
+    if (uploads.length < 4) {
+      const fileReader = new FileReader();
+
+      if (e.target.files[0]) {
+        handleImage(0, fileReader, e);
+      }
+
+      if (e.target.files[1] && uploads.length < 4) {
+        handleImage(1, fileReader, e);
+      }
+
+      if (e.target.files[2] && uploads.length < 4) {
+        handleImage(2, fileReader, e);
+      }
+
+      if (e.target.files[3] && uploads.length < 4) {
+        handleImage(3, fileReader, e);
+      }
+    } else {
+      return;
+    }
+  };
+
+  const handleOnClick = (e) => {
+    e.target.value = "";
   };
 
   useEffect(() => {
@@ -95,9 +129,14 @@ const CreateTweet = ({
             rows={images.length ? 2 : rows}
           />
 
-          {uploads.length ? (
+          {uploads.length > 0 ? (
             <div className="create-tweet-photos-container">
-              {imagePreviews(images)}
+              <ImagePreviews
+                arrOfImages={images}
+                uploads={uploads}
+                setImages={setImages}
+                setUploads={setUploads}
+              />
             </div>
           ) : (
             ""
@@ -106,7 +145,12 @@ const CreateTweet = ({
           <div className="create-tweet__bottom">
             <div className="create-tweet-image-icon-container">
               <input
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                onClick={(e) => {
+                  handleOnClick(e);
+                }}
                 className="create-tweet-input"
                 type="file"
                 accept="image/*"
