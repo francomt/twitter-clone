@@ -29,7 +29,6 @@ const Results = ({
       return (
         <>
           {tweetResults.data.tweets.map((tweet) => {
-            console.log(tweet);
             return (
               <Tweet
                 key={tweet.id}

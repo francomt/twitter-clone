@@ -4,6 +4,7 @@ import autosize from "autosize";
 import { fetchCreateTweet } from "../../store/tweets";
 import { ImagePreviews } from "../modules/";
 import imageCompression from "browser-image-compression";
+import Loader from "react-loader-spinner";
 
 const CreateTweet = ({
   handleSubmit,
@@ -17,9 +18,20 @@ const CreateTweet = ({
   const [uploads, setUploads] = useState([]);
   const [images, setImages] = useState([]);
   const [text, setText] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
   const textarea = useRef(null);
 
+  const imgErr = useRef(null);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [images]);
+
   const handleImage = async (i, fileReader, e) => {
+    setLoading(true);
+
     const testing = await imageCompression(e.target.files[i], {
       maxSizeMB: 0.3,
     });
@@ -36,26 +48,51 @@ const CreateTweet = ({
     };
   };
 
+  const handleImgError = () => {
+    imgErr.current.style.display = "flex";
+    setTimeout(() => {
+      imgErr.current.style.display = "none";
+    }, 7050);
+  };
+
   const handleChange = (e) => {
     e.persist();
+
+    const files = e.target.files;
 
     if (uploads.length < 4) {
       const fileReader = new FileReader();
 
-      if (e.target.files[0]) {
-        handleImage(0, fileReader, e);
+      if (files[0]) {
+        if (files[0].size > 2107152) {
+          handleImgError();
+        } else {
+          handleImage(0, fileReader, e);
+        }
       }
 
-      if (e.target.files[1] && uploads.length < 4) {
-        handleImage(1, fileReader, e);
+      if (files[1] && uploads.length < 4) {
+        if (files[1].size > 2107152) {
+          handleImgError();
+        } else {
+          handleImage(1, fileReader, e);
+        }
       }
 
-      if (e.target.files[2] && uploads.length < 4) {
-        handleImage(2, fileReader, e);
+      if (files[2] && uploads.length < 4) {
+        if (files[2].size > 2107152) {
+          handleImgError();
+        } else {
+          handleImage(2, fileReader, e);
+        }
       }
 
-      if (e.target.files[3] && uploads.length < 4) {
-        handleImage(3, fileReader, e);
+      if (files[3] && uploads.length < 4) {
+        if (files[3].size > 2107152) {
+          handleImgError();
+        } else {
+          handleImage(3, fileReader, e);
+        }
       }
     } else {
       return;
@@ -129,18 +166,30 @@ const CreateTweet = ({
             rows={images.length ? 2 : rows}
           />
 
-          {uploads.length > 0 ? (
-            <div className="create-tweet-photos-container">
-              <ImagePreviews
-                arrOfImages={images}
-                uploads={uploads}
-                setImages={setImages}
-                setUploads={setUploads}
-              />
-            </div>
+          {loading ? (
+            <Loader
+              type="Oval"
+              color="#1da1f2"
+              height={40}
+              width={40}
+              style={{ margin: "25px", alignSelf: "center" }}
+            />
           ) : (
-            ""
+            uploads.length > 0 && (
+              <div className="create-tweet-photos-container">
+                <ImagePreviews
+                  arrOfImages={images}
+                  uploads={uploads}
+                  setImages={setImages}
+                  setUploads={setUploads}
+                />
+              </div>
+            )
           )}
+
+          <div ref={imgErr} className="img-size-err">
+            One or more images exceeds the size limit and cannot be resized.
+          </div>
 
           <div className="create-tweet__bottom">
             <div className="create-tweet-image-icon-container">
