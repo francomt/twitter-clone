@@ -44,12 +44,12 @@
   font-weight: 400;
   overflow: hidden;
 
-  @include respond(main2) {
+  @include respond(footer-break) {
     height: 7%;
   }
 
   @include respond(main3) {
-    height: 12%;
+    height: 18%;
   }
 
   @include respond(iPhoneProMax) {

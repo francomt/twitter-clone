@@ -714,7 +714,13 @@ body {
   background-color: rgba(255, 255, 255, 0.15); }
 
 .confirm-delete {
-  display: flex;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  z-index: 105;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -1208,12 +1214,12 @@ body {
   font-size: 1.2rem;
   font-weight: 400;
   overflow: hidden; }
-  @media (max-width: 67.5em) {
+  @media (max-width: 82.375em) {
     .footer {
       height: 7%; } }
   @media (max-width: 52.8125em) {
     .footer {
-      height: 12%; } }
+      height: 18%; } }
   @media (max-width: 25.875em) {
     .footer {
       height: 100%;
@@ -1490,12 +1496,18 @@ body {
   position: relative;
   flex-direction: column;
   height: fit-content;
-  border-bottom: var(--border-main); }
+  border-bottom: var(--border-main);
+  width: 100%; }
 
-.profile__coverImg {
+.profile__coverImg-container {
+  display: flex;
+  align-items: center;
   width: 100%;
   height: 20rem;
-  object-fit: cover; }
+  overflow: hidden; }
+
+.profile__coverImg {
+  width: 100%; }
 
 .profile__follow-edit {
   width: 100;

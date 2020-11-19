@@ -12,6 +12,7 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
   const popupEl = useRef(null);
 
   const fillPageConfirm = useRef(null);
+  const confirmDelete = useRef(null);
 
   const handlePopup = () => {
     fillPage.current.style.display = "block";
@@ -27,12 +28,14 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
     fillPageConfirm.current.style.display = "flex";
     fillPage.current.style.display = "none";
     popupEl.current.style.display = "none";
+    confirmDelete.current.style.display = "flex";
   };
 
   const handleCloseConfirm = () => {
     fillPageConfirm.current.style.display = "none";
     fillPage.current.style.display = "block";
     popupEl.current.style.display = "flex";
+    confirmDelete.current.style.display = "none";
   };
 
   return (
@@ -121,34 +124,33 @@ const Tweet = ({ tweet, me, deleteTweet, likeTweet, unlikeTweet }) => {
               className="confirm-delete-container"
               ref={fillPageConfirm}
               onClick={handleCloseConfirm}
-            >
-              <div className="confirm-delete">
-                <h1 className="confirm-delete__header">Delete Tweet?</h1>
-                <p className="confirm-delete__body">
-                  This can't be undone and it will be
-                  <br />
-                  removed from your profile, the timeline
-                  <br />
-                  of any accounts that follow you, and
-                  <br />
-                  from Tweeter search results.
-                </p>
-                <div className="confirm-delete__buttons-container">
-                  <button
-                    onClick={handleCloseConfirm}
-                    className="btn btn--neutral util-margin-right-small"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => {
-                      deleteTweet(tweet.id);
-                    }}
-                    className="btn btn--red"
-                  >
-                    Delete
-                  </button>
-                </div>
+            ></div>
+            <div ref={confirmDelete} className="confirm-delete">
+              <h1 className="confirm-delete__header">Delete Tweet?</h1>
+              <p className="confirm-delete__body">
+                This can't be undone and it will be
+                <br />
+                removed from your profile, the timeline
+                <br />
+                of any accounts that follow you, and
+                <br />
+                from Tweeter search results.
+              </p>
+              <div className="confirm-delete__buttons-container">
+                <button
+                  onClick={handleCloseConfirm}
+                  className="btn btn--neutral util-margin-right-small"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    deleteTweet(tweet.id);
+                  }}
+                  className="btn btn--red"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

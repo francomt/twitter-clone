@@ -87,7 +87,9 @@ const ProfilePage = ({
           {profile !== undefined && profile.following !== undefined ? (
             <>
               <div className="profile-info-container">
-                <img className="profile__coverImg" src={profile.coverImg} />
+                <div className="profile__coverImg-container">
+                  <img className="profile__coverImg" src={profile.coverImg} />
+                </div>
 
                 <div className="profile__follow-edit">
                   {me.id === profile.id ? (

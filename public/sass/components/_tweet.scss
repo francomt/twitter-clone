@@ -258,7 +258,10 @@
 }
 
 .confirm-delete {
-  display: flex;
+  display: none;
+  @include absoluteCenter;
+  position: fixed;
+  z-index: 105;
   justify-content: center;
   align-items: center;
   flex-direction: column;

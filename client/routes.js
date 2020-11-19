@@ -36,6 +36,18 @@ const Routes = ({
 
   const settingsList = useRef(null);
 
+  const confirmLogout = useRef(null);
+
+  const handleLogoutConfirm = () => {
+    fillPage.current.style.display = "flex";
+    confirmLogout.current.style.display = "flex";
+  };
+
+  const handleLogoutClose = () => {
+    fillPage.current.style.display = "none";
+    confirmLogout.current.style.display = "none";
+  };
+
   const newHeight = `${window.innerHeight - 52}px`;
   document.documentElement.style.setProperty("--height", newHeight);
 
@@ -251,6 +263,7 @@ const Routes = ({
               onClick={() => {
                 handleClose();
                 handleSettingsClose();
+                handleLogoutClose();
               }}
               className="nav__fill-page"
             ></div>
@@ -285,10 +298,28 @@ const Routes = ({
             <div className="logout-wrapper">
               <button
                 className="btn btn--logout"
-                onClick={() => handleLogout()}
+                onClick={() => handleLogoutConfirm()}
               >
                 {/* LOG OUT BUTTON */}
               </button>
+            </div>
+
+            <div ref={confirmLogout} className="confirm-delete">
+              <h1 className="confirm-delete__header">Log out of Twitter?</h1>
+              <p className="confirm-delete__body">
+                You can always log back in at any time.
+              </p>
+              <div className="confirm-delete__buttons-container">
+                <button
+                  onClick={handleLogoutClose}
+                  className="btn btn--neutral util-margin-right-small"
+                >
+                  Cancel
+                </button>
+                <button onClick={() => handleLogout()} className="btn">
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         </nav>

@@ -33,6 +33,13 @@ ARGS
     }
   }
 
+  @if $breakpoint == footer-break {
+    @media (max-width: 82.375em) {
+      //1318px / 16px
+      @content;
+    }
+  }
+
   @if $breakpoint == main2 {
     @media (max-width: 67.5em) {
       //1080px / 16px
