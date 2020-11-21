@@ -255,6 +255,9 @@ function profilesReducer(state = defaultState, action) {
 
     case UPDATE_ME:
       if (action.user.data) {
+        document
+          .getElementsByClassName("loading-fill")[0]
+          .setAttribute("style", "display: none;");
         return { ...state, me: action.user.data.user };
       } else {
         return state;

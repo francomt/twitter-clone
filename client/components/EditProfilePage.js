@@ -3,6 +3,7 @@ import history from "../history";
 import { connect } from "react-redux";
 import { fetchUpdateMe } from "../store/profiles";
 import { fetchUpdatePrev } from "../store/tweets";
+import Loader from "react-loader-spinner";
 
 const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
   const output = useRef(null);
@@ -12,22 +13,44 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
     updatePrev(history.location.pathname);
   }, []);
 
-  const handleChange = (e) => {
-    output.current.src = URL.createObjectURL(e.target.files[0]);
-    output.current.onload = function () {
-      URL.revokeObjectURL(output.src);
-    };
+  const loadingFill = useRef(null);
+
+  const handleChange = async (e) => {
+    if (e.target.files[0].size > 4007152) {
+      handleImgError();
+    } else {
+      output.current.src = URL.createObjectURL(e.target.files[0]);
+      output.current.onload = function () {
+        URL.revokeObjectURL(output.src);
+      };
+    }
   };
 
   const handleChangeCover = (e) => {
-    outputCover.current.src = URL.createObjectURL(e.target.files[0]);
-    outputCover.current.onload = function () {
-      URL.revokeObjectURL(outputCover.src);
-    };
+    if (e.target.files[0].size > 4007152) {
+      handleImgError();
+    } else {
+      outputCover.current.src = URL.createObjectURL(e.target.files[0]);
+      outputCover.current.onload = function () {
+        URL.revokeObjectURL(outputCover.src);
+      };
+    }
+  };
+
+  const imgErr = useRef(null);
+
+  const handleImgError = () => {
+    imgErr.current.style.display = "flex";
+    setTimeout(() => {
+      imgErr.current.style.display = "none";
+    }, 7050);
   };
 
   return (
     <div className="edit-profile-container">
+      <div ref={loadingFill} className="loading-fill">
+        <Loader type="Oval" color="#1da1f2" height={40} width={40} />
+      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -41,6 +64,8 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
           if (e.target.coverImg.files) {
             form.append("coverImg", e.target.coverImg.files[0]);
           }
+
+          loadingFill.current.style.display = "flex";
 
           handleSubmit(me.id, form, me.username);
         }}
@@ -111,6 +136,9 @@ const EditProfilePage = ({ me, handleSubmit, updatePrev }) => {
           Save
         </button>
       </form>
+      <div ref={imgErr} className="img-size-err-edit">
+        One or more images exceeds the size limit and cannot be resized.
+      </div>
     </div>
   );
 };

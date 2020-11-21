@@ -82,7 +82,7 @@ body {
   85% {
     opacity: 100%; }
   100% {
-    bottom: 0%; } }
+    opacity: 0%; } }
 
 .util-margin-left-small {
   margin-left: 1rem !important; }
@@ -944,6 +944,24 @@ body {
   background-color: rgba(var(--color-primary), 1);
   animation: fadeIn 7s; }
 
+.img-size-err-edit {
+  display: none;
+  position: absolute;
+  bottom: 3%;
+  opacity: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 300;
+  word-spacing: 0.2rem;
+  height: 4rem;
+  margin-top: 1rem;
+  padding: 2rem;
+  background-color: rgba(var(--color-primary), 1);
+  animation: fadeIn 7s; }
+
 .route-container {
   display: flex;
   position: relative;
@@ -1091,7 +1109,8 @@ body {
   display: none;
   flex-direction: column;
   overflow: hidden;
-  padding-bottom: 3.5rem; }
+  padding-bottom: 3.5rem;
+  box-shadow: var(--box-shadow); }
   @media (max-width: 25.875em) {
     .tweet-popup_container {
       position: fixed;
@@ -1793,6 +1812,7 @@ body {
   margin-left: 2rem; }
 
 .edit-profile-container {
+  position: relative;
   background-color: rgba(var(--color-primary-background), 1);
   width: 100%;
   display: flex;
@@ -1902,3 +1922,15 @@ body {
       -webkit-user-select: none; }
     .edit-profile__upload:focus {
       outline: none; }
+
+.loading-fill {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(1, 1, 1, 0.15); }
