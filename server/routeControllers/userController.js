@@ -58,19 +58,22 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 exports.getAllUsers = factory.getAll(User);
 
 exports.searchUsers = catchAsync(async (req, res, next) => {
+  const search = new RegExp(req.query.username, "i");
+
   const features = new APIFeatures(
-    User.find().select("name username photo bio following followers"),
+    User.find({ $or: [{ username: search }, { name: search }] }).select(
+      "name username photo bio following followers"
+    ),
     req.query
   )
-    .regexFilter()
     .sort()
     .paginate();
 
   const doc = await features.query;
 
-  const search = new RegExp(req.query.username, "i");
-
-  const totalResults = await User.countDocuments({ username: search });
+  const totalResults = await User.countDocuments({
+    $or: [{ username: search }, { name: search }],
+  });
 
   res.status(200).json({
     status: "success",
