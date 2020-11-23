@@ -19,6 +19,7 @@ The objective is to create a clone that mimics the features of Twitter.
 - Search page with query params ex. /search?q=baseball
 - Infinite scrolling pagination
 - Like and unlike tweets
+- Light mode and dark mode
 
 ### Installation Instructions:
 
