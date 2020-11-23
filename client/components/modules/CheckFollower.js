@@ -6,18 +6,22 @@ const CheckFollower = ({ me, user, type }) => {
   if (type === "quick") {
     const followers = {};
 
-    me.followers.forEach((follow) => {
-      followers[follow.user.id] = true;
-    });
+    if (me.followers.length > 0) {
+      me.followers.forEach((follow) => {
+        followers[follow.user.id] = true;
+      });
 
-    if (followers[user.id]) follower = true;
+      if (followers[user.id]) follower = true;
+    }
   } else {
-    for (let i = 0; i < user.following.length; i++) {
-      const current = user.following[i];
+    if (user.following.length > 0) {
+      for (let i = 0; i < user.following.length; i++) {
+        const current = user.following[i];
 
-      if (current.user && current.user.id === me.id) {
-        follower = true;
-        break;
+        if (current.user && current.user.id === me.id) {
+          follower = true;
+          break;
+        }
       }
     }
   }

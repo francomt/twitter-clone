@@ -69,9 +69,15 @@ exports.login = catchAsync(async (req, res, next) => {
 
   //Check if user exists
   if (userInfo.includes("@")) {
-    user = await User.findOne({ email: userInfo }).select("+password");
+    user = await User.findOne({ email: userInfo })
+      .select("+password")
+      .populate("following", "-__v")
+      .populate("followers", "-__v");
   } else {
-    user = await User.findOne({ username: userInfo }).select("+password");
+    user = await User.findOne({ username: userInfo })
+      .select("+password")
+      .populate("following", "-__v")
+      .populate("followers", "-__v");
   }
 
   if (!user) {
