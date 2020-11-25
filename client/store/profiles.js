@@ -80,8 +80,13 @@ export const fetchSignup = (body) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/api/auth/signup", body);
-      dispatch(login(data || {}));
-      history.push("/home");
+
+      if (data.fields) {
+        dispatch(login(data));
+      } else {
+        dispatch(login(data || {}));
+        history.push("/home");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -264,6 +269,10 @@ function profilesReducer(state = defaultState, action) {
       }
     case LOGIN:
       if (action.user.status === "failed") {
+        return { ...state, errMsg: action.user.message };
+      }
+
+      if (action.user.fields) {
         return { ...state, errMsg: action.user.message };
       }
 

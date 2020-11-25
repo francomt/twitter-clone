@@ -1,7 +1,14 @@
 const User = require("../db/models/userModel");
+const UserFollow = require("../db/models/userFollowModel");
 const catchAsync = require("../utilities/catchAsync");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
+
+const handleDuplicateKeyError = (err, res) => {
+  const field = Object.keys(err.keyValue);
+  const error = `${field} already in use.`;
+  res.json({ message: error, fields: field });
+};
 
 //CREATES TOKEN SIGNATURE
 const signToken = (id) => {
@@ -36,22 +43,81 @@ const createAndSendToken = (user, statusCode, req, res) => {
 };
 
 //CREATE NEW USER BY SIGNUP AND ASSIGN JWT TOKEN
-exports.signup = catchAsync(async (req, res, next) => {
-  const { name, email, username, password, passwordConfirm } = req.body;
+exports.signup = async (req, res, next) => {
+  try {
+    const { name, email, username, password, passwordConfirm } = req.body;
 
-  //Create user
-  const newUser = await User.create({
-    name,
-    email,
-    username,
-    password,
-    passwordConfirm,
-  });
+    const usernameVal = username.toLowerCase();
 
-  newUser.__v = undefined;
+    //Create user
+    let currentUser = await User.create({
+      name,
+      email,
+      username: usernameVal,
+      password,
+      passwordConfirm,
+    });
 
-  createAndSendToken(newUser, 201, req, res);
-});
+    //FOLLOW ACCOUNT
+
+    //User1 wants to follow this user ex. User2
+    const following = await User.findById("5fbbfd7c87b2a200171a3d79"); //User2
+
+    //User1 is created as a follower
+    let userFollower = await UserFollow.create({ user: currentUser.id });
+
+    //User2 is created as a follow with reference to User1's follow
+    let userFollowing = await UserFollow.create({
+      user: following.id,
+      followingId: userFollower.id,
+    });
+
+    //User2 is pushed into User1's FOLLOWING list
+    currentUser.following.push(userFollowing);
+
+    //User1 is pushed into User2's FOLLOWER list
+    following.followers.push(userFollower);
+
+    ///////////////////
+    // Follow owner
+
+    const owner = await User.findById("5fb567e38a9db20017b6f304");
+
+    let userFollowerOwner = await UserFollow.create({ user: currentUser.id });
+
+    let userFollowingOwner = await UserFollow.create({
+      user: owner.id,
+      followingId: userFollowerOwner.id,
+    });
+
+    //Owner is pushed into User1's FOLLOWING list
+    currentUser.following.push(userFollowingOwner);
+
+    //User1 is pushed into Owners's FOLLOWER list
+    owner.followers.push(userFollowerOwner);
+
+    currentUser.markModified("following");
+    following.markModified("followers");
+    owner.markModified("followers");
+
+    try {
+      await currentUser.save({ validateBeforeSave: false });
+      await following.save({ validateBeforeSave: false });
+      await owner.save({ validateBeforeSave: false });
+    } catch (error) {
+      console.log(error);
+    }
+
+    currentUser = await currentUser
+      .populate("following")
+      .populate("followers")
+      .execPopulate();
+
+    createAndSendToken(currentUser, 201, req, res);
+  } catch (error) {
+    handleDuplicateKeyError(error, res);
+  }
+};
 
 //LOGIN USER
 exports.login = catchAsync(async (req, res, next) => {
@@ -74,7 +140,7 @@ exports.login = catchAsync(async (req, res, next) => {
       .populate("following", "-__v")
       .populate("followers", "-__v");
   } else {
-    user = await User.findOne({ username: userInfo })
+    user = await User.findOne({ username: userInfo.toLowerCase() })
       .select("+password")
       .populate("following", "-__v")
       .populate("followers", "-__v");

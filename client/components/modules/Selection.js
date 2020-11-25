@@ -3,7 +3,7 @@ import { User } from "./index";
 
 const Selection = ({ selected, profile, me, followUser, unfollowUser }) => {
   if (selected === "followers") {
-    if (profile.followers.length > 0) {
+    if (profile.followers && profile.followers.length > 0) {
       return profile.followers.map((user) => {
         return (
           <User
@@ -29,7 +29,7 @@ const Selection = ({ selected, profile, me, followUser, unfollowUser }) => {
       );
     }
   } else if (selected === "following") {
-    if (profile.following.length > 0) {
+    if (profile.following && profile.following.length > 0) {
       return profile.following.map((user) => {
         return (
           <User

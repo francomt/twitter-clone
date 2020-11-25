@@ -5,7 +5,7 @@ import history from "../history";
 import { debounce } from "lodash";
 const validator = require("validator");
 
-const SignupPage = ({ handleSubmit }) => {
+const SignupPage = ({ handleSubmit, err }) => {
   const [nameErr, setNameErr] = useState(false);
   const [usernameErr, setUsernameErr] = useState(false);
   const [usernameMsg, setUsernameMsg] = useState("");
@@ -161,6 +161,7 @@ const SignupPage = ({ handleSubmit }) => {
         <h1 className="header-main header-main--primary util-align-self-start util-margin-btm-medium">
           Create your account
         </h1>
+        {err !== undefined && <p className="landing-err">{err}</p>}
         <div className="wrapper wrapper__signup">
           <input
             ref={nameInput}
@@ -241,10 +242,16 @@ const SignupPage = ({ handleSubmit }) => {
   );
 };
 
+const mapState = (state) => {
+  return {
+    err: state.profilesReducer.errMsg,
+  };
+};
+
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit: (obj) => dispatch(fetchSignup(obj)),
   };
 };
 
-export default connect(null, mapDispatch)(SignupPage);
+export default connect(mapState, mapDispatch)(SignupPage);

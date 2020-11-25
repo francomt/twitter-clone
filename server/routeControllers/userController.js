@@ -91,10 +91,15 @@ exports.getFollowing = catchAsync(async (req, res, next) => {
   );
 
   const followingIds = doc[0].following.map((follow) => {
+    console.log(follow);
+
     return follow.user.id;
   });
 
+  console.log("\n");
+
   const followerIds = doc[0].followers.map((follow) => {
+    console.log(follow);
     return follow.user.id;
   });
 
