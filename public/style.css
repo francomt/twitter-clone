@@ -1644,6 +1644,7 @@ body {
 
 .follows-bottom {
   width: 60%;
+  z-index: 1;
   display: flex;
   border-right: var(--border-main); }
   @media (max-width: 67.5em) {

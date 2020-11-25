@@ -48,11 +48,11 @@ const Routes = ({
     confirmLogout.current.style.display = "none";
   };
 
-  const newHeight = `${window.innerHeight - 52}px`;
+  const newHeight = `${window.innerHeight - 51}px`;
   document.documentElement.style.setProperty("--height", newHeight);
 
   const resizeHeight = () => {
-    const newHeight = `${window.innerHeight - 10}px`;
+    const newHeight = `${window.innerHeight - 51}px`;
     document.documentElement.style.setProperty("--height", newHeight);
   };
 
