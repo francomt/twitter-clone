@@ -1,4 +1,6 @@
 .follows-page-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   background-color: rgba(var(--color-primary-background), 1);
 

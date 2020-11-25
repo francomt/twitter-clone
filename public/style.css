@@ -987,7 +987,8 @@ body {
   width: 33vw;
   height: 100%;
   background-color: rgba(var(--color-primary-background), 1);
-  border-right: var(--border-main); }
+  border-right: var(--border-main);
+  z-index: 1; }
   @media (max-width: 67.5em) {
     .nav {
       width: 20%; } }
@@ -1633,6 +1634,8 @@ body {
   color: rgba(var(--color-font), 1); }
 
 .follows-page-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   background-color: rgba(var(--color-primary-background), 1); }
   @media (max-width: 25.875em) {

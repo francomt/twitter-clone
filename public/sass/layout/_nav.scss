@@ -30,6 +30,7 @@
   height: 100%;
   background-color: rgba(var(--color-primary-background), 1);
   border-right: var(--border-main);
+  z-index: 1;
 
   @include respond(main2) {
     width: 20%;

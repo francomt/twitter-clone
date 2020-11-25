@@ -49,6 +49,10 @@ export const darkMode = () => {
 
   document.documentElement.style.setProperty("--color-font", "255, 255, 255");
   document.documentElement.style.setProperty("--logo-color", "255, 255, 255");
+  document.documentElement.style.setProperty(
+    "--color-font-dark",
+    "205, 205, 205"
+  );
 
   document.documentElement.style.setProperty("--follows-you", "#253341");
 };
